@@ -7,7 +7,7 @@ export function Footer() {
         <div className="text-center sm:text-left">
           <p className="font-display text-lg font-semibold text-olive">Chalé Arraiolos</p>
           <p className="mt-1 text-sm text-stone-muted">
-            Rua do Castelo, Arraiolos · Alentejo
+            Arraiolos · Alentejo
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-6 text-sm text-stone-muted">

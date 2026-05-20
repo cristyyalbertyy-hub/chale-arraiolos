@@ -5,20 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:vercel": "vercel dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@stripe/react-stripe-js": "^6.4.0",
-    "@stripe/stripe-js": "^9.6.0",
     "date-fns": "^4.2.1",
     "react": "^19.2.6",
     "react-date-range": "^2.0.1",
-    "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.1",
-    "stripe": "^22.1.1"
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -27,7 +22,6 @@
     "@types/react": "^19.2.14",
     "@types/react-date-range": "^1.4.10",
     "@types/react-dom": "^19.2.3",
-    "@vercel/node": "^5.8.3",
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",

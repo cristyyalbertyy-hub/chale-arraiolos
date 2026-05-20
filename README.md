@@ -7,60 +7,54 @@ Aplicação web de reservas para um chalé em Arraiolos, Alentejo.
 - [React](https://react.dev/) 19 + [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/)
 - [Tailwind CSS](https://tailwindcss.com/) v4
-- [Stripe Checkout](https://stripe.com/docs/checkout)
-- API serverless na [Vercel](https://vercel.com/)
+- [Google Forms](https://www.google.com/forms/about/) para receber pedidos de reserva
 
 ## Começar
 
 ```bash
 cd chale-arraiolos
 npm install
-cp .env.example .env.local
-# Edite .env.local com as chaves Stripe (modo teste)
-npm run dev:vercel
+npm run dev
 ```
 
-Abra [http://localhost:3000](http://localhost:3000) (Vercel Dev serve o frontend e `/api`).
+Abra [http://localhost:5173](http://localhost:5173) no browser.
 
-Alternativa só frontend (sem pagamento): `npm run dev` em [http://localhost:5173](http://localhost:5173).
+## Google Forms
 
-## Stripe
+Quando tiveres o formulário Google:
 
-1. Crie uma conta em [dashboard.stripe.com](https://dashboard.stripe.com).
-2. Copie a **chave publicável** (`pk_test_…`) e a **chave secreta** (`sk_test_…`).
-3. Preencha `.env.local`:
+1. Cria um formulário com um campo de **texto longo** (resumo da reserva).
+2. Clica em **Enviar** → ícone de link → copia o URL que termina em `/formResponse`.
+3. Para o `entry` ID: **⋮** → *Obter link pré-preenchido* → preenche o campo → copia da URL `entry.XXXXXXXX`.
+4. Cria `.env.local`:
 
 ```env
-STRIPE_SECRET_KEY=sk_test_...
-VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
-VITE_APP_URL=http://localhost:3000
+VITE_GOOGLE_FORM_ACTION_URL=https://docs.google.com/forms/d/e/.../formResponse
+VITE_GOOGLE_FORM_ENTRY_RESUMO=entry.1234567890
 ```
 
-4. Na Vercel (produção), adicione as mesmas variáveis em *Settings → Environment Variables*.
+5. Na Vercel, adiciona as mesmas variáveis `VITE_*` e faz **Redeploy**.
 
-Após o pagamento, o Stripe redireciona para `/obrigado`.
+Cada submissão envia: nome, email, telemóvel, datas, adultos/crianças, actividades e total.
 
 ## Scripts
 
-| Comando              | Descrição                              |
-| -------------------- | -------------------------------------- |
-| `npm run dev`        | Só frontend (Vite)                       |
-| `npm run dev:vercel` | Frontend + API Stripe (recomendado)    |
-| `npm run build`      | Build de produção                      |
-| `npm run preview`    | Pré-visualizar build                   |
-| `npm run lint`       | Verificar código com ESLint            |
+| Comando           | Descrição                   |
+| ----------------- | --------------------------- |
+| `npm run dev`     | Servidor de desenvolvimento |
+| `npm run build`   | Build de produção           |
+| `npm run preview` | Pré-visualizar build        |
+| `npm run lint`    | ESLint                      |
 
 ## Estrutura
 
 ```
-api/              # Funções serverless Vercel (Stripe Checkout)
 src/
-├── components/   # UI (Header, Hero, formulário de reserva, etc.)
-├── pages/        # Home e página Obrigado
-├── providers/    # StripeProvider (@stripe/react-stripe-js)
-├── data/         # Dados estáticos
-├── lib/          # Lógica de reservas, Stripe client
-└── types/        # Tipos TypeScript
+├── components/   # UI (calendário, actividades, reserva, etc.)
+├── config/       # Configuração Google Forms
+├── data/         # Actividades, datas ocupadas
+├── lib/          # Cálculo de preços, envio ao Google Forms
+└── pages/        # Página principal
 ```
 
-A interface é **responsiva** (mobile-first) com menu hamburger em ecrãs pequenos.
+A interface é **responsiva** (mobile-first).

@@ -26,7 +26,10 @@ export function HomePage() {
           selections={activitySelections}
           onChange={setActivitySelections}
         />
-        <BookingForm activitySelections={activitySelections} />
+        <BookingForm
+          activitySelections={activitySelections}
+          onReset={() => setActivitySelections([])}
+        />
       </main>
       <Footer />
     </>

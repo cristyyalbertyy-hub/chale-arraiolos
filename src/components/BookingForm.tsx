@@ -1,4 +1,3 @@
-import { useStripe } from '@stripe/react-stripe-js'
 import { useState, type FormEvent } from 'react'
 import type { BookingFormData } from '../types/booking'
 import { AvailabilityCalendar } from './AvailabilityCalendar'
@@ -13,12 +12,16 @@ import {
   formatActivitySelectionLabel,
   getActivityLineTotal,
 } from '../lib/activities'
-import { createCheckoutSession } from '../lib/stripe'
+import { submitToGoogleForm } from '../lib/googleForm'
 import type { ActivitySelection } from '../types/activity'
 import { occupiedDates } from '../data/occupiedDates'
 
+const SUCCESS_MESSAGE =
+  'Reserva submetida. Vou receber os seus dados e entrarei em contacto por WhatsApp dentro de minutos para confirmar o pagamento.'
+
 interface BookingFormProps {
   activitySelections: ActivitySelection[]
+  onReset: () => void
 }
 
 const initialForm: BookingFormData = {
@@ -31,16 +34,16 @@ const initialForm: BookingFormData = {
   children: 0,
 }
 
-export function BookingForm({ activitySelections }: BookingFormProps) {
-  const stripe = useStripe()
+export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   const [form, setForm] = useState<BookingFormData>(initialForm)
+  const [submitted, setSubmitted] = useState(false)
+  const [calendarKey, setCalendarKey] = useState(0)
   const [errors, setErrors] = useState<Partial<Record<keyof BookingFormData, string>>>({})
-  const [payError, setPayError] = useState<string | null>(null)
-  const [isPaying, setIsPaying] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const pricing = getBookingTotal(activitySelections, form.adults, form.children)
   const hasDates = Boolean(form.checkIn && form.checkOut)
-  const stripeConfigured = Boolean(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
 
   function updateField<K extends keyof BookingFormData>(
     field: K,
@@ -48,7 +51,7 @@ export function BookingForm({ activitySelections }: BookingFormProps) {
   ) {
     setForm((prev) => ({ ...prev, [field]: value }))
     setErrors((prev) => ({ ...prev, [field]: undefined }))
-    setPayError(null)
+    setSubmitError(null)
   }
 
   function validate(): boolean {
@@ -90,33 +93,54 @@ export function BookingForm({ activitySelections }: BookingFormProps) {
     e.preventDefault()
     if (!validate()) return
 
-    if (!stripeConfigured) {
-      setPayError(
-        'Pagamento não configurado. Adicione VITE_STRIPE_PUBLISHABLE_KEY ao ficheiro .env.',
-      )
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    const result = await submitToGoogleForm({ form, activitySelections })
+
+    setIsSubmitting(false)
+
+    if (!result.ok) {
+      setSubmitError(result.error)
       return
     }
 
-    if (!stripe) {
-      setPayError('A carregar o Stripe. Aguarde um momento e tente novamente.')
-      return
-    }
+    setSubmitted(true)
+  }
 
-    setIsPaying(true)
-    setPayError(null)
+  function handleNewBooking() {
+    setSubmitted(false)
+    setForm(initialForm)
+    setCalendarKey((k) => k + 1)
+    setSubmitError(null)
+    onReset()
+  }
 
-    const result = await createCheckoutSession({
-      form,
-      activitySelections,
-    })
-
-    if (result.error || !result.url) {
-      setPayError(result.error ?? 'Não foi possível iniciar o pagamento.')
-      setIsPaying(false)
-      return
-    }
-
-    window.location.assign(result.url)
+  if (submitted) {
+    return (
+      <section id="reservar" className="scroll-mt-20 bg-olive py-16 sm:py-24">
+        <div className="mx-auto max-w-lg px-4 text-center sm:px-6">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cream/20 text-3xl">
+            ✓
+          </div>
+          <h2 className="font-display mt-6 text-3xl font-semibold text-cream">
+            Reserva submetida
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-sand">{SUCCESS_MESSAGE}</p>
+          <p className="mt-4 text-sm text-sand/80">
+            Total estimado da estadia:{' '}
+            <strong className="text-cream">{formatCurrency(pricing.total)}</strong>
+          </p>
+          <button
+            type="button"
+            onClick={handleNewBooking}
+            className="mt-8 rounded-full border border-cream/30 px-6 py-2.5 text-sm font-medium text-cream hover:bg-cream/10"
+          >
+            Nova reserva
+          </button>
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -131,8 +155,8 @@ export function BookingForm({ activitySelections }: BookingFormProps) {
               Planeie a sua estadia
             </h2>
             <p className="mt-4 text-sand leading-relaxed">
-              Escolha as datas, preencha os seus dados e finalize o pagamento seguro com
-              Stripe.
+              Escolha as datas, preencha os seus dados e envie o pedido de reserva. Entraremos
+              em contacto por WhatsApp para confirmar o pagamento.
             </p>
             <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
               <p className="text-sm text-sand">Pacote fim-de-semana (casal)</p>
@@ -159,6 +183,7 @@ export function BookingForm({ activitySelections }: BookingFormProps) {
               </legend>
 
               <AvailabilityCalendar
+                key={calendarKey}
                 checkIn={form.checkIn}
                 checkOut={form.checkOut}
                 onRangeChange={(checkIn, checkOut) => {
@@ -321,21 +346,22 @@ export function BookingForm({ activitySelections }: BookingFormProps) {
               )}
             </div>
 
-            {payError && (
+            {submitError && (
               <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">
-                {payError}
+                {submitError}
               </p>
             )}
 
             <button
               type="submit"
               className="mt-8 w-full rounded-full bg-terracotta py-4 text-base font-semibold text-cream transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-10"
-              disabled={!hasDates || isPaying || (stripeConfigured && !stripe)}
+              disabled={!hasDates || isSubmitting}
             >
-              {isPaying ? 'A redirecionar para o Stripe…' : 'Pagar com Stripe'}
+              {isSubmitting ? 'A enviar reserva…' : 'Submeter reserva'}
             </button>
             <p className="mt-3 text-center text-xs text-stone-muted sm:text-left">
-              * Datas obrigatórias. Pagamento seguro via Stripe Checkout.
+              * Datas obrigatórias. O pagamento será confirmado por WhatsApp após a
+              reserva.
             </p>
           </form>
         </div>
