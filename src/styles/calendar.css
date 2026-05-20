@@ -1,0 +1,105 @@
+.chale-calendar {
+  --rdr-selected-color: #4a5d3f;
+  --rdr-in-range-color: rgba(74, 93, 63, 0.12);
+  --rdr-day-width: 2.5rem;
+  --rdr-day-height: 2.5rem;
+}
+
+.chale-calendar .rdrCalendarWrapper {
+  width: 100%;
+  font-family: inherit;
+  color: #3d3832;
+}
+
+.chale-calendar .rdrMonth {
+  width: 100%;
+  padding: 0;
+}
+
+.chale-calendar .rdrMonthAndYearWrapper {
+  padding-top: 0;
+  height: auto;
+  padding-bottom: 0.75rem;
+}
+
+.chale-calendar .rdrMonthAndYearPickers select {
+  font-weight: 600;
+  color: #4a5d3f;
+}
+
+.chale-calendar .rdrWeekDay {
+  color: #6b6560;
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+
+.chale-calendar .rdrDay {
+  height: var(--rdr-day-height);
+}
+
+.chale-calendar .rdrDayNumber span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.chale-calendar .rdrDay:not(.rdrDayPassive):not(.rdrDayDisabled) .day-available {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.chale-calendar .rdrDayDisabled .day-occupied,
+.chale-calendar .day-occupied {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+.chale-calendar .rdrDayPassive .rdrDayNumber span {
+  background: transparent !important;
+  color: #c4bdb5;
+}
+
+.chale-calendar .rdrStartEdge,
+.chale-calendar .rdrEndEdge,
+.chale-calendar .rdrSelected {
+  border-radius: 9999px !important;
+}
+
+.chale-calendar .rdrStartEdge .rdrDayNumber span,
+.chale-calendar .rdrEndEdge .rdrDayNumber span,
+.chale-calendar .rdrSelected .rdrDayNumber span {
+  background: #4a5d3f !important;
+  color: #faf6f0 !important;
+}
+
+.chale-calendar .rdrDayInRange .rdrDayNumber span {
+  background: rgba(74, 93, 63, 0.2) !important;
+  color: #4a5d3f !important;
+}
+
+.chale-calendar .rdrDayToday .rdrDayNumber span::after {
+  display: none;
+}
+
+.chale-calendar .rdrDayToday:not(.rdrDayPassive) .rdrDayNumber span {
+  box-shadow: inset 0 0 0 2px #b85c38;
+}
+
+.chale-calendar .rdrNextPrevButton {
+  background: #e8dfd0;
+  border-radius: 0.5rem;
+}
+
+.chale-calendar .rdrNextPrevButton:hover {
+  background: #d4c9b8;
+}
+
+.chale-calendar .rdrPprevButton i,
+.chale-calendar .rdrNextButton i {
+  border-color: #4a5d3f;
+}
