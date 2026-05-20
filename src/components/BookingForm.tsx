@@ -159,7 +159,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               em contacto por WhatsApp para confirmar o pagamento.
             </p>
             <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
-              <p className="text-sm text-sand">Pacote fim-de-semana (casal)</p>
+              <p className="text-sm text-sand">Pacote de fim de semana · 2 noites</p>
               <p className="font-display text-3xl font-semibold text-cream">
                 {formatCurrency(WEEKEND_BASE_PRICE)}
               </p>
@@ -311,7 +311,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               <p className="text-sm font-semibold text-olive">Total estimado</p>
               <ul className="mt-3 space-y-2 text-sm text-stone">
                 <li className="flex justify-between gap-2">
-                  <span>Base fim-de-semana (casal)</span>
+                  <span>Pacote de fim de semana · 2 noites</span>
                   <span className="font-medium">{formatCurrency(pricing.base)}</span>
                 </li>
                 {activitySelections.map((selection) => (

@@ -2,7 +2,7 @@ import type { ActivitySelection } from '../types/activity'
 import type { BookingTotal } from '../types/booking'
 import { getActivitiesTotal } from './activities'
 
-/** Pacote fim-de-semana para casal */
+/** Pacote de fim de semana (2 noites) */
 export const WEEKEND_BASE_PRICE = 200
 /** Capacidade máxima do chalé */
 export const MAX_PEOPLE = 4

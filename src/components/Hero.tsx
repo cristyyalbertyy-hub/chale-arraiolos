@@ -4,7 +4,7 @@ export function Hero() {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80"
-          alt="Chalé de pedra com jardim no Alentejo"
+          alt="Chalé de madeira com jardim no Alentejo"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone/90 via-stone/40 to-stone/20" />
@@ -18,9 +18,10 @@ export function Hero() {
           O seu refúgio no coração do Alentejo
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          Chalé independente com jardim, a poucos minutos do centro histórico e dos
-          famosos tapetes de Arraiolos. Ideal para casais, famílias ou escapadinhas em
-          grupo.
+          Chalé de madeira independente com jardim. A casa de banho fica no quintal, a
+          cerca de 10 m do alojamento (fora do chalé). A poucos minutos do centro
+          histórico e dos famosos tapetes de Arraiolos — ideal para casais, famílias ou
+          escapadinhas em grupo.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
@@ -42,12 +43,16 @@ export function Hero() {
             <dd className="font-display mt-1 text-2xl font-semibold text-cream">Até 4</dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wide text-sand/80">Quartos</dt>
-            <dd className="font-display mt-1 text-2xl font-semibold text-cream">2</dd>
+            <dt className="text-xs uppercase tracking-wide text-sand/80">Alojamento</dt>
+            <dd className="font-display mt-1 text-2xl font-semibold text-cream">
+              Chalé de madeira
+            </dd>
           </div>
           <div>
-            <dt className="text-xs uppercase tracking-wide text-sand/80">Fim-de-semana</dt>
-            <dd className="font-display mt-1 text-2xl font-semibold text-cream">200€</dd>
+            <dt className="text-xs uppercase tracking-wide text-sand/80">
+              Pacote de fim de semana
+            </dt>
+            <dd className="font-display mt-1 text-2xl font-semibold text-cream">200€ · 2 noites</dd>
           </div>
         </dl>
       </div>

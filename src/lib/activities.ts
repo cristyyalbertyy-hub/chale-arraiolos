@@ -34,6 +34,7 @@ export function getActivityLineTotal(selection: ActivitySelection): number {
 }
 
 export function formatActivityPrice(price: number): string {
+  if (price === 0) return 'Sem custo adicional'
   return `${formatCurrency(price)}/pessoa`
 }
 

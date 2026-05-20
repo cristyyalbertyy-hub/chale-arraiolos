@@ -10,10 +10,12 @@ export function About() {
             Tradição alentejana, conforto moderno
           </h2>
           <p className="mt-4 text-base leading-relaxed text-stone-muted">
-            Este chalé de pedra foi recuperado com respeito pela arquitetura local,
+            Este chalé de madeira foi recuperado com respeito pela arquitetura local,
             mantendo o charme rústico e acrescentando todo o conforto para umas férias
-            descontraídas. A sala de estar com lareira, a cozinha totalmente equipada e
-            o jardim com churrasqueira convidam a viver o ritmo lento do Alentejo.
+            descontraídas. A casa de banho fica no quintal, a cerca de 10 m do chalé
+            (fora do alojamento). A sala de estar com lareira, a cozinha totalmente
+            equipada e o jardim com churrasqueira convidam a viver o ritmo lento do
+            Alentejo.
           </p>
           <p className="mt-4 text-base leading-relaxed text-stone-muted">
             Arraiolos fica a cerca de 2 horas de Lisboa. Passeie pelo castelo, visite os

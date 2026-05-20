@@ -113,4 +113,11 @@ export const activities: Activity[] = [
     durationHours: null,
     category: 'meal',
   },
+  {
+    id: 'patamar-miradouro-casa-arvore',
+    name: 'Patamar miradouro · casa de árvore',
+    pricePerPerson: 0,
+    durationHours: null,
+    category: 'workshop',
+  },
 ]
