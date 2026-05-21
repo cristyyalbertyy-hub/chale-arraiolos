@@ -1,5 +1,18 @@
 import type { Activity } from '../types/activity'
 
+/** Actividades criativas visíveis na reserva (ordem de apresentação) */
+export const creativeActivityIds = [
+  'pintura-acrilica',
+  'aguarela',
+  'bolachas-caseiras',
+  'chocolate-dubai',
+  'costura-criativa',
+  'mosaico',
+  'madeira',
+  'bonecos-feltro',
+  'conversa-passeio',
+] as const
+
 export const activities: Activity[] = [
   {
     id: 'pintura-acrilica',
@@ -121,3 +134,9 @@ export const activities: Activity[] = [
     category: 'workshop',
   },
 ]
+
+export const creativeActivities = creativeActivityIds
+  .map((id) => activities.find((a) => a.id === id))
+  .filter((a): a is Activity => a !== undefined)
+
+export const mealActivities = activities.filter((a) => a.category === 'meal')
