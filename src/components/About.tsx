@@ -41,8 +41,8 @@ export function About() {
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <img
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80"
-            alt="Sala de estar com lareira"
+            src="/images/interior-cozinha-sala.png"
+            alt="Interior acolhedor do chalé com cozinha e sala em madeira, luz quente, sofá azul e candeeiros de palha"
             className="col-span-2 aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
           />
           <img

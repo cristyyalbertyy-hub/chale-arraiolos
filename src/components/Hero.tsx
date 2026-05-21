@@ -3,8 +3,8 @@ export function Hero() {
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80"
-          alt="Chalé de madeira com jardim no Alentejo"
+          src="/images/hero-quintal.png"
+          alt="Chalé de madeira com quintal em pedra, pérgula de madeira, baloiço e vasos laranja no Alentejo"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone/90 via-stone/40 to-stone/20" />
