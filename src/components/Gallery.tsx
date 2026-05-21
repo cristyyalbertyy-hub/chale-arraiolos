@@ -1,27 +1,17 @@
 const images = [
   {
-    src: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-    alt: 'Exterior do chalé',
+    src: '/images/galeria-castelo.png',
+    alt: 'Vista do castelo de Arraiolos ao entardecer, terraço com relva',
     span: 'col-span-2 row-span-2',
   },
   {
-    src: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=500&q=80',
-    alt: 'Cozinha moderna',
+    src: '/images/galeria-quintal-noite.png',
+    alt: 'Quintal ao crepúsculo, banco, candeeiros, baloiço e luzes',
     span: '',
   },
   {
-    src: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&q=80',
-    alt: 'Detalhe decorativo',
-    span: '',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1600573472591-ee6b8c0c8c0e?w=500&q=80',
-    alt: 'Terraço exterior',
-    span: '',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1600566752355-357ed629845f?w=800&q=80',
-    alt: 'Piscina e jardim',
+    src: '/images/galeria-charca.png',
+    alt: 'Pequena piscina e charca no jardim',
     span: 'col-span-2',
   },
 ]
