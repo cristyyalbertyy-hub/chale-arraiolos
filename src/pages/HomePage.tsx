@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { About } from '../components/About'
+import { AboutHost } from '../components/AboutHost'
 import { Activities } from '../components/Activities'
 import { Amenities } from '../components/Amenities'
 import { BookingForm } from '../components/BookingForm'
@@ -20,6 +21,7 @@ export function HomePage() {
       <main>
         <Hero />
         <About />
+        <AboutHost />
         <Amenities />
         <Gallery />
         <Activities
