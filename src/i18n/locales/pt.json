@@ -1,0 +1,215 @@
+{
+  "common": {
+    "brand": "Chalé Arraiolos",
+    "region": "Alentejo, Portugal",
+    "language": "Idioma",
+    "personOne": "1 pessoa",
+    "personMany": "{{count}} pessoas",
+    "none": "Nenhuma",
+    "perPerson": "/pessoa",
+    "noExtraCost": "Sem custo adicional"
+  },
+  "nav": {
+    "chalet": "O chalé",
+    "host": "Anfitriã",
+    "amenities": "Comodidades",
+    "gallery": "Galeria",
+    "activities": "Actividades",
+    "book": "Reservar",
+    "bookStay": "Reservar estadia",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu"
+  },
+  "hero": {
+    "location": "Arraiolos · Alentejo",
+    "title": "O seu refúgio no coração do Alentejo",
+    "subtitle": "Chalé de madeira independente com jardim. A casa de banho fica no quintal, a 5 metros da sala do chalé, segundo a tradição feng shui. A poucos minutos do centro histórico e dos famosos tapetes de Arraiolos — ideal para casais, famílias ou escapadinhas em grupo.",
+    "ctaAvailability": "Ver disponibilidade",
+    "ctaDiscover": "Conhecer o espaço",
+    "guests": "Hóspedes",
+    "guestsValue": "Até 4",
+    "lodging": "Alojamento",
+    "lodgingValue": "Chalé de madeira",
+    "weekend": "Pacote de fim de semana",
+    "weekendValue": "200€ · 2 noites"
+  },
+  "about": {
+    "eyebrow": "O chalé",
+    "title": "Tradição alentejana, conforto moderno",
+    "p1": "Este chalé de madeira foi recuperado com respeito pela arquitetura local, mantendo o charme rústico e acrescentando todo o conforto para umas férias descontraídas. A casa de banho fica no quintal, a 5 metros da sala do chalé, segundo a tradição feng shui (fora do alojamento). A sala de estar com lareira e a cozinha totalmente equipada convidam a viver o ritmo lento do Alentejo. O jardim tem a Fonte dos Pés Felizes e um miradouro a 4 metros de altura numa casa de árvore.",
+    "p2": "Arraiolos fica a cerca de 1 hora de Lisboa. Passeie pelo castelo, visite os ateliers de tapeçaria e prove os vinhos da região — tudo a poucos minutos de casa.",
+    "checklist": [
+      "Check-in flexível (15h–20h)",
+      "Estadia mínima de 2 noites",
+      "Limpeza final incluída",
+      "Toalhas e roupa de cama incluídas"
+    ],
+    "photoChalet": "Chalé de madeira no Alentejo, rodeado de vegetação",
+    "photoRoom": "Quarto acolhedor",
+    "photoGarden": "Quintal ao crepúsculo, banco, candeeiros, baloiço e luzes no jardim"
+  },
+  "host": {
+    "eyebrow": "Sobre a anfitriã",
+    "name": "Cristina Alberto",
+    "bio": "Olá, sou a Cristina Alberto. Professora universitária reformada, PhD em Realidade Virtual pela UCL Londres, fundadora do Rotaract de Estarreja. Voltei para Arraiolos, a terra dos meu avôs, para receber bem quem deseja desacelerar.",
+    "photoAlt": "Cristina Alberto, anfitriã do Chalé Arraiolos"
+  },
+  "amenities": {
+    "eyebrow": "Comodidades",
+    "title": "Tudo incluído para uma estadia perfeita",
+    "activitiesLink": "Ver e seleccionar actividades →",
+    "bathroom": {
+      "label": "Casa de banho no quintal · 5 m",
+      "description": "No quintal, a 5 m da sala do chalé, segundo a tradição feng shui"
+    },
+    "bedroom": {
+      "label": "1 quarto · 2 camas na sala",
+      "description": "Um quarto e duas camas na sala de estar, com roupa de cama incluída"
+    },
+    "kitchen": {
+      "label": "Cozinha equipada",
+      "description": "Tudo o que precisa para preparar refeições"
+    },
+    "fire": {
+      "label": "Fogueira no quintal",
+      "description": "Noites acolhedoras ao ar livre no jardim"
+    },
+    "garden": {
+      "label": "Jardim privado",
+      "description": "Relva, sombra e churrasqueira"
+    },
+    "wifi": {
+      "label": "Wi-Fi",
+      "description": "Internet de banda larga em toda a casa"
+    },
+    "parking": {
+      "label": "Estacionamento",
+      "description": "Lugar gratuito mesmo à porta"
+    },
+    "historic": {
+      "label": "Centro histórico",
+      "description": "A 5 minutos a pé de Arraiolos"
+    },
+    "activities": {
+      "label": "Actividades opcionais",
+      "description": "Workshops, refeições e experiências — escolha quantas pessoas participam em cada uma"
+    }
+  },
+  "gallery": {
+    "eyebrow": "Galeria",
+    "spacesTitle": "Espaços que vai adorar",
+    "momentsTitle": "Momentos que vai adorar",
+    "openImage": "Abrir imagem: {{alt}}",
+    "close": "Fechar",
+    "prev": "Imagem anterior",
+    "next": "Imagem seguinte",
+    "images": {
+      "charca": "Pequena piscina e charca no jardim",
+      "castelo": "Vista do castelo de Arraiolos ao entardecer, terraço com relva",
+      "breakfast": "Pequeno-almoço alentejano na mesa — pão, queijo e azeitonas",
+      "cookies": "Bolachas caseiras frescas do forno"
+    }
+  },
+  "activities": {
+    "eyebrow": "Actividades",
+    "title": "Experiências à sua medida",
+    "intro": "Cada pessoa pode escolher actividades e refeições diferentes. Indique quantas pessoas participam em cada uma (máximo {{max}} por opção — capacidade do chalé).",
+    "creativeTitle": "Actividades criativas",
+    "mealsTitle": "Refeições opcionais",
+    "peopleShort": "Pess.",
+    "peopleIn": "Número de pessoas em {{name}}",
+    "selectedOne": "{{count}} opção seleccionada",
+    "selectedMany": "{{count}} opções seleccionadas",
+    "subtotalNote": "— subtotal actividades e refeições já reflectido no formulário de reserva.",
+    "items": {
+      "pintura-acrilica": "🎨 Pintura acrílica – solte a criatividade com vista para o castelo",
+      "aguarela": "🖌️ Aguarela – pinceladas leves, cores que respiram com o Alentejo",
+      "bolachas-caseiras": "🍪 Bolachas caseiras – a receita da minha avó",
+      "chocolate-dubai": "🍫 Chocolate do Dubai – a tendência viral, agora no Alentejo",
+      "costura-criativa": "🧵 Costura criativa – aprenda ou recorde",
+      "mosaico": "🧩 Mosaico – peças, cor e paciência; leve a sua obra para casa",
+      "madeira": "🪵 Madeira – pequenas construções com ferramentas manuais",
+      "bonecos-feltro": "🧸 Bonecos de feltro – para levar uma memória na mala",
+      "conversa-passeio": "☕ Conversa ou passeio – ao seu ritmo, sem pressa",
+      "jantar-caseiro": "🍷 Jantar caseiro – com vinho da região",
+      "pequeno-almoco": "🥐 Pequeno‑almoço alentejano – pão quente, queijo, azeitonas"
+    }
+  },
+  "booking": {
+    "eyebrow": "Reservar",
+    "title": "Planeie a sua estadia",
+    "intro": "Escolha as datas, preencha os seus dados e envie o pedido de reserva. Entraremos em contacto por WhatsApp para confirmar o pagamento.",
+    "weekendPackage": "Pacote de fim de semana · 2 noites",
+    "plusActivities": "+ actividades (preço × pessoas por actividade)",
+    "capacity": "Capacidade: até {{max}} pessoas",
+    "datesLegend": "Escolha as datas *",
+    "yourDetails": "Os seus dados",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telemóvel",
+    "phonePlaceholder": "+351 912 345 678",
+    "adults": "Número de adultos",
+    "children": "Número de crianças",
+    "estimatedTotal": "Total estimado",
+    "activitiesSubtotal": "Subtotal actividades",
+    "total": "Total",
+    "selectDatesHint": "Selecione as datas no calendário para concluir a reserva.",
+    "submit": "Submeter reserva",
+    "submitting": "A enviar reserva…",
+    "footnote": "* Datas obrigatórias. O pagamento será confirmado por WhatsApp após a reserva.",
+    "successTitle": "Reserva submetida",
+    "successMessage": "Reserva submetida. Vou receber os seus dados e entrarei em contacto por WhatsApp dentro de minutos para confirmar o pagamento.",
+    "successTotal": "Total estimado da estadia:",
+    "newBooking": "Nova reserva",
+    "errors": {
+      "checkIn": "Selecione a data de entrada no calendário",
+      "checkOut": "Selecione a data de saída no calendário",
+      "occupied": "O intervalo inclui dias já reservados",
+      "occupiedPick": "O intervalo inclui dias já reservados. Escolha outras datas.",
+      "name": "Indique o seu nome",
+      "email": "Indique um email válido",
+      "phone": "Indique o seu telemóvel",
+      "adults": "Indique pelo menos 1 adulto",
+      "children": "Número de crianças inválido",
+      "maxPeople": "Capacidade máxima: {{max}} pessoas (adultos + crianças)",
+      "activityPeople": "Cada actividade pode ter no máximo {{max}} participante(s) (o total da reserva)"
+    }
+  },
+  "calendar": {
+    "available": "Disponível",
+    "occupied": "Ocupado",
+    "checkIn": "Check-in:",
+    "checkOut": "Check-out:",
+    "checkInOnly": "Entrada:",
+    "selectCheckout": " — selecione a data de saída",
+    "dateFormat": "d 'de' MMMM yyyy"
+  },
+  "footer": {
+    "location": "Arraiolos · Alentejo"
+  },
+  "email": {
+    "hostSubject": "Nova reserva — {{name}} ({{checkIn}} → {{checkOut}})",
+    "hostHeading": "Nova reserva · Chalé Arraiolos",
+    "guestSubject": "Pedido de reserva recebido — Chalé Arraiolos",
+    "guestGreeting": "Olá {{name}},",
+    "guestBody": "Recebemos o seu pedido de reserva no Chalé Arraiolos.",
+    "guestWhatsApp": "Vou entrar em contacto por WhatsApp em breve para confirmar o pagamento.",
+    "guestSignoff": "Com os melhores cumprimentos,",
+    "hostSignoff": "Cristina Alberto",
+    "labels": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telemóvel",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "adults": "Adultos",
+      "children": "Crianças",
+      "totalPeople": "Total de pessoas",
+      "pricing": "Valores",
+      "stay": "Estadia (fim de semana, 2 noites)",
+      "activitiesMeals": "Actividades e refeições",
+      "estimatedTotal": "Total estimado",
+      "activitiesSection": "Actividades e refeições"
+    }
+  }
+}

@@ -1,10 +1,14 @@
+import { useTranslation } from 'react-i18next'
+
 export function Hero() {
+  const { t } = useTranslation()
+
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="/images/hero-quintal.png"
-          alt="Chalé de madeira com quintal em pedra, pérgula de madeira, baloiço e vasos laranja no Alentejo"
+          alt={t('about.photoGarden')}
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone/90 via-stone/40 to-stone/20" />
@@ -12,47 +16,52 @@ export function Hero() {
 
       <div className="relative mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end px-4 pb-16 pt-32 sm:min-h-[75vh] sm:px-6 sm:pb-20 lg:px-8">
         <p className="mb-3 text-sm font-medium uppercase tracking-widest text-sand">
-          Arraiolos · Alentejo
+          {t('hero.location')}
         </p>
         <h1 className="font-display max-w-2xl text-4xl font-semibold leading-tight text-cream sm:text-5xl lg:text-6xl">
-          O seu refúgio no coração do Alentejo
+          {t('hero.title')}
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          Chalé de madeira independente com jardim. A casa de banho fica no quintal, a
-          cerca de 10 m do alojamento (fora do chalé). A poucos minutos do centro
-          histórico e dos famosos tapetes de Arraiolos — ideal para casais, famílias ou
-          escapadinhas em grupo.
+          {t('hero.subtitle')}
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
             href="#reservar"
             className="inline-flex items-center justify-center rounded-full bg-terracotta px-8 py-3.5 text-center font-semibold text-cream transition-colors hover:bg-terracotta-dark"
           >
-            Ver disponibilidade
+            {t('hero.ctaAvailability')}
           </a>
           <a
             href="#sobre"
             className="inline-flex items-center justify-center rounded-full border border-cream/40 px-8 py-3.5 text-center font-medium text-cream transition-colors hover:bg-cream/10"
           >
-            Conhecer o espaço
+            {t('hero.ctaDiscover')}
           </a>
         </div>
         <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-cream/20 pt-8 sm:max-w-lg">
           <div>
-            <dt className="text-xs uppercase tracking-wide text-sand/80">Hóspedes</dt>
-            <dd className="font-display mt-1 text-2xl font-semibold text-cream">Até 4</dd>
-          </div>
-          <div>
-            <dt className="text-xs uppercase tracking-wide text-sand/80">Alojamento</dt>
+            <dt className="text-xs uppercase tracking-wide text-sand/80">
+              {t('hero.guests')}
+            </dt>
             <dd className="font-display mt-1 text-2xl font-semibold text-cream">
-              Chalé de madeira
+              {t('hero.guestsValue')}
             </dd>
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-sand/80">
-              Pacote de fim de semana
+              {t('hero.lodging')}
             </dt>
-            <dd className="font-display mt-1 text-2xl font-semibold text-cream">200€ · 2 noites</dd>
+            <dd className="font-display mt-1 text-2xl font-semibold text-cream">
+              {t('hero.lodgingValue')}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-sand/80">
+              {t('hero.weekend')}
+            </dt>
+            <dd className="font-display mt-1 text-2xl font-semibold text-cream">
+              {t('hero.weekendValue')}
+            </dd>
           </div>
         </dl>
       </div>

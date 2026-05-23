@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { creativeActivities, mealActivities } from '../data/activities'
 import { MAX_PEOPLE } from '../lib/booking'
 import {
   formatActivityPrice,
   formatDuration,
   getActivitiesTotal,
+  getActivityName,
 } from '../lib/activities'
 import type { Activity } from '../types/activity'
 import type { ActivitySelection } from '../types/activity'
@@ -32,7 +34,10 @@ function ActivityCard({
   onToggle,
   onSetPeople,
 }: ActivityCardProps) {
+  const { t, i18n } = useTranslation()
   const isMeal = activity.category === 'meal'
+  const name = getActivityName(activity.id, t)
+  const lang = i18n.language.split('-')[0]
 
   return (
     <li>
@@ -48,7 +53,7 @@ function ActivityCard({
             htmlFor={`people-${activity.id}`}
             className="text-[10px] font-medium uppercase tracking-wide text-stone-muted"
           >
-            Pess.
+            {t('activities.peopleShort')}
           </label>
           <input
             id={`people-${activity.id}`}
@@ -57,7 +62,7 @@ function ActivityCard({
             max={MAX_PEOPLE}
             value={people}
             disabled={!checked}
-            aria-label={`Número de pessoas em ${activity.name}`}
+            aria-label={t('activities.peopleIn', { name })}
             onChange={(e) =>
               onSetPeople(activity.id, Number(e.target.value) || 1)
             }
@@ -76,11 +81,11 @@ function ActivityCard({
             <span
               className={`block font-semibold text-stone ${isMeal ? 'italic' : ''}`}
             >
-              {activity.name}
+              {name}
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-muted">
               <span className="font-medium text-terracotta">
-                {formatActivityPrice(activity.pricePerPerson)}
+                {formatActivityPrice(activity.pricePerPerson, t, lang)}
               </span>
               {activity.durationHours !== null && (
                 <span>{formatDuration(activity.durationHours)}</span>
@@ -123,6 +128,8 @@ function ActivityGrid({
 }
 
 export function Activities({ selections, onChange }: ActivitiesProps) {
+  const { t } = useTranslation()
+
   function toggle(id: string) {
     const exists = selections.some((s) => s.id === id)
     if (exists) {
@@ -146,21 +153,19 @@ export function Activities({ selections, onChange }: ActivitiesProps) {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-widest text-terracotta">
-            Actividades
+            {t('activities.eyebrow')}
           </p>
           <h2 className="font-display mt-2 text-3xl font-semibold text-olive sm:text-4xl">
-            Experiências à sua medida
+            {t('activities.title')}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-stone-muted">
-            Cada pessoa pode escolher actividades e refeições diferentes. Indique
-            quantas pessoas participam em cada uma (máximo {MAX_PEOPLE} por opção
-            — capacidade do chalé).
+            {t('activities.intro', { max: MAX_PEOPLE })}
           </p>
         </div>
 
         <div className="mt-10">
           <h3 className="font-display text-xl font-semibold text-olive sm:text-2xl">
-            Actividades criativas
+            {t('activities.creativeTitle')}
           </h3>
           <ActivityGrid
             items={creativeActivities}
@@ -172,7 +177,7 @@ export function Activities({ selections, onChange }: ActivitiesProps) {
 
         <div className="mt-14 sm:mt-16">
           <h3 className="font-display text-xl font-semibold text-olive sm:text-2xl">
-            Refeições opcionais
+            {t('activities.mealsTitle')}
           </h3>
           <ActivityGrid
             items={mealActivities}
@@ -184,16 +189,14 @@ export function Activities({ selections, onChange }: ActivitiesProps) {
 
         {selections.length > 0 && (
           <p className="mt-8 text-sm text-olive">
-            <span className="font-semibold">{selections.length}</span>{' '}
-            {selections.length === 1
-              ? 'opção seleccionada'
-              : 'opções seleccionadas'}
+            {t(
+              selections.length === 1
+                ? 'activities.selectedOne'
+                : 'activities.selectedMany',
+              { count: selections.length },
+            )}
             {activitiesSubtotal > 0 && (
-              <>
-                {' '}
-                — subtotal actividades e refeições já reflectido no formulário de
-                reserva.
-              </>
+              <span>{t('activities.subtotalNote')}</span>
             )}
           </p>
         )}

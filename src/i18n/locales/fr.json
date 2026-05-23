@@ -1,0 +1,215 @@
+{
+  "common": {
+    "brand": "Chalé Arraiolos",
+    "region": "Alentejo, Portugal",
+    "language": "Langue",
+    "personOne": "1 personne",
+    "personMany": "{{count}} personnes",
+    "none": "Aucune",
+    "perPerson": "/personne",
+    "noExtraCost": "Sans frais supplémentaires"
+  },
+  "nav": {
+    "chalet": "Le chalet",
+    "host": "Votre hôte",
+    "amenities": "Équipements",
+    "gallery": "Galerie",
+    "activities": "Activités",
+    "book": "Réserver",
+    "bookStay": "Réserver un séjour",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "hero": {
+    "location": "Arraiolos · Alentejo",
+    "title": "Votre refuge au cœur de l'Alentejo",
+    "subtitle": "Chalet en bois indépendant avec jardin. La salle de bain est dans la cour, à 5 mètres du salon, selon la tradition feng shui. À quelques minutes du centre historique et des célèbres tapis d'Arraiolos — idéal pour couples, familles ou escapades en groupe.",
+    "ctaAvailability": "Voir les disponibilités",
+    "ctaDiscover": "Découvrir l'espace",
+    "guests": "Voyageurs",
+    "guestsValue": "Jusqu'à 4",
+    "lodging": "Hébergement",
+    "lodgingValue": "Chalet en bois",
+    "weekend": "Forfait week-end",
+    "weekendValue": "200 € · 2 nuits"
+  },
+  "about": {
+    "eyebrow": "Le chalet",
+    "title": "Tradition alentejane, confort moderne",
+    "p1": "Ce chalet en bois a été restauré dans le respect de l'architecture locale, gardant son charme rustique tout en offrant tout le confort pour des vacances détendues. La salle de bain est dans la cour, à 5 mètres du salon du chalet, selon la tradition feng shui (hors du logement). Le salon avec cheminée et la cuisine entièrement équipée invitent au rythme lent de l'Alentejo. Le jardin abrite la Fonte dos Pés Felizes et un belvédère à 4 mètres de haut dans une cabane dans les arbres.",
+    "p2": "Arraiolos est à environ 1 heure de Lisbonne. Promenez-vous au château, visitez les ateliers de tapisserie et goûtez les vins de la région — tout à quelques minutes.",
+    "checklist": [
+      "Arrivée flexible (15h–20h)",
+      "Séjour minimum de 2 nuits",
+      "Ménage final inclus",
+      "Serviettes et linge de lit inclus"
+    ],
+    "photoChalet": "Chalet en bois dans l'Alentejo, entouré de verdure",
+    "photoRoom": "Chambre accueillante",
+    "photoGarden": "Cour au crépuscule, banc, lanternes, balançoire et lumières du jardin"
+  },
+  "host": {
+    "eyebrow": "Votre hôte",
+    "name": "Cristina Alberto",
+    "bio": "Bonjour, je suis Cristina Alberto. Professeure universitaire à la retraite, doctorat en réalité virtuelle à l'UCL de Londres, fondatrice du Rotaract d'Estarreja. Je suis revenue à Arraiolos, terre de mes grands-parents, pour accueillir ceux qui souhaitent ralentir.",
+    "photoAlt": "Cristina Alberto, hôte du Chalé Arraiolos"
+  },
+  "amenities": {
+    "eyebrow": "Équipements",
+    "title": "Tout inclus pour un séjour parfait",
+    "activitiesLink": "Voir et choisir les activités →",
+    "bathroom": {
+      "label": "Salle de bain dans la cour · 5 m",
+      "description": "Dans la cour, à 5 m du salon du chalet, selon la tradition feng shui"
+    },
+    "bedroom": {
+      "label": "1 chambre · 2 lits au salon",
+      "description": "Une chambre et deux lits au salon, linge de lit inclus"
+    },
+    "kitchen": {
+      "label": "Cuisine équipée",
+      "description": "Tout le nécessaire pour préparer vos repas"
+    },
+    "fire": {
+      "label": "Feu de camp dans la cour",
+      "description": "Soirées chaleureuses en plein air dans le jardin"
+    },
+    "garden": {
+      "label": "Jardin privé",
+      "description": "Pelouse, ombre et barbecue"
+    },
+    "wifi": {
+      "label": "Wi-Fi",
+      "description": "Internet haut débit dans toute la maison"
+    },
+    "parking": {
+      "label": "Parking",
+      "description": "Place gratuite devant la porte"
+    },
+    "historic": {
+      "label": "Centre historique",
+      "description": "À 5 minutes à pied d'Arraiolos"
+    },
+    "activities": {
+      "label": "Activités optionnelles",
+      "description": "Ateliers, repas et expériences — choisissez le nombre de participants pour chacun"
+    }
+  },
+  "gallery": {
+    "eyebrow": "Galerie",
+    "spacesTitle": "Des espaces que vous allez adorer",
+    "momentsTitle": "Des moments que vous allez adorer",
+    "openImage": "Ouvrir l'image : {{alt}}",
+    "close": "Fermer",
+    "prev": "Image précédente",
+    "next": "Image suivante",
+    "images": {
+      "charca": "Petite piscine et bassin dans le jardin",
+      "castelo": "Vue sur le château d'Arraiolos au crépuscule, terrasse avec pelouse",
+      "breakfast": "Petit-déjeuner alentejano sur la table — pain, fromage et olives",
+      "cookies": "Biscuits maison tout juste sortis du four"
+    }
+  },
+  "activities": {
+    "eyebrow": "Activités",
+    "title": "Des expériences sur mesure",
+    "intro": "Chaque personne peut choisir des activités et repas différents. Indiquez combien de personnes participent à chacun (maximum {{max}} par option — capacité du chalet).",
+    "creativeTitle": "Activités créatives",
+    "mealsTitle": "Repas optionnels",
+    "peopleShort": "Pers.",
+    "peopleIn": "Nombre de personnes pour {{name}}",
+    "selectedOne": "{{count}} option sélectionnée",
+    "selectedMany": "{{count}} options sélectionnées",
+    "subtotalNote": "— le sous-total activités et repas est déjà reflété dans le formulaire de réservation.",
+    "items": {
+      "pintura-acrilica": "🎨 Peinture acrylique – libérez votre créativité avec vue sur le château",
+      "aguarela": "🖌️ Aquarelle – coups de pinceau légers, couleurs qui respirent l'Alentejo",
+      "bolachas-caseiras": "🍪 Biscuits maison – la recette de ma grand-mère",
+      "chocolate-dubai": "🍫 Chocolat Dubai – la tendance virale, maintenant en Alentejo",
+      "costura-criativa": "🧵 Couture créative – apprenez ou ravivez vos souvenirs",
+      "mosaico": "🧩 Mosaïque – pièces, couleur et patience ; emportez votre œuvre",
+      "madeira": "🪵 Bois – petites constructions avec outils manuels",
+      "bonecos-feltro": "🧸 Poupées en feutre – un souvenir dans votre valise",
+      "conversa-passeio": "☕ Conversation ou promenade – à votre rythme, sans presse",
+      "jantar-caseiro": "🍷 Dîner maison – avec vin de la région",
+      "pequeno-almoco": "🥐 Petit-déjeuner alentejano – pain chaud, fromage, olives"
+    }
+  },
+  "booking": {
+    "eyebrow": "Réserver",
+    "title": "Planifiez votre séjour",
+    "intro": "Choisissez les dates, remplissez vos coordonnées et envoyez votre demande de réservation. Nous vous contacterons sur WhatsApp pour confirmer le paiement.",
+    "weekendPackage": "Forfait week-end · 2 nuits",
+    "plusActivities": "+ activités (prix × personnes par activité)",
+    "capacity": "Capacité : jusqu'à {{max}} personnes",
+    "datesLegend": "Choisissez les dates *",
+    "yourDetails": "Vos coordonnées",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "phonePlaceholder": "+351 912 345 678",
+    "adults": "Nombre d'adultes",
+    "children": "Nombre d'enfants",
+    "estimatedTotal": "Total estimé",
+    "activitiesSubtotal": "Sous-total activités",
+    "total": "Total",
+    "selectDatesHint": "Sélectionnez les dates dans le calendrier pour finaliser la réservation.",
+    "submit": "Envoyer la réservation",
+    "submitting": "Envoi en cours…",
+    "footnote": "* Dates obligatoires. Le paiement sera confirmé par WhatsApp après la réservation.",
+    "successTitle": "Réservation envoyée",
+    "successMessage": "Réservation envoyée. Je recevrai vos informations et vous contacterai sur WhatsApp dans quelques minutes pour confirmer le paiement.",
+    "successTotal": "Total estimé du séjour :",
+    "newBooking": "Nouvelle réservation",
+    "errors": {
+      "checkIn": "Sélectionnez la date d'arrivée dans le calendrier",
+      "checkOut": "Sélectionnez la date de départ dans le calendrier",
+      "occupied": "Cette période comprend des jours déjà réservés",
+      "occupiedPick": "Cette période comprend des jours déjà réservés. Choisissez d'autres dates.",
+      "name": "Indiquez votre nom",
+      "email": "Indiquez un email valide",
+      "phone": "Indiquez votre téléphone",
+      "adults": "Indiquez au moins 1 adulte",
+      "children": "Nombre d'enfants invalide",
+      "maxPeople": "Capacité maximale : {{max}} personnes (adultes + enfants)",
+      "activityPeople": "Chaque activité peut avoir au maximum {{max}} participant(s) (total de la réservation)"
+    }
+  },
+  "calendar": {
+    "available": "Disponible",
+    "occupied": "Réservé",
+    "checkIn": "Arrivée :",
+    "checkOut": "Départ :",
+    "checkInOnly": "Arrivée :",
+    "selectCheckout": " — sélectionnez la date de départ",
+    "dateFormat": "d MMMM yyyy"
+  },
+  "footer": {
+    "location": "Arraiolos · Alentejo"
+  },
+  "email": {
+    "hostSubject": "Nouvelle réservation — {{name}} ({{checkIn}} → {{checkOut}})",
+    "hostHeading": "Nouvelle réservation · Chalé Arraiolos",
+    "guestSubject": "Demande de réservation reçue — Chalé Arraiolos",
+    "guestGreeting": "Bonjour {{name}},",
+    "guestBody": "Nous avons bien reçu votre demande de réservation au Chalé Arraiolos.",
+    "guestWhatsApp": "Je vous contacterai sur WhatsApp sous peu pour confirmer le paiement.",
+    "guestSignoff": "Cordialement,",
+    "hostSignoff": "Cristina Alberto",
+    "labels": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "checkIn": "Arrivée",
+      "checkOut": "Départ",
+      "adults": "Adultes",
+      "children": "Enfants",
+      "totalPeople": "Total personnes",
+      "pricing": "Montants",
+      "stay": "Séjour (week-end, 2 nuits)",
+      "activitiesMeals": "Activités et repas",
+      "estimatedTotal": "Total estimé",
+      "activitiesSection": "Activités et repas"
+    }
+  }
+}

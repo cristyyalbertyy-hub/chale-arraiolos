@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
 import { format, startOfDay } from 'date-fns'
-import { pt } from 'date-fns/locale'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
 import { occupiedDates } from '../data/occupiedDates'
+import { getDateFnsLocale } from '../lib/locale'
 import {
   isOccupiedDate,
   isPastDate,
@@ -43,7 +44,10 @@ export function AvailabilityCalendar({
   onRangeChange,
   onOccupiedConflict,
 }: AvailabilityCalendarProps) {
+  const { t, i18n } = useTranslation()
   const months = useCalendarMonths()
+  const dateLocale = getDateFnsLocale(i18n.language)
+  const dateFormat = t('calendar.dateFormat')
 
   const ranges = useMemo(
     () => [
@@ -76,11 +80,11 @@ export function AvailabilityCalendar({
       <div className="mb-3 flex flex-wrap items-center gap-4 text-xs text-stone-muted">
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-green-100 ring-1 ring-green-700/30" />
-          Disponível
+          {t('calendar.available')}
         </span>
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-red-100 ring-1 ring-red-800/30" />
-          Ocupado
+          {t('calendar.occupied')}
         </span>
       </div>
 
@@ -90,7 +94,7 @@ export function AvailabilityCalendar({
           onChange={handleChange}
           months={months}
           direction="horizontal"
-          locale={pt}
+          locale={dateLocale}
           minDate={new Date()}
           disabledDates={occupiedDates}
           disabledDay={(date) => isOccupiedDate(date, occupiedDates)}
@@ -115,17 +119,17 @@ export function AvailabilityCalendar({
         <p className="mt-3 text-sm text-stone">
           {checkIn && checkOut ? (
             <>
-              <span className="font-medium text-olive">Check-in:</span>{' '}
-              {format(parseLocalDate(checkIn), "d 'de' MMMM yyyy", { locale: pt })}
+              <span className="font-medium text-olive">{t('calendar.checkIn')}</span>{' '}
+              {format(parseLocalDate(checkIn), dateFormat, { locale: dateLocale })}
               {' · '}
-              <span className="font-medium text-olive">Check-out:</span>{' '}
-              {format(parseLocalDate(checkOut), "d 'de' MMMM yyyy", { locale: pt })}
+              <span className="font-medium text-olive">{t('calendar.checkOut')}</span>{' '}
+              {format(parseLocalDate(checkOut), dateFormat, { locale: dateLocale })}
             </>
           ) : checkIn ? (
             <>
-              <span className="font-medium text-olive">Entrada:</span>{' '}
-              {format(parseLocalDate(checkIn), "d 'de' MMMM yyyy", { locale: pt })}
-              <span className="text-stone-muted"> — selecione a data de saída</span>
+              <span className="font-medium text-olive">{t('calendar.checkInOnly')}</span>{' '}
+              {format(parseLocalDate(checkIn), dateFormat, { locale: dateLocale })}
+              <span className="text-stone-muted">{t('calendar.selectCheckout')}</span>
             </>
           ) : null}
         </p>

@@ -1,6 +1,11 @@
+import type { TFunction } from 'i18next'
 import { activities } from '../data/activities'
 import type { Activity, ActivitySelection } from '../types/activity'
 import { formatCurrency } from './booking'
+
+export function getActivityName(id: string, t: TFunction): string {
+  return t(`activities.items.${id}`)
+}
 
 export function formatDuration(hours: number): string {
   if (hours % 1 === 0) return `${hours}h`
@@ -33,15 +38,25 @@ export function getActivityLineTotal(selection: ActivitySelection): number {
   return activity.pricePerPerson * selection.people
 }
 
-export function formatActivityPrice(price: number): string {
-  if (price === 0) return 'Sem custo adicional'
-  return `${formatCurrency(price)}/pessoa`
+export function formatActivityPrice(
+  price: number,
+  t: TFunction,
+  lang: string,
+): string {
+  if (price === 0) return t('common.noExtraCost')
+  return `${formatCurrency(price, lang)}${t('common.perPerson')}`
 }
 
-export function formatActivitySelectionLabel(selection: ActivitySelection): string {
+export function formatActivitySelectionLabel(
+  selection: ActivitySelection,
+  t: TFunction,
+): string {
   const activity = getActivityById(selection.id)
   if (!activity) return ''
+  const name = getActivityName(activity.id, t)
   const peopleLabel =
-    selection.people === 1 ? '1 pessoa' : `${selection.people} pessoas`
-  return `${activity.name} (${peopleLabel})`
+    selection.people === 1
+      ? t('common.personOne')
+      : t('common.personMany', { count: selection.people })
+  return `${name} (${peopleLabel})`
 }

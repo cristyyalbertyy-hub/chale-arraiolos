@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { BookingFormData } from '../types/booking'
 import { AvailabilityCalendar } from './AvailabilityCalendar'
 import {
@@ -12,12 +13,9 @@ import {
   formatActivitySelectionLabel,
   getActivityLineTotal,
 } from '../lib/activities'
-import { submitToGoogleForm } from '../lib/googleForm'
+import { submitBooking } from '../lib/submitBooking'
 import type { ActivitySelection } from '../types/activity'
 import { occupiedDates } from '../data/occupiedDates'
-
-const SUCCESS_MESSAGE =
-  'Reserva submetida. Vou receber os seus dados e entrarei em contacto por WhatsApp dentro de minutos para confirmar o pagamento.'
 
 interface BookingFormProps {
   activitySelections: ActivitySelection[]
@@ -35,6 +33,9 @@ const initialForm: BookingFormData = {
 }
 
 export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language.split('-')[0]
+
   const [form, setForm] = useState<BookingFormData>(initialForm)
   const [submitted, setSubmitted] = useState(false)
   const [calendarKey, setCalendarKey] = useState(0)
@@ -57,24 +58,24 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   function validate(): boolean {
     const next: Partial<Record<keyof BookingFormData, string>> = {}
 
-    if (!form.checkIn) next.checkIn = 'Selecione a data de entrada no calendário'
-    if (!form.checkOut) next.checkOut = 'Selecione a data de saída no calendário'
+    if (!form.checkIn) next.checkIn = t('booking.errors.checkIn')
+    if (!form.checkOut) next.checkOut = t('booking.errors.checkOut')
     if (form.checkIn && form.checkOut) {
       const start = parseLocalDate(form.checkIn)
       const end = parseLocalDate(form.checkOut)
       if (rangeOverlapsOccupied(start, end, occupiedDates)) {
-        next.checkOut = 'O intervalo inclui dias já reservados'
+        next.checkOut = t('booking.errors.occupied')
       }
     }
-    if (!form.name.trim()) next.name = 'Indique o seu nome'
+    if (!form.name.trim()) next.name = t('booking.errors.name')
     if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      next.email = 'Indique um email válido'
+      next.email = t('booking.errors.email')
     }
-    if (!form.phone.trim()) next.phone = 'Indique o seu telemóvel'
-    if (form.adults < 1) next.adults = 'Indique pelo menos 1 adulto'
-    if (form.children < 0) next.children = 'Número de crianças inválido'
+    if (!form.phone.trim()) next.phone = t('booking.errors.phone')
+    if (form.adults < 1) next.adults = t('booking.errors.adults')
+    if (form.children < 0) next.children = t('booking.errors.children')
     if (pricing.people > MAX_PEOPLE) {
-      next.adults = `Capacidade máxima: ${MAX_PEOPLE} pessoas (adultos + crianças)`
+      next.adults = t('booking.errors.maxPeople', { max: MAX_PEOPLE })
     }
     const invalidActivity = activitySelections.find(
       (s) => s.people < 1 || s.people > MAX_PEOPLE || s.people > pricing.people,
@@ -82,7 +83,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     if (invalidActivity) {
       next.adults =
         next.adults ??
-        `Cada actividade pode ter no máximo ${pricing.people} participante(s) (o total da reserva)`
+        t('booking.errors.activityPeople', { max: pricing.people })
     }
 
     setErrors(next)
@@ -96,7 +97,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     setIsSubmitting(true)
     setSubmitError(null)
 
-    const result = await submitToGoogleForm({ form, activitySelections })
+    const result = await submitBooking({ form, activitySelections }, lang)
 
     setIsSubmitting(false)
 
@@ -124,19 +125,23 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             ✓
           </div>
           <h2 className="font-display mt-6 text-3xl font-semibold text-cream">
-            Reserva submetida
+            {t('booking.successTitle')}
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-sand">{SUCCESS_MESSAGE}</p>
+          <p className="mt-4 text-lg leading-relaxed text-sand">
+            {t('booking.successMessage')}
+          </p>
           <p className="mt-4 text-sm text-sand/80">
-            Total estimado da estadia:{' '}
-            <strong className="text-cream">{formatCurrency(pricing.total)}</strong>
+            {t('booking.successTotal')}{' '}
+            <strong className="text-cream">
+              {formatCurrency(pricing.total, lang)}
+            </strong>
           </p>
           <button
             type="button"
             onClick={handleNewBooking}
             className="mt-8 rounded-full border border-cream/30 px-6 py-2.5 text-sm font-medium text-cream hover:bg-cream/10"
           >
-            Nova reserva
+            {t('booking.newBooking')}
           </button>
         </div>
       </section>
@@ -149,25 +154,20 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
         <div className="grid gap-10 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-2">
             <p className="text-sm font-semibold uppercase tracking-widest text-sand">
-              Reservar
+              {t('booking.eyebrow')}
             </p>
             <h2 className="font-display mt-2 text-3xl font-semibold text-cream sm:text-4xl">
-              Planeie a sua estadia
+              {t('booking.title')}
             </h2>
-            <p className="mt-4 text-sand leading-relaxed">
-              Escolha as datas, preencha os seus dados e envie o pedido de reserva. Entraremos
-              em contacto por WhatsApp para confirmar o pagamento.
-            </p>
+            <p className="mt-4 text-sand leading-relaxed">{t('booking.intro')}</p>
             <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
-              <p className="text-sm text-sand">Pacote de fim de semana · 2 noites</p>
+              <p className="text-sm text-sand">{t('booking.weekendPackage')}</p>
               <p className="font-display text-3xl font-semibold text-cream">
-                {formatCurrency(WEEKEND_BASE_PRICE)}
+                {formatCurrency(WEEKEND_BASE_PRICE, lang)}
               </p>
-              <p className="mt-2 text-sm text-sand/80">
-                + actividades (preço × pessoas por actividade)
-              </p>
+              <p className="mt-2 text-sm text-sand/80">{t('booking.plusActivities')}</p>
               <p className="mt-1 text-sm text-sand/80">
-                Capacidade: até {MAX_PEOPLE} pessoas
+                {t('booking.capacity', { max: MAX_PEOPLE })}
               </p>
             </div>
           </div>
@@ -179,7 +179,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
           >
             <fieldset>
               <legend className="mb-3 block text-sm font-semibold text-olive">
-                Escolha as datas *
+                {t('booking.datesLegend')}
               </legend>
 
               <AvailabilityCalendar
@@ -197,7 +197,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                 onOccupiedConflict={() => {
                   setErrors((prev) => ({
                     ...prev,
-                    checkOut: 'O intervalo inclui dias já reservados. Escolha outras datas.',
+                    checkOut: t('booking.errors.occupiedPick'),
                   }))
                 }}
               />
@@ -211,12 +211,12 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
             <fieldset className="mt-8 grid gap-5 sm:grid-cols-2">
               <legend className="mb-1 text-sm font-semibold text-olive sm:col-span-2">
-                Os seus dados
+                {t('booking.yourDetails')}
               </legend>
 
               <div className="sm:col-span-2">
                 <label htmlFor="name" className="block text-sm font-medium text-stone">
-                  Nome
+                  {t('booking.name')}
                 </label>
                 <input
                   id="name"
@@ -233,7 +233,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-stone">
-                  Email
+                  {t('booking.email')}
                 </label>
                 <input
                   id="email"
@@ -250,7 +250,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-stone">
-                  Telemóvel
+                  {t('booking.phone')}
                 </label>
                 <input
                   id="phone"
@@ -258,7 +258,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   autoComplete="tel"
                   value={form.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
-                  placeholder="+351 912 345 678"
+                  placeholder={t('booking.phonePlaceholder')}
                   className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
                 />
                 {errors.phone && (
@@ -268,7 +268,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
               <div>
                 <label htmlFor="adults" className="block text-sm font-medium text-stone">
-                  Número de adultos
+                  {t('booking.adults')}
                 </label>
                 <input
                   id="adults"
@@ -288,7 +288,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
               <div>
                 <label htmlFor="children" className="block text-sm font-medium text-stone">
-                  Número de crianças
+                  {t('booking.children')}
                 </label>
                 <input
                   id="children"
@@ -308,40 +308,42 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             </fieldset>
 
             <div className="mt-6 rounded-xl border border-olive/20 bg-sand/40 px-4 py-4">
-              <p className="text-sm font-semibold text-olive">Total estimado</p>
+              <p className="text-sm font-semibold text-olive">{t('booking.estimatedTotal')}</p>
               <ul className="mt-3 space-y-2 text-sm text-stone">
                 <li className="flex justify-between gap-2">
-                  <span>Pacote de fim de semana · 2 noites</span>
-                  <span className="font-medium">{formatCurrency(pricing.base)}</span>
+                  <span>{t('booking.weekendPackage')}</span>
+                  <span className="font-medium">
+                    {formatCurrency(pricing.base, lang)}
+                  </span>
                 </li>
                 {activitySelections.map((selection) => (
                   <li key={selection.id} className="flex justify-between gap-2">
                     <span className="min-w-0 pr-2">
-                      {formatActivitySelectionLabel(selection)}
+                      {formatActivitySelectionLabel(selection, t)}
                     </span>
                     <span className="shrink-0 font-medium">
-                      {formatCurrency(getActivityLineTotal(selection))}
+                      {formatCurrency(getActivityLineTotal(selection), lang)}
                     </span>
                   </li>
                 ))}
                 {activitySelections.length > 0 && (
                   <li className="flex justify-between gap-2 border-t border-sand/80 pt-2 text-stone-muted">
-                    <span>Subtotal actividades</span>
+                    <span>{t('booking.activitiesSubtotal')}</span>
                     <span className="font-medium text-stone">
-                      {formatCurrency(pricing.activities)}
+                      {formatCurrency(pricing.activities, lang)}
                     </span>
                   </li>
                 )}
               </ul>
               <div className="mt-3 flex justify-between gap-2 border-t border-sand pt-3">
-                <span className="font-semibold text-olive">Total</span>
+                <span className="font-semibold text-olive">{t('booking.total')}</span>
                 <span className="font-display text-xl font-semibold text-olive">
-                  {formatCurrency(pricing.total)}
+                  {formatCurrency(pricing.total, lang)}
                 </span>
               </div>
               {!hasDates && (
                 <p className="mt-2 text-xs text-stone-muted">
-                  Selecione as datas no calendário para concluir a reserva.
+                  {t('booking.selectDatesHint')}
                 </p>
               )}
             </div>
@@ -357,11 +359,10 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               className="mt-8 w-full rounded-full bg-terracotta py-4 text-base font-semibold text-cream transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-10"
               disabled={!hasDates || isSubmitting}
             >
-              {isSubmitting ? 'A enviar reserva…' : 'Submeter reserva'}
+              {isSubmitting ? t('booking.submitting') : t('booking.submit')}
             </button>
             <p className="mt-3 text-center text-xs text-stone-muted sm:text-left">
-              * Datas obrigatórias. O pagamento será confirmado por WhatsApp após a
-              reserva.
+              {t('booking.footnote')}
             </p>
           </form>
         </div>

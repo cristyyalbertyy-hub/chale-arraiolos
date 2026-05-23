@@ -1,6 +1,5 @@
 export interface Activity {
   id: string
-  name: string
   pricePerPerson: number
   /** Duração em horas; `null` para refeições sem duração fixa */
   durationHours: number | null

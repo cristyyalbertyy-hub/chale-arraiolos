@@ -7,7 +7,8 @@ Aplicação web de reservas para um chalé em Arraiolos, Alentejo.
 - [React](https://react.dev/) 19 + [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/)
 - [Tailwind CSS](https://tailwindcss.com/) v4
-- [Google Forms](https://www.google.com/forms/about/) para receber pedidos de reserva
+- [Resend](https://resend.com/) + API na Vercel para receber pedidos de reserva por email
+- [i18next](https://www.i18next.com/) — português, inglês e francês
 
 ## Começar
 
@@ -19,23 +20,28 @@ npm run dev
 
 Abra [http://localhost:5173](http://localhost:5173) no browser.
 
-## Google Forms
+> O envio de reservas por email só funciona com a API (`/api/send-booking`). Em local, use `npx vercel dev` (com as variáveis abaixo) ou faça deploy na Vercel.
 
-Quando tiveres o formulário Google:
+## Email de reservas (Resend)
 
-1. Cria um formulário com um campo de **texto longo** (resumo da reserva).
-2. Clica em **Enviar** → ícone de link → copia o URL que termina em `/formResponse`.
-3. Para o `entry` ID: **⋮** → *Obter link pré-preenchido* → preenche o campo → copia da URL `entry.XXXXXXXX`.
-4. Cria `.env.local`:
+1. Crie conta em [resend.com](https://resend.com) e gere uma **API Key**.
+2. Em testes pode usar o remetente `onboarding@resend.dev` (só envia para o email da sua conta Resend até verificar um domínio).
+3. Na **Vercel** → projeto → **Settings** → **Environment Variables**, adicione:
 
-```env
-VITE_GOOGLE_FORM_ACTION_URL=https://docs.google.com/forms/d/e/.../formResponse
-VITE_GOOGLE_FORM_ENTRY_RESUMO=entry.1234567890
-```
+| Variável | Exemplo |
+| -------- | ------- |
+| `RESEND_API_KEY` | `re_...` |
+| `BOOKING_TO_EMAIL` | O seu email (onde recebe cada reserva) |
+| `BOOKING_FROM_EMAIL` | `Chalé Arraiolos <onboarding@resend.dev>` |
 
-5. Na Vercel, adiciona as mesmas variáveis `VITE_*` e faz **Redeploy**.
+4. Faça **Redeploy**.
 
-Cada submissão envia: nome, email, telemóvel, datas, adultos/crianças, actividades e total.
+Cada submissão envia:
+
+- **Para si:** nome, email, telemóvel, datas, adultos/crianças, actividades com preços, total (recalculado no servidor).
+- **Para o hóspede:** email de confirmação de que o pedido foi recebido.
+
+Copie `.env.example` para `.env.local` apenas se usar `vercel dev` em local.
 
 ## Scripts
 
@@ -46,14 +52,23 @@ Cada submissão envia: nome, email, telemóvel, datas, adultos/crianças, activi
 | `npm run preview` | Pré-visualizar build        |
 | `npm run lint`    | ESLint                      |
 
+## Idiomas
+
+O site está disponível em **PT**, **EN** e **FR**. O selector no menu guarda a preferência no browser.
+
+- Textos da interface: `src/i18n/locales/`
+- Email à anfitriã: sempre em português
+- Email de confirmação ao hóspede: no idioma seleccionado no site
+
 ## Estrutura
 
 ```
+api/              # Envio de email (Vercel serverless)
 src/
+├── i18n/         # Traduções e configuração
 ├── components/   # UI (calendário, actividades, reserva, etc.)
-├── config/       # Configuração Google Forms
 ├── data/         # Actividades, datas ocupadas
-├── lib/          # Cálculo de preços, envio ao Google Forms
+├── lib/          # Cálculo de preços, envio da reserva
 └── pages/        # Página principal
 ```
 
