@@ -22,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const apiKey = getEnv('RESEND_API_KEY')
   const toEmail = getEnv('BOOKING_TO_EMAIL')
   const fromEmail =
-    getEnv('BOOKING_FROM_EMAIL') ?? 'Chalé Arraiolos <onboarding@resend.dev>'
+    getEnv('BOOKING_FROM_EMAIL') ?? 'Chalé do Avô Bedi <onboarding@resend.dev>'
 
   if (!apiKey || !toEmail) {
     return res.status(503).json({

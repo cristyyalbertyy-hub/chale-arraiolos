@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Chalé Arraiolos",
+    "brand": "Chalé do Avô Bedi",
     "region": "Alentejo, Portugal",
     "language": "Idioma",
     "personOne": "1 pessoa",
@@ -10,7 +10,7 @@
     "noExtraCost": "Sem custo adicional"
   },
   "nav": {
-    "chalet": "O chalé",
+    "chalet": "O Chalé do Avô Bedi",
     "host": "Anfitriã",
     "amenities": "Comodidades",
     "gallery": "Galeria",
@@ -23,20 +23,20 @@
   "hero": {
     "location": "Arraiolos · Alentejo",
     "title": "O seu refúgio no coração do Alentejo",
-    "subtitle": "Chalé de madeira independente com jardim. A casa de banho fica no quintal, a 5 metros da sala do chalé, segundo a tradição feng shui. A poucos minutos do centro histórico e dos famosos tapetes de Arraiolos — ideal para casais, famílias ou escapadinhas em grupo.",
+    "subtitle": "O Chalé do Avô Bedi, em madeira e com jardim. A casa de banho fica no quintal, a 5 metros da sala, segundo a tradição feng shui. A poucos minutos do centro histórico e dos famosos tapetes de Arraiolos — ideal para casais, famílias ou escapadinhas em grupo.",
     "ctaAvailability": "Ver disponibilidade",
     "ctaDiscover": "Conhecer o espaço",
     "guests": "Hóspedes",
     "guestsValue": "Até 4",
     "lodging": "Alojamento",
-    "lodgingValue": "Chalé de madeira",
+    "lodgingValue": "Chalé do Avô Bedi",
     "weekend": "Pacote de fim de semana",
     "weekendValue": "200€ · 2 noites"
   },
   "about": {
-    "eyebrow": "O chalé",
+    "eyebrow": "O Chalé do Avô Bedi",
     "title": "Tradição alentejana, conforto moderno",
-    "p1": "Este chalé de madeira foi recuperado com respeito pela arquitetura local, mantendo o charme rústico e acrescentando todo o conforto para umas férias descontraídas. A casa de banho fica no quintal, a 5 metros da sala do chalé, segundo a tradição feng shui (fora do alojamento). A sala de estar com lareira e a cozinha totalmente equipada convidam a viver o ritmo lento do Alentejo. O jardim tem a Fonte dos Pés Felizes e um miradouro a 4 metros de altura numa casa de árvore.",
+    "p1": "O Chalé do Avô Bedi, em madeira, foi recuperado com respeito pela arquitetura local, mantendo o charme rústico e acrescentando todo o conforto para umas férias descontraídas. A casa de banho fica no quintal, a 5 metros da sala, segundo a tradição feng shui (fora do alojamento). A sala de estar com lareira e a cozinha totalmente equipada convidam a viver o ritmo lento do Alentejo. O jardim tem a Fonte dos Pés Felizes e um miradouro a 4 metros de altura numa casa de árvore.",
     "p2": "Arraiolos fica a cerca de 1 hora de Lisboa. Passeie pelo castelo, visite os ateliers de tapeçaria e prove os vinhos da região — tudo a poucos minutos de casa.",
     "checklist": [
       "Check-in flexível (15h–20h)",
@@ -44,7 +44,7 @@
       "Limpeza final incluída",
       "Toalhas e roupa de cama incluídas"
     ],
-    "photoChalet": "Chalé de madeira no Alentejo, rodeado de vegetação",
+    "photoChalet": "O Chalé do Avô Bedi no Alentejo, rodeado de vegetação",
     "photoRoom": "Quarto acolhedor",
     "photoGarden": "Quintal ao crepúsculo, banco, candeeiros, baloiço e luzes no jardim"
   },
@@ -52,7 +52,7 @@
     "eyebrow": "Sobre a anfitriã",
     "name": "Cristina Alberto",
     "bio": "Olá, sou a Cristina Alberto. Professora universitária reformada, PhD em Realidade Virtual pela UCL Londres, fundadora do Rotaract de Estarreja. Voltei para Arraiolos, a terra dos meu avôs, para receber bem quem deseja desacelerar.",
-    "photoAlt": "Cristina Alberto, anfitriã do Chalé Arraiolos"
+    "photoAlt": "Cristina Alberto, anfitriã do Chalé do Avô Bedi"
   },
   "amenities": {
     "eyebrow": "Comodidades",
@@ -60,7 +60,7 @@
     "activitiesLink": "Ver e seleccionar actividades →",
     "bathroom": {
       "label": "Casa de banho no quintal · 5 m",
-      "description": "No quintal, a 5 m da sala do chalé, segundo a tradição feng shui"
+      "description": "No quintal, a 5 m da sala do Chalé do Avô Bedi, segundo a tradição feng shui"
     },
     "bedroom": {
       "label": "1 quarto · 2 camas na sala",
@@ -113,7 +113,7 @@
   "activities": {
     "eyebrow": "Actividades",
     "title": "Experiências à sua medida",
-    "intro": "Cada pessoa pode escolher actividades e refeições diferentes. Indique quantas pessoas participam em cada uma (máximo {{max}} por opção — capacidade do chalé).",
+    "intro": "Cada pessoa pode escolher actividades e refeições diferentes. Indique quantas pessoas participam em cada uma (máximo {{max}} por opção — capacidade do Chalé do Avô Bedi).",
     "creativeTitle": "Actividades criativas",
     "mealsTitle": "Refeições opcionais",
     "peopleShort": "Pess.",
@@ -189,10 +189,10 @@
   },
   "email": {
     "hostSubject": "Nova reserva — {{name}} ({{checkIn}} → {{checkOut}})",
-    "hostHeading": "Nova reserva · Chalé Arraiolos",
-    "guestSubject": "Pedido de reserva recebido — Chalé Arraiolos",
+    "hostHeading": "Nova reserva · Chalé do Avô Bedi",
+    "guestSubject": "Pedido de reserva recebido — Chalé do Avô Bedi",
     "guestGreeting": "Olá {{name}},",
-    "guestBody": "Recebemos o seu pedido de reserva no Chalé Arraiolos.",
+    "guestBody": "Recebemos o seu pedido de reserva no Chalé do Avô Bedi.",
     "guestWhatsApp": "Vou entrar em contacto por WhatsApp em breve para confirmar o pagamento.",
     "guestSignoff": "Com os melhores cumprimentos,",
     "hostSignoff": "Cristina Alberto",

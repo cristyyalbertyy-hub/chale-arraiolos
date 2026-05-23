@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Chalé Arraiolos",
+    "brand": "Chalé do Avô Bedi",
     "region": "Alentejo, Portugal",
     "language": "Language",
     "personOne": "1 person",
@@ -10,7 +10,7 @@
     "noExtraCost": "No extra charge"
   },
   "nav": {
-    "chalet": "The chalet",
+    "chalet": "Chalé do Avô Bedi",
     "host": "Your host",
     "amenities": "Amenities",
     "gallery": "Gallery",
@@ -23,20 +23,20 @@
   "hero": {
     "location": "Arraiolos · Alentejo",
     "title": "Your refuge in the heart of Alentejo",
-    "subtitle": "Independent wooden chalet with garden. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition. Minutes from the historic centre and famous Arraiolos rugs — ideal for couples, families or group getaways.",
+    "subtitle": "Chalé do Avô Bedi — a wooden home with garden. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition. Minutes from the historic centre and famous Arraiolos rugs — ideal for couples, families or group getaways.",
     "ctaAvailability": "Check availability",
     "ctaDiscover": "Discover the space",
     "guests": "Guests",
     "guestsValue": "Up to 4",
     "lodging": "Accommodation",
-    "lodgingValue": "Wooden chalet",
+    "lodgingValue": "Chalé do Avô Bedi",
     "weekend": "Weekend package",
     "weekendValue": "€200 · 2 nights"
   },
   "about": {
-    "eyebrow": "The chalet",
+    "eyebrow": "Chalé do Avô Bedi",
     "title": "Alentejo tradition, modern comfort",
-    "p1": "This wooden chalet was restored with respect for local architecture, keeping its rustic charm while adding every comfort for a relaxed holiday. The bathroom is in the courtyard, 5 metres from the chalet living room, following feng shui tradition (outside the rental unit). The living room with fireplace and fully equipped kitchen invite you to live at Alentejo pace. The garden has the Fonte dos Pés Felizes and a 4-metre-high viewpoint in a tree house.",
+    "p1": "Chalé do Avô Bedi, a wooden home, was restored with respect for local architecture, keeping its rustic charm while adding every comfort for a relaxed holiday. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition (outside the rental unit). The living room with fireplace and fully equipped kitchen invite you to live at Alentejo pace. The garden has the Fonte dos Pés Felizes and a 4-metre-high viewpoint in a tree house.",
     "p2": "Arraiolos is about 1 hour from Lisbon. Stroll to the castle, visit tapestry studios and taste regional wines — all minutes from home.",
     "checklist": [
       "Flexible check-in (3pm–8pm)",
@@ -44,7 +44,7 @@
       "Final cleaning included",
       "Towels and bed linen included"
     ],
-    "photoChalet": "Wooden chalet in Alentejo, surrounded by greenery",
+    "photoChalet": "Chalé do Avô Bedi in Alentejo, surrounded by greenery",
     "photoRoom": "Cosy bedroom",
     "photoGarden": "Courtyard at dusk, bench, lanterns, swing and garden lights"
   },
@@ -52,7 +52,7 @@
     "eyebrow": "About your host",
     "name": "Cristina Alberto",
     "bio": "Hello, I'm Cristina Alberto. Retired university professor, PhD in Virtual Reality from UCL London, founder of Rotaract Estarreja. I returned to Arraiolos, my grandparents' land, to welcome those who want to slow down.",
-    "photoAlt": "Cristina Alberto, host of Chalé Arraiolos"
+    "photoAlt": "Cristina Alberto, host of Chalé do Avô Bedi"
   },
   "amenities": {
     "eyebrow": "Amenities",
@@ -60,7 +60,7 @@
     "activitiesLink": "View and select activities →",
     "bathroom": {
       "label": "Courtyard bathroom · 5 m",
-      "description": "In the courtyard, 5 m from the chalet living room, following feng shui tradition"
+      "description": "In the courtyard, 5 m from the Chalé do Avô Bedi living room, following feng shui tradition"
     },
     "bedroom": {
       "label": "1 bedroom · 2 beds in living room",
@@ -113,7 +113,7 @@
   "activities": {
     "eyebrow": "Activities",
     "title": "Experiences tailored to you",
-    "intro": "Each guest can choose different activities and meals. Indicate how many people take part in each (maximum {{max}} per option — chalet capacity).",
+    "intro": "Each guest can choose different activities and meals. Indicate how many people take part in each (maximum {{max}} per option — Chalé do Avô Bedi capacity).",
     "creativeTitle": "Creative activities",
     "mealsTitle": "Optional meals",
     "peopleShort": "Ppl.",
@@ -189,10 +189,10 @@
   },
   "email": {
     "hostSubject": "New booking — {{name}} ({{checkIn}} → {{checkOut}})",
-    "hostHeading": "New booking · Chalé Arraiolos",
-    "guestSubject": "Booking request received — Chalé Arraiolos",
+    "hostHeading": "New booking · Chalé do Avô Bedi",
+    "guestSubject": "Booking request received — Chalé do Avô Bedi",
     "guestGreeting": "Hello {{name}},",
-    "guestBody": "We have received your booking request at Chalé Arraiolos.",
+    "guestBody": "We have received your booking request at Chalé do Avô Bedi.",
     "guestWhatsApp": "I will contact you on WhatsApp shortly to confirm payment.",
     "guestSignoff": "Best regards,",
     "hostSignoff": "Cristina Alberto",

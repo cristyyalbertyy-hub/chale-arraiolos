@@ -1,6 +1,6 @@
-# Chalé Arraiolos
+# Chalé do Avô Bedi
 
-Aplicação web de reservas para um chalé em Arraiolos, Alentejo.
+Aplicação web de reservas para o Chalé do Avô Bedi em Arraiolos, Alentejo.
 
 ## Tecnologias
 
@@ -32,7 +32,7 @@ Abra [http://localhost:5173](http://localhost:5173) no browser.
 | -------- | ------- |
 | `RESEND_API_KEY` | `re_...` |
 | `BOOKING_TO_EMAIL` | O seu email (onde recebe cada reserva) |
-| `BOOKING_FROM_EMAIL` | `Chalé Arraiolos <onboarding@resend.dev>` |
+| `BOOKING_FROM_EMAIL` | `Chalé do Avô Bedi <onboarding@resend.dev>` |
 
 4. Faça **Redeploy**.
 

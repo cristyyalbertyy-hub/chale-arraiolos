@@ -5,7 +5,7 @@ import { getIntlLocale } from './locale'
 
 /** Pacote de fim de semana (2 noites) */
 export const WEEKEND_BASE_PRICE = 200
-/** Capacidade máxima do chalé */
+/** Capacidade máxima do Chalé do Avô Bedi */
 export const MAX_PEOPLE = 4
 
 export function getTotalPeople(adults: number, children: number): number {
