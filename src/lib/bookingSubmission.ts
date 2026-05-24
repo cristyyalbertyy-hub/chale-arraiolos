@@ -3,7 +3,8 @@ import {
   formatActivitySelectionLabel,
   getActivityLineTotal,
 } from './activities'
-import { formatCurrency, getBookingTotal } from './booking'
+import { formatCurrency, getBookingTotal, STAY_NIGHTS } from './booking'
+import { getNightCount, parseLocalDate } from './dates'
 import type { BookingFormData } from '../types/booking'
 import type { ActivitySelection } from '../types/activity'
 
@@ -75,6 +76,7 @@ export function buildBookingEmailContent(
     `${L('phone')}: ${form.phone.trim()}`,
     `${L('checkIn')}: ${form.checkIn}`,
     `${L('checkOut')}: ${form.checkOut}`,
+    `Noites: ${getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))} (estadia de ${STAY_NIGHTS} noite)`,
     `${L('adults')}: ${form.adults}`,
     `${L('children')}: ${form.children}`,
     `${L('totalPeople')}: ${pricing.people}`,

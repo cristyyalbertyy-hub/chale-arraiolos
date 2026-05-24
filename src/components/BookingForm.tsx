@@ -6,9 +6,14 @@ import {
   formatCurrency,
   getBookingTotal,
   MAX_PEOPLE,
-  WEEKEND_BASE_PRICE,
+  STAY_BASE_PRICE,
+  STAY_NIGHTS,
 } from '../lib/booking'
-import { parseLocalDate, rangeOverlapsOccupied } from '../lib/dates'
+import {
+  getNightCount,
+  parseLocalDate,
+  rangeOverlapsOccupied,
+} from '../lib/dates'
 import {
   formatActivitySelectionLabel,
   getActivityLineTotal,
@@ -63,7 +68,12 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     if (form.checkIn && form.checkOut) {
       const start = parseLocalDate(form.checkIn)
       const end = parseLocalDate(form.checkOut)
-      if (rangeOverlapsOccupied(start, end, occupiedDates)) {
+      const nights = getNightCount(start, end)
+      if (nights < STAY_NIGHTS) {
+        next.checkOut = t('booking.errors.minNights', { count: STAY_NIGHTS })
+      } else if (nights > STAY_NIGHTS) {
+        next.checkOut = t('booking.errors.maxNights', { count: STAY_NIGHTS })
+      } else if (rangeOverlapsOccupied(start, end, occupiedDates)) {
         next.checkOut = t('booking.errors.occupied')
       }
     }
@@ -163,7 +173,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
               <p className="text-sm text-sand">{t('booking.weekendPackage')}</p>
               <p className="font-display text-3xl font-semibold text-cream">
-                {formatCurrency(WEEKEND_BASE_PRICE, lang)}
+                {formatCurrency(STAY_BASE_PRICE, lang)}
               </p>
               <p className="mt-2 text-sm text-sand/80">{t('booking.plusActivities')}</p>
               <p className="mt-1 text-sm text-sand/80">

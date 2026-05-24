@@ -3,8 +3,11 @@ import type { BookingTotal } from '../types/booking'
 import { getActivitiesTotal } from './activities'
 import { getIntlLocale } from './locale'
 
-/** Pacote de fim de semana (2 noites) */
-export const WEEKEND_BASE_PRICE = 200
+/** Estadia padrão: 1 noite */
+export const STAY_NIGHTS = 1
+export const STAY_BASE_PRICE = 100
+/** @deprecated Use STAY_BASE_PRICE */
+export const WEEKEND_BASE_PRICE = STAY_BASE_PRICE
 /** Capacidade máxima do Chalé do Avô Bedi */
 export const MAX_PEOPLE = 4
 
@@ -19,7 +22,7 @@ export function getBookingTotal(
 ): BookingTotal {
   const people = getTotalPeople(adults, children)
   const activities = getActivitiesTotal(activitySelections)
-  const base = WEEKEND_BASE_PRICE
+  const base = STAY_BASE_PRICE
 
   return {
     base,

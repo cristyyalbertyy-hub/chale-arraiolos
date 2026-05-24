@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
-import { format, startOfDay } from 'date-fns'
+import { addDays, format, startOfDay } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
+import { STAY_NIGHTS } from '../lib/booking'
 import { occupiedDates } from '../data/occupiedDates'
 import { getDateFnsLocale } from '../lib/locale'
 import {
+  getNightCount,
   isOccupiedDate,
   isPastDate,
+  normalizeStayRange,
   parseLocalDate,
   rangeOverlapsOccupied,
   toISODate,
@@ -49,30 +52,50 @@ export function AvailabilityCalendar({
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
 
-  const ranges = useMemo(
-    () => [
+  const ranges = useMemo(() => {
+    const startDate = checkIn ? parseLocalDate(checkIn) : new Date()
+    const endDate = checkOut
+      ? parseLocalDate(checkOut)
+      : checkIn
+        ? addDays(parseLocalDate(checkIn), STAY_NIGHTS)
+        : startDate
+
+    return [
       {
-        startDate: checkIn ? parseLocalDate(checkIn) : new Date(),
-        endDate: checkOut ? parseLocalDate(checkOut) : new Date(),
+        startDate,
+        endDate,
         key: 'selection',
       },
-    ],
-    [checkIn, checkOut],
-  )
+    ]
+  }, [checkIn, checkOut])
+
+  const nightCount =
+    checkIn && checkOut
+      ? getNightCount(parseLocalDate(checkIn), parseLocalDate(checkOut))
+      : 0
 
   function handleChange(rangesByKey: RangeKeyDict) {
     const { startDate, endDate } = rangesByKey.selection
     if (!startDate) return
 
     const start = startOfDay(startDate)
-    const end = endDate ? startOfDay(endDate) : start
 
-    if (endDate && rangeOverlapsOccupied(start, end, occupiedDates)) {
+    if (!endDate) {
+      onRangeChange(toISODate(start), '')
+      return
+    }
+
+    const { checkIn: normalizedIn, checkOut: normalizedOut } = normalizeStayRange(
+      start,
+      endDate,
+    )
+
+    if (rangeOverlapsOccupied(normalizedIn, normalizedOut, occupiedDates)) {
       onOccupiedConflict?.()
       return
     }
 
-    onRangeChange(toISODate(start), endDate ? toISODate(end) : '')
+    onRangeChange(toISODate(normalizedIn), toISODate(normalizedOut))
   }
 
   return (
@@ -124,6 +147,13 @@ export function AvailabilityCalendar({
               {' · '}
               <span className="font-medium text-olive">{t('calendar.checkOut')}</span>{' '}
               {format(parseLocalDate(checkOut), dateFormat, { locale: dateLocale })}
+              <span className="font-medium text-olive">
+                {' · '}
+                {t(
+                  nightCount === 1 ? 'calendar.nightsOne' : 'calendar.nightsMany',
+                  { count: nightCount },
+                )}
+              </span>
             </>
           ) : checkIn ? (
             <>
