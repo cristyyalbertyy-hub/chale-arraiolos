@@ -20,7 +20,7 @@ import {
 } from '../lib/activities'
 import { submitBooking } from '../lib/submitBooking'
 import type { ActivitySelection } from '../types/activity'
-import { occupiedDates } from '../data/occupiedDates'
+import { useOccupiedDates } from '../hooks/useOccupiedDates'
 
 interface BookingFormProps {
   activitySelections: ActivitySelection[]
@@ -40,6 +40,7 @@ const initialForm: BookingFormData = {
 export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language.split('-')[0]
+  const { occupiedDates, refresh: refreshOccupied } = useOccupiedDates()
 
   const [form, setForm] = useState<BookingFormData>(initialForm)
   const [submitted, setSubmitted] = useState(false)
@@ -117,6 +118,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     }
 
     setSubmitted(true)
+    void refreshOccupied()
   }
 
   function handleNewBooking() {

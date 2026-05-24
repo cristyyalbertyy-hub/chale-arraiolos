@@ -158,7 +158,7 @@
     "submitting": "A enviar reserva…",
     "footnote": "* Datas obrigatórias. O pagamento será confirmado por WhatsApp após a reserva.",
     "successTitle": "Reserva submetida",
-    "successMessage": "Reserva submetida. Vou receber os seus dados e entrarei em contacto por WhatsApp dentro de minutos para confirmar o pagamento.",
+    "successMessage": "Reserva submetida. As datas ficam reservadas durante 15 minutos. Entrarei em contacto por WhatsApp com os dados de pagamento — confirme o pagamento nesse prazo para manter a reserva.",
     "successTotal": "Total estimado da estadia:",
     "newBooking": "Nova reserva",
     "errors": {
@@ -190,6 +190,32 @@
   },
   "footer": {
     "location": "Arraiolos · Alentejo"
+  },
+  "admin": {
+    "loginTitle": "Gestão de reservas",
+    "loginHint": "Área reservada à anfitriã. Use a palavra-passe definida na Vercel (ADMIN_SECRET).",
+    "password": "Palavra-passe",
+    "login": "Entrar",
+    "logout": "Sair",
+    "backToSite": "← Voltar ao site",
+    "title": "Gestão de reservas",
+    "subtitle": "Confirme o pagamento ou liberte as datas",
+    "kvWarning": "A base de dados (Redis/Upstash) não está ligada — os bloqueios automáticos de 15 minutos não funcionam. Veja o README.",
+    "pendingTitle": "À espera de pagamento",
+    "pendingHint": "Tem 15 minutos desde o pedido. Se não pagar, as datas libertam-se sozinhas.",
+    "confirmedTitle": "Pagamento confirmado",
+    "noPending": "Nenhuma reserva pendente.",
+    "noConfirmed": "Nenhuma reserva confirmada activa.",
+    "loading": "A carregar…",
+    "countdown": "Expira em {{time}}",
+    "confirmPayment": "Pagamento recebido — manter bloqueado",
+    "releaseDates": "Libertar datas",
+    "cancelBooking": "Cancelar",
+    "errors": {
+      "load": "Não foi possível carregar as reservas",
+      "action": "Não foi possível actualizar a reserva",
+      "network": "Erro de rede"
+    }
   },
   "email": {
     "hostSubject": "Nova reserva — {{name}} ({{checkIn}} → {{checkOut}})",

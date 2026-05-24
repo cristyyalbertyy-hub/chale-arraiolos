@@ -7,6 +7,8 @@ import {
   type BookingSubmission,
 } from './lib/email'
 import { createServerTranslator, isAppLanguage } from './lib/i18n'
+import { createHold } from './lib/calendar-store'
+import { HOLD_MINUTES } from './lib/calendar-types'
 
 const ENV_ALIASES = {
   apiKey: ['RESEND_API_KEY', 'resend_api_key'],
@@ -109,7 +111,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: validationError })
     }
 
-    const hostEmail = buildBookingEmailContent(submission, tHost)
+    const holdResult = await createHold({
+      checkIn: submission.form.checkIn,
+      checkOut: submission.form.checkOut,
+      guestName: submission.form.name.trim(),
+      guestEmail: submission.form.email.trim(),
+      guestPhone: submission.form.phone.trim(),
+    })
+
+    if ('error' in holdResult) {
+      if (holdResult.error === 'DATES_UNAVAILABLE') {
+        return res.status(409).json({
+          error:
+            'Essas datas acabaram de ser reservadas por outro hóspede. Escolha outras datas.',
+        })
+      }
+      if (holdResult.error === 'KV_NOT_CONFIGURED') {
+        console.warn('Vercel KV não configurado — datas não bloqueadas automaticamente')
+      }
+    }
+
+    const holdNote =
+      'error' in holdResult
+        ? ''
+        : `\n\n⏱ Reserva pendente de pagamento (${HOLD_MINUTES} min). Gerir em /gestao — ID: ${holdResult.hold.id}`
+
+    const hostEmail = buildBookingEmailContent(submission, tHost, holdNote)
     const guestEmail = buildGuestConfirmationEmail(submission, tGuest)
     const resend = new Resend(apiKey)
 
@@ -141,7 +168,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       console.error('Resend guest email error:', guestResult.error)
     }
 
-    return res.status(200).json({ ok: true })
+    return res.status(200).json({
+      ok: true,
+      holdId: 'error' in holdResult ? undefined : holdResult.hold.id,
+      holdExpiresAt: 'error' in holdResult ? undefined : holdResult.hold.expiresAt,
+    })
   } catch (err) {
     console.error('send-booking error:', err)
     const detail = err instanceof Error ? err.message : 'erro desconhecido'

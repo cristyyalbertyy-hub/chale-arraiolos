@@ -6,7 +6,7 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
 import { STAY_NIGHTS } from '../lib/booking'
-import { occupiedDates } from '../data/occupiedDates'
+import { useOccupiedDates } from '../hooks/useOccupiedDates'
 import { getDateFnsLocale } from '../lib/locale'
 import {
   getNightCount,
@@ -48,6 +48,7 @@ export function AvailabilityCalendar({
   onOccupiedConflict,
 }: AvailabilityCalendarProps) {
   const { t, i18n } = useTranslation()
+  const { occupiedDates } = useOccupiedDates()
   const months = useCalendarMonths()
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')

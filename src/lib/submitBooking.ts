@@ -32,6 +32,8 @@ function messageFromHtmlOrText(text: string, status: number): string | null {
 
 function messageForStatus(status: number): string {
   switch (status) {
+    case 409:
+      return 'Essas datas acabaram de ser reservadas. Escolha outras datas no calendário.'
     case 404:
       return 'Serviço de reservas não encontrado (404). É necessário publicar na Vercel com a API incluída e fazer Redeploy.'
     case 503:

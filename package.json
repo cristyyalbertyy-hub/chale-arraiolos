@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@upstash/redis": "^1.38.0",
     "date-fns": "^4.2.1",
     "i18next": "^26.2.0",
     "i18next-browser-languagedetector": "^8.2.1",

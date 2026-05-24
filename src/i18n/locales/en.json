@@ -158,7 +158,7 @@
     "submitting": "Sending booking…",
     "footnote": "* Dates required. Payment will be confirmed via WhatsApp after booking.",
     "successTitle": "Booking submitted",
-    "successMessage": "Booking submitted. I will receive your details and contact you on WhatsApp within minutes to confirm payment.",
+    "successMessage": "Booking submitted. Your dates are held for 15 minutes. I will contact you on WhatsApp with payment details — please pay within that time to keep the booking.",
     "successTotal": "Estimated stay total:",
     "newBooking": "New booking",
     "errors": {
@@ -190,6 +190,32 @@
   },
   "footer": {
     "location": "Arraiolos · Alentejo"
+  },
+  "admin": {
+    "loginTitle": "Booking management",
+    "loginHint": "Host area only. Use the password set in Vercel (ADMIN_SECRET).",
+    "password": "Password",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "backToSite": "← Back to site",
+    "title": "Booking management",
+    "subtitle": "Confirm payment or release dates",
+    "kvWarning": "Database (Redis/Upstash) is not connected — 15-minute holds will not work. See README.",
+    "pendingTitle": "Awaiting payment",
+    "pendingHint": "Guests have 15 minutes from booking. Unpaid holds release automatically.",
+    "confirmedTitle": "Payment confirmed",
+    "noPending": "No pending bookings.",
+    "noConfirmed": "No active confirmed bookings.",
+    "loading": "Loading…",
+    "countdown": "Expires in {{time}}",
+    "confirmPayment": "Payment received — keep blocked",
+    "releaseDates": "Release dates",
+    "cancelBooking": "Cancel",
+    "errors": {
+      "load": "Could not load bookings",
+      "action": "Could not update booking",
+      "network": "Network error"
+    }
   },
   "email": {
     "hostSubject": "New booking — {{name}} ({{checkIn}} → {{checkOut}})",

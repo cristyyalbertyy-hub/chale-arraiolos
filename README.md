@@ -64,6 +64,36 @@ Cada submissão envia:
 
 Copie `.env.example` para `.env.local` apenas se usar `vercel dev` em local.
 
+## Calendário e pagamento (15 minutos)
+
+Quando um hóspede submete uma reserva:
+
+1. As **datas ficam bloqueadas** no calendário durante **15 minutos**.
+2. Recebe o email e envia os dados de pagamento por **WhatsApp**.
+3. Se o hóspede pagar a tempo, confirma na área de gestão.
+4. Se **não pagar** em 15 min, as datas **libertam-se sozinhas**.
+
+### Configurar (Vercel)
+
+1. **Storage** → [Upstash Redis](https://vercel.com/marketplace?category=storage&search=redis) → **Connect** ao projecto (cria `KV_REST_API_URL` / `KV_REST_API_TOKEN` ou `UPSTASH_*`).
+2. Variável **`ADMIN_SECRET`** — palavra-passe só sua (ex.: uma frase longa aleatória).
+3. **Redeploy**.
+
+### Área de gestão (só para si)
+
+Abra no browser:
+
+`https://o-seu-dominio.vercel.app/gestao`
+
+| Botão | O que faz |
+| ----- | --------- |
+| **Pagamento recebido — manter bloqueado** | Hóspede pagou → datas ficam ocupadas (sem limite de 15 min) |
+| **Libertar datas** | Pagamento não veio ou desistiu → datas voltam a estar livres |
+
+O email que recebe inclui o **ID da reserva** e o aviso dos 15 minutos.
+
+Dias bloqueados manualmente (época alta, etc.) estão em `src/data/manualBlockedDates.ts` (e cópia em `api/lib/manual-blocks.ts`).
+
 ## Scripts
 
 | Comando           | Descrição                   |

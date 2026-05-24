@@ -71,6 +71,7 @@ function escapeHtml(value: string): string {
 export function buildBookingEmailContent(
   submission: BookingSubmission,
   t: TFunction,
+  hostFooterNote = '',
 ): { subject: string; text: string; html: string } {
   const { form, activitySelections, locale } = submission
   const pricing = getBookingTotal(
@@ -101,6 +102,7 @@ export function buildBookingEmailContent(
     '',
     `${t('email.labels.activitiesSection')}:`,
     activityLines,
+    hostFooterNote,
   ].join('\n')
 
   const html = `
@@ -124,6 +126,7 @@ export function buildBookingEmailContent(
       </ul>
       <p style="margin: 1.25rem 0 0.5rem; font-weight: 600; color: #4a5d3f;">${escapeHtml(t('email.labels.activitiesSection'))}</p>
       <pre style="white-space: pre-wrap; font-family: inherit; background: #faf6f0; padding: 1rem; border-radius: 8px; margin: 0;">${escapeHtml(activityLines)}</pre>
+      ${hostFooterNote ? `<p style="margin-top: 1rem; padding: 0.75rem; background: #fff3e6; border-radius: 8px; font-size: 0.9rem;">${escapeHtml(hostFooterNote.trim())}</p>` : ''}
     </div>
   `.trim()
 

@@ -158,7 +158,7 @@
     "submitting": "Envoi en cours…",
     "footnote": "* Dates obligatoires. Le paiement sera confirmé par WhatsApp après la réservation.",
     "successTitle": "Réservation envoyée",
-    "successMessage": "Réservation envoyée. Je recevrai vos informations et vous contacterai sur WhatsApp dans quelques minutes pour confirmer le paiement.",
+    "successMessage": "Réservation envoyée. Les dates sont retenues pendant 15 minutes. Je vous contacterai sur WhatsApp pour le paiement — merci de régler dans ce délai.",
     "successTotal": "Total estimé du séjour :",
     "newBooking": "Nouvelle réservation",
     "errors": {
@@ -190,6 +190,32 @@
   },
   "footer": {
     "location": "Arraiolos · Alentejo"
+  },
+  "admin": {
+    "loginTitle": "Gestion des réservations",
+    "loginHint": "Espace réservé à l'hôte. Utilisez le mot de passe défini sur Vercel (ADMIN_SECRET).",
+    "password": "Mot de passe",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "backToSite": "← Retour au site",
+    "title": "Gestion des réservations",
+    "subtitle": "Confirmez le paiement ou libérez les dates",
+    "kvWarning": "Base de données (Redis/Upstash) non connectée — les blocages de 15 minutes ne fonctionnent pas. Voir le README.",
+    "pendingTitle": "En attente de paiement",
+    "pendingHint": "15 minutes après la demande. Sans paiement, les dates se libèrent automatiquement.",
+    "confirmedTitle": "Paiement confirmé",
+    "noPending": "Aucune réservation en attente.",
+    "noConfirmed": "Aucune réservation confirmée active.",
+    "loading": "Chargement…",
+    "countdown": "Expire dans {{time}}",
+    "confirmPayment": "Paiement reçu — garder bloqué",
+    "releaseDates": "Libérer les dates",
+    "cancelBooking": "Annuler",
+    "errors": {
+      "load": "Impossible de charger les réservations",
+      "action": "Impossible de mettre à jour",
+      "network": "Erreur réseau"
+    }
   },
   "email": {
     "hostSubject": "Nouvelle réservation — {{name}} ({{checkIn}} → {{checkOut}})",
