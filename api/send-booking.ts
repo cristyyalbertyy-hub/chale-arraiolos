@@ -102,10 +102,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     : 'pt'
 
   try {
-    const [tHost, tGuest] = await Promise.all([
-      createServerTranslator('pt'),
-      createServerTranslator(guestLocale),
-    ])
+    const tHost = createServerTranslator('pt')
+    const tGuest = createServerTranslator(guestLocale)
 
     const validationError = validateBookingSubmission(submission, tGuest)
     if (validationError) {

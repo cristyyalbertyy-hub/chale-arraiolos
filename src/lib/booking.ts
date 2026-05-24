@@ -1,7 +1,16 @@
 import type { ActivitySelection } from '../types/activity'
 import type { BookingTotal } from '../types/booking'
 import { getActivitiesTotal } from './activities'
-import { getIntlLocale } from './locale'
+
+const intlLocales: Record<string, string> = {
+  pt: 'pt-PT',
+  en: 'en-GB',
+  fr: 'fr-FR',
+}
+
+function intlLocaleFor(lang: string): string {
+  return intlLocales[lang] ?? intlLocales.pt
+}
 
 /** Estadia padrão: 1 noite */
 export const STAY_NIGHTS = 1
@@ -33,7 +42,7 @@ export function getBookingTotal(
 }
 
 export function formatCurrency(value: number, lang = 'pt'): string {
-  return new Intl.NumberFormat(getIntlLocale(lang), {
+  return new Intl.NumberFormat(intlLocaleFor(lang), {
     style: 'currency',
     currency: 'EUR',
   }).format(value)
