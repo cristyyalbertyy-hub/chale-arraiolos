@@ -36,6 +36,8 @@ Abra [http://localhost:5173](http://localhost:5173) no browser.
 
 4. Faça **Redeploy** (obrigatório após alterar variáveis).
 
+A API de reservas vive em `api/` (código isolado para a Vercel). Ao alterar traduções em `src/i18n/locales/`, o `npm run build` copia-as automaticamente para `api/locales/`.
+
 ### Testar a API
 
 Abra no browser (site já publicado na Vercel):

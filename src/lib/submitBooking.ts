@@ -1,6 +1,6 @@
 import type { BookingFormData } from '../types/booking'
 import type { ActivitySelection } from '../types/activity'
-import type { BookingSubmission } from './bookingSubmission'
+import type { BookingSubmission } from '../types/bookingSubmission'
 
 function messageFromJsonBody(text: string): string | null {
   try {

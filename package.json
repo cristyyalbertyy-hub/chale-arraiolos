@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "sync-api-locales": "node scripts/sync-api-locales.mjs",
+    "build": "npm run sync-api-locales && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },

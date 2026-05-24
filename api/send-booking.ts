@@ -5,9 +5,8 @@ import {
   buildGuestConfirmationEmail,
   validateBookingSubmission,
   type BookingSubmission,
-} from '../src/lib/bookingSubmission'
-import { createServerTranslator } from '../src/i18n/server'
-import { isAppLanguage } from '../src/i18n/resources'
+} from './lib/email'
+import { createServerTranslator, isAppLanguage } from './lib/i18n'
 
 const ENV_ALIASES = {
   apiKey: ['RESEND_API_KEY', 'resend_api_key'],
@@ -140,7 +139,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (guestResult.error) {
       console.error('Resend guest email error:', guestResult.error)
-      // Anfitriã já foi notificada — reserva conta como enviada
     }
 
     return res.status(200).json({ ok: true })

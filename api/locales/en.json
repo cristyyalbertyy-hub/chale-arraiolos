@@ -1,0 +1,219 @@
+{
+  "common": {
+    "brand": "Chalé do Avô Bedi",
+    "region": "Alentejo, Portugal",
+    "language": "Language",
+    "personOne": "1 person",
+    "personMany": "{{count}} people",
+    "none": "None",
+    "perPerson": "/person",
+    "noExtraCost": "No extra charge"
+  },
+  "nav": {
+    "chalet": "Chalé do Avô Bedi",
+    "host": "Your host",
+    "amenities": "Amenities",
+    "gallery": "Gallery",
+    "activities": "Activities",
+    "book": "Book",
+    "bookStay": "Book your stay",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "location": "Arraiolos · Alentejo",
+    "title": "Your refuge in the heart of Alentejo",
+    "subtitle": "Chalé do Avô Bedi — a wooden home with garden. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition. Minutes from the historic centre and famous Arraiolos rugs — ideal for couples, families or group getaways.",
+    "ctaAvailability": "Check availability",
+    "ctaDiscover": "Discover the space",
+    "guests": "Guests",
+    "guestsValue": "Up to 4",
+    "lodging": "Accommodation",
+    "lodgingValue": "Chalé do Avô Bedi",
+    "weekend": "Weekend package",
+    "weekendValue": "€100 · 1 night"
+  },
+  "about": {
+    "eyebrow": "Chalé do Avô Bedi",
+    "title": "Alentejo tradition, modern comfort",
+    "p1": "Chalé do Avô Bedi, a wooden home, was restored with respect for local architecture, keeping its rustic charm while adding every comfort for a relaxed holiday. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition (outside the rental unit). The living room with fireplace and fully equipped kitchen invite you to live at Alentejo pace. The garden has the Fonte dos Pés Felizes and a 4-metre-high viewpoint in a tree house.",
+    "p2": "Arraiolos is about 1 hour from Lisbon. Stroll to the castle, visit tapestry studios and taste regional wines — all minutes from home.",
+    "checklist": [
+      "Flexible check-in (3pm–8pm)",
+      "1-night stay",
+      "Final cleaning included",
+      "Towels and bed linen included"
+    ],
+    "photoChalet": "Chalé do Avô Bedi in Alentejo, surrounded by greenery",
+    "photoRoom": "Cosy bedroom",
+    "photoGarden": "Courtyard at dusk, bench, lanterns, swing and garden lights"
+  },
+  "host": {
+    "eyebrow": "About your host",
+    "name": "Cristina Alberto",
+    "bio": "Hello, I'm Cristina Alberto. Retired university professor, PhD in Virtual Reality from UCL London, founder of Rotaract Estarreja. I returned to Arraiolos, my grandparents' land, to welcome those who want to slow down.",
+    "photoAlt": "Cristina Alberto, host of Chalé do Avô Bedi"
+  },
+  "amenities": {
+    "eyebrow": "Amenities",
+    "title": "Everything included for a perfect stay",
+    "activitiesLink": "View and select activities →",
+    "bathroom": {
+      "label": "Courtyard bathroom · 5 m",
+      "description": "In the courtyard, 5 m from the Chalé do Avô Bedi living room, following feng shui tradition"
+    },
+    "bedroom": {
+      "label": "1 bedroom · 2 beds in living room",
+      "description": "One bedroom and two beds in the living room, bed linen included"
+    },
+    "kitchen": {
+      "label": "Equipped kitchen",
+      "description": "Everything you need to prepare meals"
+    },
+    "fire": {
+      "label": "Courtyard fire pit",
+      "description": "Cosy evenings outdoors in the garden"
+    },
+    "garden": {
+      "label": "Private garden",
+      "description": "Lawn, shade and barbecue"
+    },
+    "wifi": {
+      "label": "Wi-Fi",
+      "description": "Broadband internet throughout"
+    },
+    "parking": {
+      "label": "Parking",
+      "description": "Free space right at the door"
+    },
+    "historic": {
+      "label": "Historic centre",
+      "description": "5 minutes' walk to Arraiolos"
+    },
+    "activities": {
+      "label": "Optional activities",
+      "description": "Workshops, meals and experiences — choose how many people join each one"
+    }
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "spacesTitle": "Spaces you'll love",
+    "momentsTitle": "Moments you'll love",
+    "openImage": "Open image: {{alt}}",
+    "close": "Close",
+    "prev": "Previous image",
+    "next": "Next image",
+    "images": {
+      "charca": "Small pool and pond in the garden",
+      "castelo": "View of Arraiolos castle at dusk, terrace with lawn",
+      "breakfast": "Alentejo breakfast on the table — bread, cheese and olives",
+      "cookies": "Fresh homemade biscuits from the oven"
+    }
+  },
+  "activities": {
+    "eyebrow": "Activities",
+    "title": "Experiences tailored to you",
+    "intro": "Each guest can choose different activities and meals. Indicate how many people take part in each (maximum {{max}} per option — Chalé do Avô Bedi capacity).",
+    "creativeTitle": "Creative activities",
+    "mealsTitle": "Optional meals",
+    "peopleShort": "Ppl.",
+    "peopleIn": "Number of people for {{name}}",
+    "selectedOne": "{{count}} option selected",
+    "selectedMany": "{{count}} options selected",
+    "subtotalNote": "— activities and meals subtotal already reflected in the booking form.",
+    "items": {
+      "pintura-acrilica": "🎨 Acrylic painting – unleash creativity with castle views",
+      "aguarela": "🖌️ Watercolour – light brushstrokes, colours that breathe with Alentejo",
+      "bolachas-caseiras": "🍪 Homemade biscuits – my grandmother's recipe",
+      "chocolate-dubai": "🍫 Dubai chocolate – the viral trend, now in Alentejo",
+      "costura-criativa": "🧵 Creative sewing – learn or revisit",
+      "mosaico": "🧩 Mosaic – pieces, colour and patience; take your work home",
+      "madeira": "🪵 Woodwork – small builds with hand tools",
+      "bonecos-feltro": "🧸 Felt dolls – a keepsake for your suitcase",
+      "conversa-passeio": "☕ Chat or stroll – at your pace, no rush",
+      "jantar-caseiro": "🍷 Homemade dinner – with regional wine",
+      "pequeno-almoco": "🥐 Alentejo breakfast – warm bread, cheese, olives"
+    }
+  },
+  "booking": {
+    "eyebrow": "Book",
+    "title": "Plan your stay",
+    "intro": "Choose your dates, fill in your details and send your booking request. We will contact you on WhatsApp to confirm payment.",
+    "weekendPackage": "Stay · 1 night",
+    "plusActivities": "+ activities (price × people per activity)",
+    "capacity": "Capacity: up to {{max}} people",
+    "datesLegend": "Choose dates *",
+    "yourDetails": "Your details",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Mobile",
+    "phonePlaceholder": "+351 912 345 678",
+    "adults": "Number of adults",
+    "children": "Number of children",
+    "estimatedTotal": "Estimated total",
+    "activitiesSubtotal": "Activities subtotal",
+    "total": "Total",
+    "selectDatesHint": "Select dates on the calendar to complete your booking.",
+    "submit": "Submit booking",
+    "submitting": "Sending booking…",
+    "footnote": "* Dates required. Payment will be confirmed via WhatsApp after booking.",
+    "successTitle": "Booking submitted",
+    "successMessage": "Booking submitted. I will receive your details and contact you on WhatsApp within minutes to confirm payment.",
+    "successTotal": "Estimated stay total:",
+    "newBooking": "New booking",
+    "errors": {
+      "checkIn": "Select check-in date on the calendar",
+      "checkOut": "Select check-out date on the calendar",
+      "occupied": "This period includes already booked days",
+      "occupiedPick": "This period includes already booked days. Please choose other dates.",
+      "minNights": "Check-out must be at least {{count}} night after check-in",
+      "maxNights": "We only accept {{count}} night per booking",
+      "name": "Please enter your name",
+      "email": "Please enter a valid email",
+      "phone": "Please enter your mobile number",
+      "adults": "Please enter at least 1 adult",
+      "children": "Invalid number of children",
+      "maxPeople": "Maximum capacity: {{max}} people (adults + children)",
+      "activityPeople": "Each activity can have at most {{max}} participant(s) (booking total)"
+    }
+  },
+  "calendar": {
+    "available": "Available",
+    "occupied": "Booked",
+    "checkIn": "Check-in:",
+    "checkOut": "Check-out:",
+    "checkInOnly": "Check-in:",
+    "selectCheckout": " — select check-out (1 night)",
+    "nightsOne": "{{count}} night",
+    "nightsMany": "{{count}} nights",
+    "dateFormat": "MMMM d, yyyy"
+  },
+  "footer": {
+    "location": "Arraiolos · Alentejo"
+  },
+  "email": {
+    "hostSubject": "New booking — {{name}} ({{checkIn}} → {{checkOut}})",
+    "hostHeading": "New booking · Chalé do Avô Bedi",
+    "guestSubject": "Booking request received — Chalé do Avô Bedi",
+    "guestGreeting": "Hello {{name}},",
+    "guestBody": "We have received your booking request at Chalé do Avô Bedi.",
+    "guestWhatsApp": "I will contact you on WhatsApp shortly to confirm payment.",
+    "guestSignoff": "Best regards,",
+    "hostSignoff": "Cristina Alberto",
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Mobile",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "adults": "Adults",
+      "children": "Children",
+      "totalPeople": "Total guests",
+      "pricing": "Pricing",
+      "stay": "Stay (1 night)",
+      "activitiesMeals": "Activities and meals",
+      "estimatedTotal": "Estimated total",
+      "activitiesSection": "Activities and meals"
+    }
+  }
+}

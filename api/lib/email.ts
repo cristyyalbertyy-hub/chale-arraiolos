@@ -1,18 +1,15 @@
 import type { TFunction } from 'i18next'
+import { getActivityLineTotal } from './activities'
 import {
-  formatActivitySelectionLabel,
-  getActivityLineTotal,
-} from './activities'
-import { formatCurrency, getBookingTotal, STAY_NIGHTS } from './booking'
-import { getNightCount, parseLocalDate } from './dates'
-import type { BookingFormData } from '../types/booking'
-import type { ActivitySelection } from '../types/activity'
+  formatCurrency,
+  getBookingTotal,
+  getNightCount,
+  parseLocalDate,
+  STAY_NIGHTS,
+} from './booking'
+import type { ActivitySelection, BookingSubmission } from './types'
 
-export interface BookingSubmission {
-  locale: string
-  form: BookingFormData
-  activitySelections: ActivitySelection[]
-}
+export type { BookingSubmission } from './types'
 
 export function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -35,6 +32,18 @@ export function validateBookingSubmission(
   return null
 }
 
+function formatActivitySelectionLabel(
+  selection: ActivitySelection,
+  t: TFunction,
+): string {
+  const name = t(`activities.items.${selection.id}`)
+  const peopleLabel =
+    selection.people === 1
+      ? t('common.personOne')
+      : t('common.personMany', { count: selection.people })
+  return `${name} (${peopleLabel})`
+}
+
 function buildActivityLines(
   selections: ActivitySelection[],
   t: TFunction,
@@ -51,14 +60,18 @@ function buildActivityLines(
     .join('\n')
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 export function buildBookingEmailContent(
   submission: BookingSubmission,
   t: TFunction,
-): {
-  subject: string
-  text: string
-  html: string
-} {
+): { subject: string; text: string; html: string } {
   const { form, activitySelections, locale } = submission
   const pricing = getBookingTotal(
     activitySelections,
@@ -126,11 +139,7 @@ export function buildBookingEmailContent(
 export function buildGuestConfirmationEmail(
   submission: BookingSubmission,
   t: TFunction,
-): {
-  subject: string
-  text: string
-  html: string
-} {
+): { subject: string; text: string; html: string } {
   const { form, locale } = submission
   const pricing = getBookingTotal(
     submission.activitySelections,
@@ -172,12 +181,4 @@ export function buildGuestConfirmationEmail(
     text,
     html,
   }
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
 }
