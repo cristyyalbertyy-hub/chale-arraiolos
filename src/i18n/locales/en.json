@@ -24,7 +24,7 @@
     "location": "Arraiolos · Alentejo",
     "title": "Your refuge in the heart of Alentejo",
     "subtitle": "Chalé do Avô Bedi — a wooden home with garden. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition. Minutes from the historic centre and famous Arraiolos rugs — ideal for couples, families or group getaways.",
-    "ctaAvailability": "Check availability",
+    "ctaAvailability": "Book now",
     "ctaDiscover": "Discover the space",
     "guests": "Guests",
     "guestsValue": "Up to 4",
@@ -134,6 +134,27 @@
       "jantar-caseiro": "🍷 Homemade dinner – with regional wine",
       "pequeno-almoco": "🥐 Alentejo breakfast – warm bread, cheese, olives"
     }
+  },
+  "cancellation": {
+    "consent": "By booking, you agree to our cancellation policy.",
+    "openPolicy": "View full policy",
+    "title": "Cancellation Policy – Chalé do Avô Bedi",
+    "intro": "For your peace of mind and mine, this is our policy:",
+    "tableDeadline": "Timing",
+    "tableRefund": "Refund",
+    "row1Deadline": "Up to 30 days before check-in",
+    "row1Refund": "Full refund (100%)",
+    "row2Deadline": "15 to 29 days before check-in",
+    "row2Refund": "50% refund",
+    "row3Deadline": "Less than 14 days before check-in",
+    "row3Refund": "No refund",
+    "exceptionsTitle": "Exceptions (contact me directly):",
+    "exception1": "Illness or accident",
+    "exception2": "Extreme weather (red warning)",
+    "exception3": "If you find another guest for the same dates",
+    "closing": "If something unexpected happens, talk to me. We will find what works best for both of us.",
+    "signoff": "Cristina",
+    "close": "Close"
   },
   "booking": {
     "eyebrow": "Book",

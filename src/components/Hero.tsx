@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { CancellationPolicyNotice } from './CancellationPolicy'
 
 export function Hero() {
   const { t } = useTranslation()
@@ -24,7 +25,9 @@ export function Hero() {
         <p className="mt-4 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
           {t('hero.subtitle')}
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-8 max-w-xl">
+          <CancellationPolicyNotice variant="hero" />
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
             href="#reservar"
             className="inline-flex items-center justify-center rounded-full bg-terracotta px-8 py-3.5 text-center font-semibold text-cream transition-colors hover:bg-terracotta-dark"
@@ -37,6 +40,7 @@ export function Hero() {
           >
             {t('hero.ctaDiscover')}
           </a>
+          </div>
         </div>
         <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-cream/20 pt-8 sm:max-w-lg">
           <div>

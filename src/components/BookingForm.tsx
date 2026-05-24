@@ -18,6 +18,7 @@ import {
   formatActivitySelectionLabel,
   getActivityLineTotal,
 } from '../lib/activities'
+import { CancellationPolicyNotice } from './CancellationPolicy'
 import { submitBooking } from '../lib/submitBooking'
 import type { ActivitySelection } from '../types/activity'
 import { useOccupiedDates } from '../hooks/useOccupiedDates'
@@ -366,9 +367,13 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               </p>
             )}
 
+            <div className="mt-6">
+              <CancellationPolicyNotice variant="booking" />
+            </div>
+
             <button
               type="submit"
-              className="mt-8 w-full rounded-full bg-terracotta py-4 text-base font-semibold text-cream transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-10"
+              className="mt-4 w-full rounded-full bg-terracotta py-4 text-base font-semibold text-cream transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-10"
               disabled={!hasDates || isSubmitting}
             >
               {isSubmitting ? t('booking.submitting') : t('booking.submit')}

@@ -24,7 +24,7 @@
     "location": "Arraiolos · Alentejo",
     "title": "Votre refuge au cœur de l'Alentejo",
     "subtitle": "Le Chalé do Avô Bedi, en bois et avec jardin. La salle de bain est dans la cour, à 5 mètres du salon, selon la tradition feng shui. À quelques minutes du centre historique et des célèbres tapis d'Arraiolos — idéal pour couples, familles ou escapades en groupe.",
-    "ctaAvailability": "Voir les disponibilités",
+    "ctaAvailability": "Réserver maintenant",
     "ctaDiscover": "Découvrir l'espace",
     "guests": "Voyageurs",
     "guestsValue": "Jusqu'à 4",
@@ -134,6 +134,27 @@
       "jantar-caseiro": "🍷 Dîner maison – avec vin de la région",
       "pequeno-almoco": "🥐 Petit-déjeuner alentejano – pain chaud, fromage, olives"
     }
+  },
+  "cancellation": {
+    "consent": "En réservant, vous acceptez notre politique d'annulation.",
+    "openPolicy": "Voir la politique complète",
+    "title": "Politique d'annulation – Chalé do Avô Bedi",
+    "intro": "Pour votre tranquillité et la mienne, voici notre politique :",
+    "tableDeadline": "Délai",
+    "tableRefund": "Remboursement",
+    "row1Deadline": "Jusqu'à 30 jours avant l'arrivée",
+    "row1Refund": "Remboursement total (100 %)",
+    "row2Deadline": "Entre 15 et 29 jours avant l'arrivée",
+    "row2Refund": "Remboursement de 50 %",
+    "row3Deadline": "Moins de 14 jours avant l'arrivée",
+    "row3Refund": "Aucun remboursement",
+    "exceptionsTitle": "Exceptions (contactez-moi directement) :",
+    "exception1": "Maladie ou accident",
+    "exception2": "Conditions météo extrêmes (alerte rouge)",
+    "exception3": "Si vous trouvez un autre hôte pour les mêmes dates",
+    "closing": "Si l'imprévu arrive, parlez-m'en. Nous trouverons une solution qui nous convient.",
+    "signoff": "Cristina",
+    "close": "Fermer"
   },
   "booking": {
     "eyebrow": "Réserver",
