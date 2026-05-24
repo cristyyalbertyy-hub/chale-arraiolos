@@ -36,11 +36,21 @@ Abra [http://localhost:5173](http://localhost:5173) no browser.
 
 4. Faça **Redeploy** (obrigatório após alterar variáveis).
 
+### Testar a API
+
+Abra no browser (site já publicado na Vercel):
+
+`https://o-seu-dominio.vercel.app/api/health`
+
+Deve aparecer JSON parecido com `{"ok":true,"emailConfigured":true}`. Se vir HTML ou 404, a API não está activa — veja Root Directory abaixo.
+
 ### Resolução de problemas
 
 | Sintoma | Solução |
 | -------- | -------- |
+| Mensagem genérica «contacte-nos por WhatsApp» | Site antigo em cache — faça **Redeploy** do último commit. A versão actual mostra `[503]`, `[502]`, etc. com detalhe. |
 | «Não foi possível enviar a reserva» | Confirme os nomes exactos: `RESEND_API_KEY`, `BOOKING_TO_EMAIL`, `BOOKING_FROM_EMAIL`. Faça **Redeploy**. |
+| `/api/health` dá 404 ou HTML | Na Vercel → **Settings** → **Root Directory** = `chale-arraiolos` (se o repositório tiver essa pasta). |
 | Erro de domínio / remetente | Em testes use `BOOKING_FROM_EMAIL=Chalé do Avô Bedi <onboarding@resend.dev>` |
 | Email não chega | Em testes, `BOOKING_TO_EMAIL` tem de ser o **mesmo email da conta Resend** |
 | API 404 em local | Normal com `npm run dev` — use `npx vercel dev` ou teste no site publicado |

@@ -148,9 +148,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ ok: true })
   } catch (err) {
     console.error('send-booking error:', err)
+    const detail = err instanceof Error ? err.message : 'erro desconhecido'
     return res.status(500).json({
-      error:
-        'Erro interno ao processar a reserva. Se persistir, contacte-nos por WhatsApp.',
+      error: `Erro no servidor ao processar a reserva: ${detail}`,
     })
   }
 }
