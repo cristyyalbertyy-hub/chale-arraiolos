@@ -34,7 +34,16 @@ Abra [http://localhost:5173](http://localhost:5173) no browser.
 | `BOOKING_TO_EMAIL` | O seu email (onde recebe cada reserva) |
 | `BOOKING_FROM_EMAIL` | `Chalé do Avô Bedi <onboarding@resend.dev>` |
 
-4. Faça **Redeploy**.
+4. Faça **Redeploy** (obrigatório após alterar variáveis).
+
+### Resolução de problemas
+
+| Sintoma | Solução |
+| -------- | -------- |
+| «Não foi possível enviar a reserva» | Confirme os nomes exactos: `RESEND_API_KEY`, `BOOKING_TO_EMAIL`, `BOOKING_FROM_EMAIL`. Faça **Redeploy**. |
+| Erro de domínio / remetente | Em testes use `BOOKING_FROM_EMAIL=Chalé do Avô Bedi <onboarding@resend.dev>` |
+| Email não chega | Em testes, `BOOKING_TO_EMAIL` tem de ser o **mesmo email da conta Resend** |
+| API 404 em local | Normal com `npm run dev` — use `npx vercel dev` ou teste no site publicado |
 
 Cada submissão envia:
 
