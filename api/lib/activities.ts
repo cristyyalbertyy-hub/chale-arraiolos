@@ -10,14 +10,17 @@ const ACTIVITY_PRICES: Record<string, number> = {
   mosaico: 30,
   madeira: 30,
   'bonecos-feltro': 25,
-  'conversa-passeio': 15,
+  'passeio-guiado': 20,
   'jantar-caseiro': 30,
   'pequeno-almoco': 10,
 }
 
+const FIXED_PRICE_ACTIVITIES = new Set(['passeio-guiado'])
+
 export function getActivityLineTotal(selection: ActivitySelection): number {
   const price = ACTIVITY_PRICES[selection.id]
   if (price === undefined) return 0
+  if (FIXED_PRICE_ACTIVITIES.has(selection.id)) return price
   return price * selection.people
 }
 

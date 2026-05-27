@@ -104,8 +104,15 @@
     "prev": "Image précédente",
     "next": "Image suivante",
     "images": {
-      "charca": "Petite piscine et bassin dans le jardin",
-      "castelo": "Vue sur le château d'Arraiolos au crépuscule, terrasse avec pelouse",
+      "chalet": "Le chalet en Alentejo",
+      "relax": "Coin détente dans le jardin",
+      "livingRoom": "Salon avec lits",
+      "terrace": "Terrasse et vue",
+      "gardenTree": "Jardin et arbres",
+      "treeHouse": "Cabane dans l'arbre et belvédère",
+      "bathroom": "Salle de bain",
+      "outdoorWc": "WC dans la cour",
+      "wcDetail": "Salle de bain — détail",
       "breakfast": "Petit-déjeuner alentejano sur la table — pain, fromage et olives",
       "cookies": "Biscuits maison tout juste sortis du four"
     }
@@ -130,7 +137,7 @@
       "mosaico": "🧩 Mosaïque – pièces, couleur et patience ; emportez votre œuvre",
       "madeira": "🪵 Bois – petites constructions avec outils manuels",
       "bonecos-feltro": "🧸 Poupées en feutre – un souvenir dans votre valise",
-      "conversa-passeio": "☕ Conversation ou promenade – à votre rythme, sans presse",
+      "passeio-guiado": "🚶 Visite guidée à pied",
       "jantar-caseiro": "🍷 Dîner maison – avec vin de la région",
       "pequeno-almoco": "🥐 Petit-déjeuner alentejano – pain chaud, fromage, olives"
     }

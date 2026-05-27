@@ -6,6 +6,7 @@ import {
   formatDuration,
   getActivitiesTotal,
   getActivityName,
+  isFixedPriceActivity,
 } from '../lib/activities'
 import type { Activity } from '../types/activity'
 import type { ActivitySelection } from '../types/activity'
@@ -36,6 +37,7 @@ function ActivityCard({
 }: ActivityCardProps) {
   const { t, i18n } = useTranslation()
   const isMeal = activity.category === 'meal'
+  const fixedPrice = isFixedPriceActivity(activity)
   const name = getActivityName(activity.id, t)
   const lang = i18n.language.split('-')[0]
 
@@ -48,27 +50,29 @@ function ActivityCard({
             : 'border-sand bg-white'
         }`}
       >
-        <div className="flex shrink-0 flex-col items-center gap-1">
-          <label
-            htmlFor={`people-${activity.id}`}
-            className="text-[10px] font-medium uppercase tracking-wide text-stone-muted"
-          >
-            {t('activities.peopleShort')}
-          </label>
-          <input
-            id={`people-${activity.id}`}
-            type="number"
-            min={1}
-            max={MAX_PEOPLE}
-            value={people}
-            disabled={!checked}
-            aria-label={t('activities.peopleIn', { name })}
-            onChange={(e) =>
-              onSetPeople(activity.id, Number(e.target.value) || 1)
-            }
-            className="w-12 rounded-lg border border-sand bg-white px-1 py-2 text-center text-sm font-semibold text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20 disabled:cursor-not-allowed disabled:bg-sand/50 disabled:text-stone-muted"
-          />
-        </div>
+        {!fixedPrice && (
+          <div className="flex shrink-0 flex-col items-center gap-1">
+            <label
+              htmlFor={`people-${activity.id}`}
+              className="text-[10px] font-medium uppercase tracking-wide text-stone-muted"
+            >
+              {t('activities.peopleShort')}
+            </label>
+            <input
+              id={`people-${activity.id}`}
+              type="number"
+              min={1}
+              max={MAX_PEOPLE}
+              value={people}
+              disabled={!checked}
+              aria-label={t('activities.peopleIn', { name })}
+              onChange={(e) =>
+                onSetPeople(activity.id, Number(e.target.value) || 1)
+              }
+              className="w-12 rounded-lg border border-sand bg-white px-1 py-2 text-center text-sm font-semibold text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20 disabled:cursor-not-allowed disabled:bg-sand/50 disabled:text-stone-muted"
+            />
+          </div>
+        )}
 
         <label className="flex min-w-0 flex-1 cursor-pointer gap-3">
           <input
@@ -85,7 +89,7 @@ function ActivityCard({
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-muted">
               <span className="font-medium text-terracotta">
-                {formatActivityPrice(activity.pricePerPerson, t, lang)}
+                {formatActivityPrice(activity, t, lang)}
               </span>
               {activity.durationHours !== null && (
                 <span>{formatDuration(activity.durationHours)}</span>

@@ -16,7 +16,9 @@ import {
 } from '../lib/dates'
 import {
   formatActivitySelectionLabel,
+  getActivityById,
   getActivityLineTotal,
+  isFixedPriceActivity,
 } from '../lib/activities'
 import { CancellationPolicyNotice } from './CancellationPolicy'
 import { submitBooking } from '../lib/submitBooking'
@@ -89,9 +91,11 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     if (pricing.people > MAX_PEOPLE) {
       next.adults = t('booking.errors.maxPeople', { max: MAX_PEOPLE })
     }
-    const invalidActivity = activitySelections.find(
-      (s) => s.people < 1 || s.people > MAX_PEOPLE || s.people > pricing.people,
-    )
+    const invalidActivity = activitySelections.find((s) => {
+      const activity = getActivityById(s.id)
+      if (activity && isFixedPriceActivity(activity)) return false
+      return s.people < 1 || s.people > MAX_PEOPLE || s.people > pricing.people
+    })
     if (invalidActivity) {
       next.adults =
         next.adults ??

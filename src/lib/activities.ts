@@ -24,27 +24,31 @@ export function getSelectedActivities(
     .filter((a): a is Activity => a !== undefined)
 }
 
+export function isFixedPriceActivity(activity: Activity): boolean {
+  return activity.pricingMode === 'fixed'
+}
+
 export function getActivitiesTotal(selections: ActivitySelection[]): number {
-  return selections.reduce((sum, selection) => {
-    const activity = getActivityById(selection.id)
-    if (!activity) return sum
-    return sum + activity.pricePerPerson * selection.people
-  }, 0)
+  return selections.reduce((sum, selection) => sum + getActivityLineTotal(selection), 0)
 }
 
 export function getActivityLineTotal(selection: ActivitySelection): number {
   const activity = getActivityById(selection.id)
   if (!activity) return 0
+  if (isFixedPriceActivity(activity)) return activity.pricePerPerson
   return activity.pricePerPerson * selection.people
 }
 
 export function formatActivityPrice(
-  price: number,
+  activity: Activity,
   t: TFunction,
   lang: string,
 ): string {
-  if (price === 0) return t('common.noExtraCost')
-  return `${formatCurrency(price, lang)}${t('common.perPerson')}`
+  if (activity.pricePerPerson === 0) return t('common.noExtraCost')
+  if (isFixedPriceActivity(activity)) {
+    return formatCurrency(activity.pricePerPerson, lang)
+  }
+  return `${formatCurrency(activity.pricePerPerson, lang)}${t('common.perPerson')}`
 }
 
 export function formatActivitySelectionLabel(
@@ -54,6 +58,7 @@ export function formatActivitySelectionLabel(
   const activity = getActivityById(selection.id)
   if (!activity) return ''
   const name = getActivityName(activity.id, t)
+  if (isFixedPriceActivity(activity)) return name
   const peopleLabel =
     selection.people === 1
       ? t('common.personOne')

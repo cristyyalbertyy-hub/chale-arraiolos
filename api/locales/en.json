@@ -104,8 +104,15 @@
     "prev": "Previous image",
     "next": "Next image",
     "images": {
-      "charca": "Small pool and pond in the garden",
-      "castelo": "View of Arraiolos castle at dusk, terrace with lawn",
+      "chalet": "The cottage in the Alentejo",
+      "relax": "Relaxing area in the garden",
+      "livingRoom": "Living room with beds",
+      "terrace": "Terrace and view",
+      "gardenTree": "Garden and trees",
+      "treeHouse": "Tree house and lookout",
+      "bathroom": "Bathroom",
+      "outdoorWc": "Outdoor WC in the yard",
+      "wcDetail": "Bathroom — detail",
       "breakfast": "Alentejo breakfast on the table — bread, cheese and olives",
       "cookies": "Fresh homemade biscuits from the oven"
     }
@@ -130,7 +137,7 @@
       "mosaico": "🧩 Mosaic – pieces, colour and patience; take your work home",
       "madeira": "🪵 Woodwork – small builds with hand tools",
       "bonecos-feltro": "🧸 Felt dolls – a keepsake for your suitcase",
-      "conversa-passeio": "☕ Chat or stroll – at your pace, no rush",
+      "passeio-guiado": "🚶 Guided walk",
       "jantar-caseiro": "🍷 Homemade dinner – with regional wine",
       "pequeno-almoco": "🥐 Alentejo breakfast – warm bread, cheese, olives"
     }

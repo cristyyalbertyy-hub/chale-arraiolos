@@ -10,7 +10,7 @@ export const creativeActivityIds = [
   'mosaico',
   'madeira',
   'bonecos-feltro',
-  'conversa-passeio',
+  'passeio-guiado',
 ] as const
 
 export const activities: Activity[] = [
@@ -63,10 +63,11 @@ export const activities: Activity[] = [
     category: 'workshop',
   },
   {
-    id: 'conversa-passeio',
-    pricePerPerson: 15,
-    durationHours: 1.5,
+    id: 'passeio-guiado',
+    pricePerPerson: 20,
+    durationHours: null,
     category: 'workshop',
+    pricingMode: 'fixed',
   },
   {
     id: 'jantar-caseiro',
