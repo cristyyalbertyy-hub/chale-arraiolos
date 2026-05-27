@@ -63,8 +63,8 @@
       "description": "No quintal, a 5 m da sala do Chalé do Avô Bedi, segundo a tradição feng shui"
     },
     "bedroom": {
-      "label": "1 quarto · 2 camas na sala",
-      "description": "Um quarto e duas camas na sala de estar, com roupa de cama incluída"
+      "label": "1 quarto de casal + 2 camas na sala",
+      "description": "Um quarto de casal e duas camas na sala de estar, com roupa de cama incluída"
     },
     "kitchen": {
       "label": "Cozinha equipada",
@@ -111,6 +111,7 @@
       "gardenTree": "Jardim e árvores",
       "treeHouse": "Casa na árvore e miradouro",
       "bathroom": "Casa de banho",
+      "bathroomWc": "Casa de banho e WC no quintal",
       "outdoorWc": "WC no quintal",
       "wcDetail": "Casa de banho — detalhe",
       "breakfast": "Pequeno-almoço alentejano na mesa — pão, queijo e azeitonas",

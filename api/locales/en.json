@@ -63,8 +63,8 @@
       "description": "In the courtyard, 5 m from the Chalé do Avô Bedi living room, following feng shui tradition"
     },
     "bedroom": {
-      "label": "1 bedroom · 2 beds in living room",
-      "description": "One bedroom and two beds in the living room, bed linen included"
+      "label": "1 double bedroom + 2 beds in living room",
+      "description": "One double bedroom and two beds in the living room, bed linen included"
     },
     "kitchen": {
       "label": "Equipped kitchen",
@@ -111,6 +111,7 @@
       "gardenTree": "Garden and trees",
       "treeHouse": "Tree house and lookout",
       "bathroom": "Bathroom",
+      "bathroomWc": "Bathroom and outdoor WC",
       "outdoorWc": "Outdoor WC in the yard",
       "wcDetail": "Bathroom — detail",
       "breakfast": "Alentejo breakfast on the table — bread, cheese and olives",

@@ -13,8 +13,7 @@ const spaceImages: GalleryImage[] = [
   { src: '/images/galeria_varanda.jpg', altKey: 'gallery.images.terrace' },
   { src: '/images/galeria_tree.jpg', altKey: 'gallery.images.gardenTree' },
   { src: '/images/galeria_tree1.jpg', altKey: 'gallery.images.treeHouse' },
-  { src: '/images/galeria_toilete.jpg', altKey: 'gallery.images.bathroom' },
-  { src: '/images/galeria_wc.jpg', altKey: 'gallery.images.outdoorWc' },
+  { src: '/images/galeria_wc.png', altKey: 'gallery.images.bathroomWc' },
   { src: '/images/galeria_WC1.jpg', altKey: 'gallery.images.wcDetail' },
 ]
 

@@ -63,8 +63,8 @@
       "description": "Dans la cour, à 5 m du salon du Chalé do Avô Bedi, selon la tradition feng shui"
     },
     "bedroom": {
-      "label": "1 chambre · 2 lits au salon",
-      "description": "Une chambre et deux lits au salon, linge de lit inclus"
+      "label": "1 chambre double + 2 lits au salon",
+      "description": "Une chambre double et deux lits au salon, linge de lit inclus"
     },
     "kitchen": {
       "label": "Cuisine équipée",
@@ -111,6 +111,7 @@
       "gardenTree": "Jardin et arbres",
       "treeHouse": "Cabane dans l'arbre et belvédère",
       "bathroom": "Salle de bain",
+      "bathroomWc": "Salle de bain et WC dans la cour",
       "outdoorWc": "WC dans la cour",
       "wcDetail": "Salle de bain — détail",
       "breakfast": "Petit-déjeuner alentejano sur la table — pain, fromage et olives",
