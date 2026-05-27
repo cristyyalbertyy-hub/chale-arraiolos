@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { creativeActivities, culturalActivities, mealActivities } from '../data/activities'
+import { groupActivities, mealActivities, perPersonActivities } from '../data/activities'
 import { MAX_PEOPLE } from '../lib/booking'
 import {
   formatActivityPrice,
@@ -169,26 +169,31 @@ export function Activities({ selections, onChange }: ActivitiesProps) {
 
         <div className="mt-10">
           <h3 className="font-display text-xl font-semibold text-olive sm:text-2xl">
-            {t('activities.creativeTitle')}
+            {t('activities.perPersonTitle')}
           </h3>
+          <p className="mt-2 max-w-2xl text-sm text-stone-muted">
+            {t('activities.perPersonIntro', { max: MAX_PEOPLE })}
+          </p>
+          <div className="mt-6">
           <ActivityGrid
-            items={creativeActivities}
+            items={perPersonActivities}
             selections={selections}
             onToggle={toggle}
             onSetPeople={setPeople}
           />
+          </div>
         </div>
 
         <div className="mt-14 sm:mt-16">
           <h3 className="font-display text-xl font-semibold text-olive sm:text-2xl">
-            {t('activities.culturalTitle')}
+            {t('activities.groupTitle')}
           </h3>
           <p className="mt-2 max-w-2xl text-sm text-stone-muted">
-            {t('activities.culturalIntro')}
+            {t('activities.groupIntro')}
           </p>
           <div className="mt-6">
             <ActivityGrid
-              items={culturalActivities}
+              items={groupActivities}
               selections={selections}
               onToggle={toggle}
               onSetPeople={setPeople}

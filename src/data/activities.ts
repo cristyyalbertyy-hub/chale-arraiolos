@@ -1,7 +1,7 @@
 import type { Activity } from '../types/activity'
 
-/** Actividades criativas visíveis na reserva (ordem de apresentação) */
-export const creativeActivityIds = [
+/** Preço por pessoa — com selector de participantes */
+export const perPersonActivityIds = [
   'pintura-acrilica',
   'aguarela',
   'bolachas-caseiras',
@@ -10,12 +10,12 @@ export const creativeActivityIds = [
   'mosaico',
   'madeira',
   'bonecos-feltro',
-  'passeio-guiado',
+  'tapete-arraiolos',
 ] as const
 
-/** Tradições e experiências culturais */
-export const culturalActivityIds = [
-  'tapete-arraiolos',
+/** Preço por grupo — sem selector de pessoas */
+export const groupActivityIds = [
+  'passeio-guiado',
   'contador-historias',
   'momento-fado',
   'cantares-alentejanos',
@@ -71,24 +71,24 @@ export const activities: Activity[] = [
     category: 'workshop',
   },
   {
-    id: 'passeio-guiado',
-    pricePerPerson: 20,
-    durationHours: null,
-    category: 'workshop',
-    pricingMode: 'fixed',
-  },
-  {
     id: 'tapete-arraiolos',
     pricePerPerson: 20,
     durationHours: 2,
     category: 'workshop',
   },
   {
+    id: 'passeio-guiado',
+    pricePerPerson: 20,
+    durationHours: null,
+    category: 'workshop',
+    pricingMode: 'group',
+  },
+  {
     id: 'contador-historias',
     pricePerPerson: 20,
     durationHours: null,
     category: 'workshop',
-    pricingMode: 'fixed',
+    pricingMode: 'group',
   },
   {
     id: 'momento-fado',
@@ -136,12 +136,15 @@ export const activities: Activity[] = [
   },
 ]
 
-export const creativeActivities = creativeActivityIds
+export const perPersonActivities = perPersonActivityIds
   .map((id) => activities.find((a) => a.id === id))
   .filter((a): a is Activity => a !== undefined)
 
-export const culturalActivities = culturalActivityIds
+export const groupActivities = groupActivityIds
   .map((id) => activities.find((a) => a.id === id))
   .filter((a): a is Activity => a !== undefined)
+
+/** @deprecated use perPersonActivities */
+export const creativeActivities = perPersonActivities
 
 export const mealActivities = activities.filter((a) => a.category === 'meal')

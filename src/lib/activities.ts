@@ -24,16 +24,20 @@ export function getSelectedActivities(
     .filter((a): a is Activity => a !== undefined)
 }
 
-export function isFixedPriceActivity(activity: Activity): boolean {
-  return activity.pricingMode === 'fixed'
+export function isGroupPriceActivity(activity: Activity): boolean {
+  return activity.pricingMode === 'group'
 }
 
 export function isPriceOnRequestActivity(activity: Activity): boolean {
   return activity.pricingMode === 'onRequest'
 }
 
+export function isPerPersonActivity(activity: Activity): boolean {
+  return !isGroupPriceActivity(activity) && !isPriceOnRequestActivity(activity)
+}
+
 export function hidesPeopleSelector(activity: Activity): boolean {
-  return isFixedPriceActivity(activity)
+  return isGroupPriceActivity(activity) || isPriceOnRequestActivity(activity)
 }
 
 export function getActivitiesTotal(selections: ActivitySelection[]): number {
@@ -43,7 +47,7 @@ export function getActivitiesTotal(selections: ActivitySelection[]): number {
 export function getActivityLineTotal(selection: ActivitySelection): number {
   const activity = getActivityById(selection.id)
   if (!activity || isPriceOnRequestActivity(activity)) return 0
-  if (isFixedPriceActivity(activity)) return activity.pricePerPerson
+  if (isGroupPriceActivity(activity)) return activity.pricePerPerson
   return activity.pricePerPerson * selection.people
 }
 
@@ -52,11 +56,13 @@ export function formatActivityPrice(
   t: TFunction,
   lang: string,
 ): string {
-  if (isPriceOnRequestActivity(activity)) return t('activities.priceOnRequest')
-  if (activity.pricePerPerson === 0) return t('common.noExtraCost')
-  if (isFixedPriceActivity(activity)) {
-    return formatCurrency(activity.pricePerPerson, lang)
+  if (isPriceOnRequestActivity(activity)) {
+    return `${t('activities.priceOnRequest')} · ${t('activities.perGroup')}`
   }
+  if (isGroupPriceActivity(activity)) {
+    return `${formatCurrency(activity.pricePerPerson, lang)} · ${t('activities.perGroup')}`
+  }
+  if (activity.pricePerPerson === 0) return t('common.noExtraCost')
   return `${formatCurrency(activity.pricePerPerson, lang)}${t('common.perPerson')}`
 }
 
@@ -68,6 +74,9 @@ export function formatActivityLinePrice(
   const activity = getActivityById(selection.id)
   if (!activity) return ''
   if (isPriceOnRequestActivity(activity)) return t('activities.priceOnRequest')
+  if (isGroupPriceActivity(activity)) {
+    return `${formatCurrency(activity.pricePerPerson, lang)} (${t('activities.perGroup')})`
+  }
   return formatCurrency(getActivityLineTotal(selection), lang)
 }
 

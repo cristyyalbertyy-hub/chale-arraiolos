@@ -10,8 +10,8 @@ const ACTIVITY_PRICES: Record<string, number> = {
   mosaico: 30,
   madeira: 30,
   'bonecos-feltro': 25,
-  'passeio-guiado': 20,
   'tapete-arraiolos': 20,
+  'passeio-guiado': 20,
   'contador-historias': 20,
   almoco: 25,
   lanche: 10,
@@ -20,7 +20,12 @@ const ACTIVITY_PRICES: Record<string, number> = {
   'pequeno-almoco': 10,
 }
 
-const FIXED_PRICE_ACTIVITIES = new Set(['passeio-guiado', 'contador-historias'])
+const GROUP_PRICE_ACTIVITIES = new Set([
+  'passeio-guiado',
+  'contador-historias',
+  'momento-fado',
+  'cantares-alentejanos',
+])
 
 const ON_REQUEST_ACTIVITIES = new Set(['momento-fado', 'cantares-alentejanos'])
 
@@ -28,15 +33,15 @@ export function isPriceOnRequest(id: string): boolean {
   return ON_REQUEST_ACTIVITIES.has(id)
 }
 
-export function isFixedPrice(id: string): boolean {
-  return FIXED_PRICE_ACTIVITIES.has(id)
+export function isGroupPrice(id: string): boolean {
+  return GROUP_PRICE_ACTIVITIES.has(id) && !isPriceOnRequest(id)
 }
 
 export function getActivityLineTotal(selection: ActivitySelection): number {
   if (isPriceOnRequest(selection.id)) return 0
   const price = ACTIVITY_PRICES[selection.id]
   if (price === undefined) return 0
-  if (isFixedPrice(selection.id)) return price
+  if (isGroupPrice(selection.id)) return price
   return price * selection.people
 }
 

@@ -6,10 +6,10 @@ export interface Activity {
   category: 'workshop' | 'meal'
   /**
    * perPerson — preço × pessoas (predefinido)
-   * fixed — preço único; sem selector de pessoas
-   * onRequest — valor a confirmar com a anfitriã (não entra no total estimado)
+   * group — preço único para o grupo; sem selector de pessoas
+   * onRequest — valor a confirmar (preço por grupo; não entra no total estimado)
    */
-  pricingMode?: 'perPerson' | 'fixed' | 'onRequest'
+  pricingMode?: 'perPerson' | 'group' | 'onRequest'
 }
 
 /** Actividade seleccionada com número de participantes */

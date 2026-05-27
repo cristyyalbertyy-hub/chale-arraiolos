@@ -1,5 +1,5 @@
 import type { TFunction } from 'i18next'
-import { getActivityLineTotal, isFixedPrice, isPriceOnRequest } from './activities'
+import { getActivityLineTotal, isGroupPrice, isPriceOnRequest } from './activities'
 import {
   formatCurrency,
   getBookingTotal,
@@ -37,7 +37,7 @@ function formatActivitySelectionLabel(
   t: TFunction,
 ): string {
   const name = t(`activities.items.${selection.id}`)
-  if (isFixedPrice(selection.id)) return name
+  if (isGroupPrice(selection.id) || isPriceOnRequest(selection.id)) return name
   const peopleLabel =
     selection.people === 1
       ? t('common.personOne')
