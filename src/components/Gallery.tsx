@@ -7,7 +7,7 @@ type GalleryImage = {
 }
 
 const spaceImages: GalleryImage[] = [
-  { src: '/images/galeria_chhale.jpg', altKey: 'gallery.images.chalet' },
+  { src: '/images/galeria_chale.png', altKey: 'gallery.images.chalet' },
   { src: '/images/galeria_relax.PNG', altKey: 'gallery.images.relax' },
   { src: '/images/galeria_sala.jpg', altKey: 'gallery.images.livingRoom' },
   { src: '/images/galeria_varanda.jpg', altKey: 'gallery.images.terrace' },
