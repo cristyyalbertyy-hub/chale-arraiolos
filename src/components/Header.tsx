@@ -19,9 +19,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-sand/80 bg-cream/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
         <a href="#" className="group flex min-w-0 items-center gap-2">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-olive text-lg text-cream">
-            🏡
-          </span>
+          <img
+            src="/images/goat_circulo.png"
+            alt={t('common.brand')}
+            className="h-9 w-9 shrink-0 rounded-lg object-cover ring-1 ring-sand/70 bg-cream"
+            width={36}
+            height={36}
+            decoding="async"
+          />
           <div className="min-w-0 text-left leading-tight">
             <span className="font-display text-lg font-semibold text-olive sm:text-xl">
               {t('common.brand')}
