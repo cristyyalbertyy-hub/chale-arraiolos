@@ -104,8 +104,15 @@
     "prev": "Imagem anterior",
     "next": "Imagem seguinte",
     "images": {
-      "charca": "Pequena piscina e charca no jardim",
-      "castelo": "Vista do castelo de Arraiolos ao entardecer, terraço com relva",
+      "chalet": "O chalé no Alentejo",
+      "relax": "Zona de descanso no jardim",
+      "livingRoom": "Sala de estar com camas",
+      "terrace": "Varanda e vista",
+      "gardenTree": "Jardim e árvores",
+      "treeHouse": "Casa na árvore e miradouro",
+      "bathroom": "Casa de banho",
+      "outdoorWc": "WC no quintal",
+      "wcDetail": "Casa de banho — detalhe",
       "breakfast": "Pequeno-almoço alentejano na mesa — pão, queijo e azeitonas",
       "cookies": "Bolachas caseiras frescas do forno"
     }

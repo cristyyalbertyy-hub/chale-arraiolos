@@ -7,8 +7,15 @@ type GalleryImage = {
 }
 
 const spaceImages: GalleryImage[] = [
-  { src: '/images/galeria-charca.png', altKey: 'gallery.images.charca' },
-  { src: '/images/galeria-castelo.png', altKey: 'gallery.images.castelo' },
+  { src: '/images/galeria_chhale.jpg', altKey: 'gallery.images.chalet' },
+  { src: '/images/galeria_relax.PNG', altKey: 'gallery.images.relax' },
+  { src: '/images/galeria_sala.jpg', altKey: 'gallery.images.livingRoom' },
+  { src: '/images/galeria_varanda.jpg', altKey: 'gallery.images.terrace' },
+  { src: '/images/galeria_tree.jpg', altKey: 'gallery.images.gardenTree' },
+  { src: '/images/galeria_tree1.jpg', altKey: 'gallery.images.treeHouse' },
+  { src: '/images/galeria_toilete.jpg', altKey: 'gallery.images.bathroom' },
+  { src: '/images/galeria_wc.jpg', altKey: 'gallery.images.outdoorWc' },
+  { src: '/images/galeria_WC1.jpg', altKey: 'gallery.images.wcDetail' },
 ]
 
 const momentImages: GalleryImage[] = [

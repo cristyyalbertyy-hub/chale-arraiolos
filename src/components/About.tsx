@@ -35,7 +35,7 @@ export function About() {
             className="col-span-2 aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
           />
           <img
-            src="https://images.unsplash.com/photo-1600566753190-17f0baa42a8e?w=400&q=80"
+            src="/images/galeria_roomV.PNG"
             alt={t('about.photoRoom')}
             className="aspect-square w-full rounded-2xl object-cover shadow-md"
           />
