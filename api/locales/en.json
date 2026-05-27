@@ -138,8 +138,11 @@
       "madeira": "🪵 Woodwork – small builds with hand tools",
       "bonecos-feltro": "🧸 Felt dolls – a keepsake for your suitcase",
       "passeio-guiado": "🚶 Guided walk",
-      "jantar-caseiro": "🍷 Homemade dinner – with regional wine",
-      "pequeno-almoco": "🥐 Alentejo breakfast – warm bread, cheese, olives"
+      "pequeno-almoco": "🥐 Alentejo breakfast – warm bread, cheese, olives",
+      "almoco": "🍛 Alentejo lunch – daily special",
+      "lanche": "☕ Alentejo snack – local flavours",
+      "jantar-caseiro": "🍷 Dinner – with local wine",
+      "ceia": "🌙 Supper – light and comforting"
     }
   },
   "cancellation": {

@@ -138,8 +138,11 @@
       "madeira": "🪵 Bois – petites constructions avec outils manuels",
       "bonecos-feltro": "🧸 Poupées en feutre – un souvenir dans votre valise",
       "passeio-guiado": "🚶 Visite guidée à pied",
-      "jantar-caseiro": "🍷 Dîner maison – avec vin de la région",
-      "pequeno-almoco": "🥐 Petit-déjeuner alentejano – pain chaud, fromage, olives"
+      "pequeno-almoco": "🥐 Petit-déjeuner alentejano – pain chaud, fromage, olives",
+      "almoco": "🍛 Déjeuner alentejano – plat du jour",
+      "lanche": "☕ Goûter alentejano – saveurs locales",
+      "jantar-caseiro": "🍷 Dîner – avec vin de la région",
+      "ceia": "🌙 Souper – léger et réconfortant"
     }
   },
   "cancellation": {

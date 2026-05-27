@@ -138,8 +138,11 @@
       "madeira": "🪵 Madeira – pequenas construções com ferramentas manuais",
       "bonecos-feltro": "🧸 Bonecos de feltro – para levar uma memória na mala",
       "passeio-guiado": "🚶 Passeio guiado",
-      "jantar-caseiro": "🍷 Jantar caseiro – com vinho da região",
-      "pequeno-almoco": "🥐 Pequeno‑almoço alentejano – pão quente, queijo, azeitonas"
+      "pequeno-almoco": "🥐 Pequeno‑almoço alentejano – pão quente, queijo, azeitonas",
+      "almoco": "🍛 Almoço alentejano – prato do dia",
+      "lanche": "☕ Lanche alentejano – sabor local",
+      "jantar-caseiro": "🍷 Jantar – com vinho da região",
+      "ceia": "🌙 Ceia – leve e reconfortante"
     }
   },
   "cancellation": {

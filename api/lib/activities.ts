@@ -11,7 +11,10 @@ const ACTIVITY_PRICES: Record<string, number> = {
   madeira: 30,
   'bonecos-feltro': 25,
   'passeio-guiado': 20,
-  'jantar-caseiro': 30,
+  'almoco': 25,
+  lanche: 10,
+  'ceia': 10,
+  'jantar-caseiro': 25,
   'pequeno-almoco': 10,
 }
 
