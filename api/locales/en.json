@@ -1,4 +1,8 @@
 {
+  "bathroomNotice": {
+    "important": "IMPORTANT",
+    "message": "The bathroom is in the courtyard, 5 metres from the living room (following feng shui tradition). It is not inside the chalet."
+  },
   "common": {
     "brand": "Chalé do Avô Bedi",
     "region": "Alentejo, Portugal",
@@ -37,6 +41,7 @@
     "eyebrow": "Chalé do Avô Bedi",
     "title": "Alentejo tradition, modern comfort",
     "p1": "Chalé do Avô Bedi, a wooden home, was restored with respect for local architecture, keeping its rustic charm while adding every comfort for a relaxed holiday. The bathroom is in the courtyard, 5 metres from the living room, following feng shui tradition (outside the rental unit). The living room with fireplace and fully equipped kitchen invite you to live at Alentejo pace. The garden has the Fonte dos Pés Felizes and a 4-metre-high viewpoint in a tree house.",
+    "pGarden": "The Fonte dos Pés Felizes is a small stone basin where guests like to soak their feet at the end of the day. The lookout is the deck of the tree house, with views over the garden and the starry sky.",
     "p2": "Arraiolos is about 1 hour from Lisbon. Stroll to the castle, visit tapestry studios and taste regional wines — all minutes from home.",
     "checklist": [
       "Flexible check-in (3pm–8pm)",
@@ -47,6 +52,14 @@
     "photoRoom": "Cosy bedroom",
     "photoGarden": "Courtyard at dusk, bench, lanterns, swing and garden lights"
   },
+  "testimonials": {
+    "eyebrow": "Guest review",
+    "title": "What our guests say",
+    "alexandra": {
+      "quote": "We loved the authenticity, and Cristina Alberto is a five-star host. The Alentejo lunch was delightful and the guided walk was genuinely breathtaking. We left feeling we had made the most of every moment.",
+      "author": "Alexandra Sousa"
+    }
+  },
   "host": {
     "eyebrow": "About your host",
     "name": "Cristina Alberto",
@@ -56,7 +69,6 @@
   "amenities": {
     "eyebrow": "Amenities",
     "title": "Everything included for a perfect stay",
-    "activitiesLink": "View and select activities →",
     "bathroom": {
       "label": "Courtyard bathroom · 5 m",
       "description": "In the courtyard, 5 m from the Chalé do Avô Bedi living room, following feng shui tradition"
@@ -186,7 +198,7 @@
     "estimatedTotal": "Estimated total",
     "activitiesSubtotal": "Activities subtotal",
     "total": "Total",
-    "selectDatesHint": "Select dates on the calendar to complete your booking.",
+    "selectDatesRequired": "Please select your dates on the calendar before booking.",
     "submit": "Submit booking",
     "submitting": "Sending booking…",
     "footnote": "* Dates required. Payment will be confirmed via WhatsApp after booking.",
@@ -222,7 +234,11 @@
     "dateFormat": "MMMM d, yyyy"
   },
   "footer": {
-    "location": "Arraiolos · Alentejo"
+    "location": "Arraiolos · Alentejo",
+    "cancellationTitle": "Cancellation policy",
+    "cancellationLine1": "Free cancellation up to 30 days before check-in.",
+    "cancellationLine2": "50% refund between 15 and 29 days before check-in.",
+    "cancellationLine3": "No refund less than 14 days before check-in."
   },
   "admin": {
     "loginTitle": "Booking management",

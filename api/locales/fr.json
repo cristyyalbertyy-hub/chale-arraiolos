@@ -1,4 +1,8 @@
 {
+  "bathroomNotice": {
+    "important": "IMPORTANT",
+    "message": "La salle de bain est dans la cour, à 5 mètres du salon (selon la tradition feng shui). Elle n'est pas à l'intérieur du chalet."
+  },
   "common": {
     "brand": "Chalé do Avô Bedi",
     "region": "Alentejo, Portugal",
@@ -37,6 +41,7 @@
     "eyebrow": "Chalé do Avô Bedi",
     "title": "Tradition alentejane, confort moderne",
     "p1": "Le Chalé do Avô Bedi, en bois, a été restauré dans le respect de l'architecture locale, gardant son charme rustique tout en offrant tout le confort pour des vacances détendues. La salle de bain est dans la cour, à 5 mètres du salon, selon la tradition feng shui (hors du logement). Le salon avec cheminée et la cuisine entièrement équipée invitent au rythme lent de l'Alentejo. Le jardin abrite la Fonte dos Pés Felizes et un belvédère à 4 mètres de haut dans une cabane dans les arbres.",
+    "pGarden": "La Fonte dos Pés Felizes est un petit bassin de pierre où les hôtes aiment tremper les pieds en fin de journée. Le belvédère est la terrasse de la cabane dans les arbres, avec vue sur le jardin et le ciel étoilé.",
     "p2": "Arraiolos est à environ 1 heure de Lisbonne. Promenez-vous au château, visitez les ateliers de tapisserie et goûtez les vins de la région — tout à quelques minutes.",
     "checklist": [
       "Arrivée flexible (15h–20h)",
@@ -47,6 +52,14 @@
     "photoRoom": "Chambre accueillante",
     "photoGarden": "Cour au crépuscule, banc, lanternes, balançoire et lumières du jardin"
   },
+  "testimonials": {
+    "eyebrow": "Témoignage",
+    "title": "Ce que disent nos hôtes",
+    "alexandra": {
+      "quote": "Nous avons adoré l'authenticité, et Cristina Alberto est une hôtesse cinq étoiles. Le déjeuner alentejano était très agréable et la promenade guidée était véritablement magnifique. Nous sommes partis avec le sentiment d'avoir intensément profité de notre séjour.",
+      "author": "Alexandra Sousa"
+    }
+  },
   "host": {
     "eyebrow": "Votre hôte",
     "name": "Cristina Alberto",
@@ -56,7 +69,6 @@
   "amenities": {
     "eyebrow": "Équipements",
     "title": "Tout inclus pour un séjour parfait",
-    "activitiesLink": "Voir et choisir les activités →",
     "bathroom": {
       "label": "Salle de bain dans la cour · 5 m",
       "description": "Dans la cour, à 5 m du salon du Chalé do Avô Bedi, selon la tradition feng shui"
@@ -186,7 +198,7 @@
     "estimatedTotal": "Total estimé",
     "activitiesSubtotal": "Sous-total activités",
     "total": "Total",
-    "selectDatesHint": "Sélectionnez les dates dans le calendrier pour finaliser la réservation.",
+    "selectDatesRequired": "Veuillez sélectionner vos dates dans le calendrier avant de réserver.",
     "submit": "Envoyer la réservation",
     "submitting": "Envoi en cours…",
     "footnote": "* Dates obligatoires. Le paiement sera confirmé par WhatsApp après la réservation.",
@@ -222,7 +234,11 @@
     "dateFormat": "d MMMM yyyy"
   },
   "footer": {
-    "location": "Arraiolos · Alentejo"
+    "location": "Arraiolos · Alentejo",
+    "cancellationTitle": "Politique d'annulation",
+    "cancellationLine1": "Annulation gratuite jusqu'à 30 jours avant l'arrivée.",
+    "cancellationLine2": "Remboursement de 50 % entre 15 et 29 jours avant l'arrivée.",
+    "cancellationLine3": "Aucun remboursement moins de 14 jours avant l'arrivée."
   },
   "admin": {
     "loginTitle": "Gestion des réservations",

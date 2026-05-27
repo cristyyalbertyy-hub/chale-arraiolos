@@ -3,6 +3,7 @@
 @theme {
   --font-sans: 'DM Sans', system-ui, sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
+  --font-handwritten: 'Caveat', 'Segoe Script', cursive;
   --color-cream: #faf6f0;
   --color-sand: #e8dfd0;
   --color-terracotta: #b85c38;

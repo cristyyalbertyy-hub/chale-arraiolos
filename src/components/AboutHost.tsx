@@ -12,7 +12,7 @@ export function AboutHost() {
         <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
           <div className="shrink-0">
             <img
-              src="/images/galeria-afitrian.PNG"
+              src="/images/afitrian.png"
               alt={t('host.photoAlt')}
               className="h-52 w-52 rounded-full object-cover shadow-lg ring-4 ring-olive/15 sm:h-60 sm:w-60 lg:h-72 lg:w-72"
               width={288}

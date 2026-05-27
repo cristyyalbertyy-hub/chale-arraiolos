@@ -15,6 +15,7 @@ export function About() {
             {t('about.title')}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-stone-muted">{t('about.p1')}</p>
+          <p className="mt-4 text-base leading-relaxed text-stone-muted">{t('about.pGarden')}</p>
           <p className="mt-4 text-base leading-relaxed text-stone-muted">{t('about.p2')}</p>
           <ul className="mt-8 space-y-3">
             {checklist.map((item) => (

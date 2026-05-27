@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { BathroomNotice } from './BathroomNotice'
 import { CancellationPolicyNotice } from './CancellationPolicy'
 
 export function Hero() {
@@ -25,6 +26,9 @@ export function Hero() {
         <p className="mt-4 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
           {t('hero.subtitle')}
         </p>
+        <div className="mt-6 max-w-xl">
+          <BathroomNotice variant="hero" />
+        </div>
         <div className="mt-8 max-w-xl">
           <CancellationPolicyNotice variant="hero" />
           <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">

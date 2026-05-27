@@ -1,4 +1,8 @@
 {
+  "bathroomNotice": {
+    "important": "IMPORTANTE",
+    "message": "A casa de banho fica no quintal, a 5 metros da sala (segundo a tradição feng shui). Não fica dentro do chalé."
+  },
   "common": {
     "brand": "Chalé do Avô Bedi",
     "region": "Alentejo, Portugal",
@@ -37,6 +41,7 @@
     "eyebrow": "O Chalé do Avô Bedi",
     "title": "Tradição alentejana, conforto moderno",
     "p1": "O Chalé do Avô Bedi, em madeira, foi recuperado com respeito pela arquitetura local, mantendo o charme rústico e acrescentando todo o conforto para umas férias descontraídas. A casa de banho fica no quintal, a 5 metros da sala, segundo a tradição feng shui (fora do alojamento). A sala de estar com lareira e a cozinha totalmente equipada convidam a viver o ritmo lento do Alentejo. O jardim tem a Fonte dos Pés Felizes e um miradouro a 4 metros de altura numa casa de árvore.",
+    "pGarden": "A Fonte dos Pés Felizes é um pequeno tanque de pedra onde os hóspedes gostam de molhar os pés ao final do dia. O miradouro é o deck da casa da árvore, com vista para o jardim e o céu estrelado.",
     "p2": "Arraiolos fica a cerca de 1 hora de Lisboa. Passeie pelo castelo, visite os ateliers de tapeçaria e prove os vinhos da região — tudo a poucos minutos de casa.",
     "checklist": [
       "Check-in flexível (15h–20h)",
@@ -47,6 +52,14 @@
     "photoRoom": "Quarto acolhedor",
     "photoGarden": "Quintal ao crepúsculo, banco, candeeiros, baloiço e luzes no jardim"
   },
+  "testimonials": {
+    "eyebrow": "Depoimento",
+    "title": "O que dizem os hóspedes",
+    "alexandra": {
+      "quote": "Adorámos a autenticidade, e a Cristina Alberto é uma anfitriã de 5 estrelas. O almoço alentejano foi muito agradável e o passeio foi genuinamente deslumbrante. Partimos com a sensação de termos aproveitado intensamente.",
+      "author": "Alexandra Sousa"
+    }
+  },
   "host": {
     "eyebrow": "Sobre a anfitriã",
     "name": "Cristina Alberto",
@@ -56,7 +69,6 @@
   "amenities": {
     "eyebrow": "Comodidades",
     "title": "Tudo incluído para uma estadia perfeita",
-    "activitiesLink": "Ver e seleccionar actividades →",
     "bathroom": {
       "label": "Casa de banho no quintal · 5 m",
       "description": "No quintal, a 5 m da sala do Chalé do Avô Bedi, segundo a tradição feng shui"
@@ -186,7 +198,7 @@
     "estimatedTotal": "Total estimado",
     "activitiesSubtotal": "Subtotal actividades",
     "total": "Total",
-    "selectDatesHint": "Selecione as datas no calendário para concluir a reserva.",
+    "selectDatesRequired": "Por favor, selecione as datas no calendário antes de reservar.",
     "submit": "Submeter reserva",
     "submitting": "A enviar reserva…",
     "footnote": "* Datas obrigatórias. O pagamento será confirmado por WhatsApp após a reserva.",
@@ -222,7 +234,11 @@
     "dateFormat": "d 'de' MMMM yyyy"
   },
   "footer": {
-    "location": "Arraiolos · Alentejo"
+    "location": "Arraiolos · Alentejo",
+    "cancellationTitle": "Política de cancelamento",
+    "cancellationLine1": "Cancelamento gratuito até 30 dias antes do check-in.",
+    "cancellationLine2": "50% de reembolso entre 15 e 29 dias antes do check-in.",
+    "cancellationLine3": "Sem reembolso com menos de 14 dias antes do check-in."
   },
   "admin": {
     "loginTitle": "Gestão de reservas",

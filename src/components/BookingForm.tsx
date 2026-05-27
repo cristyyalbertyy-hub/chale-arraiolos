@@ -20,6 +20,7 @@ import {
   getActivityLineTotal,
   isFixedPriceActivity,
 } from '../lib/activities'
+import { BathroomNotice } from './BathroomNotice'
 import { CancellationPolicyNotice } from './CancellationPolicy'
 import { submitBooking } from '../lib/submitBooking'
 import type { ActivitySelection } from '../types/activity'
@@ -51,9 +52,11 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   const [errors, setErrors] = useState<Partial<Record<keyof BookingFormData, string>>>({})
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showDatesRequired, setShowDatesRequired] = useState(false)
 
   const pricing = getBookingTotal(activitySelections, form.adults, form.children)
   const hasDates = Boolean(form.checkIn && form.checkOut)
+  const datesRequiredMessage = t('booking.selectDatesRequired')
 
   function updateField<K extends keyof BookingFormData>(
     field: K,
@@ -67,8 +70,11 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   function validate(): boolean {
     const next: Partial<Record<keyof BookingFormData, string>> = {}
 
-    if (!form.checkIn) next.checkIn = t('booking.errors.checkIn')
-    if (!form.checkOut) next.checkOut = t('booking.errors.checkOut')
+    if (!form.checkIn || !form.checkOut) {
+      next.checkIn = datesRequiredMessage
+      next.checkOut = datesRequiredMessage
+      setShowDatesRequired(true)
+    }
     if (form.checkIn && form.checkOut) {
       const start = parseLocalDate(form.checkIn)
       const end = parseLocalDate(form.checkOut)
@@ -106,9 +112,28 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     return Object.keys(next).length === 0
   }
 
+  function focusDatesSection() {
+    document.getElementById('booking-dates')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    if (!validate()) return
+
+    if (!hasDates) {
+      setShowDatesRequired(true)
+      setErrors((prev) => ({
+        ...prev,
+        checkIn: datesRequiredMessage,
+        checkOut: datesRequiredMessage,
+      }))
+      focusDatesSection()
+      return
+    }
+
+    if (!validate()) {
+      if (!form.checkIn || !form.checkOut) focusDatesSection()
+      return
+    }
 
     setIsSubmitting(true)
     setSubmitError(null)
@@ -194,7 +219,9 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             className="lg:col-span-3 rounded-2xl bg-cream p-6 shadow-xl sm:p-8"
             noValidate
           >
-            <fieldset>
+            <BathroomNotice variant="booking" />
+
+            <fieldset id="booking-dates" className="mt-6">
               <legend className="mb-3 block text-sm font-semibold text-olive">
                 {t('booking.datesLegend')}
               </legend>
@@ -210,6 +237,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                     checkIn: undefined,
                     checkOut: undefined,
                   }))
+                  if (checkIn && checkOut) setShowDatesRequired(false)
                 }}
                 onOccupiedConflict={() => {
                   setErrors((prev) => ({
@@ -219,8 +247,24 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                 }}
               />
 
-              {(errors.checkIn || errors.checkOut) && (
-                <p className="mt-2 text-sm text-terracotta">
+              {!hasDates && (
+                <p
+                  role="alert"
+                  className={`mt-3 rounded-xl border px-4 py-3 text-sm font-medium leading-relaxed ${
+                    showDatesRequired
+                      ? 'border-terracotta/40 bg-terracotta/10 text-terracotta'
+                      : 'border-olive/20 bg-sand/60 text-olive'
+                  }`}
+                >
+                  {datesRequiredMessage}
+                </p>
+              )}
+
+              {hasDates && (errors.checkIn || errors.checkOut) && (
+                <p
+                  role="alert"
+                  className="mt-3 rounded-xl border border-terracotta/40 bg-terracotta/10 px-4 py-3 text-sm font-medium text-terracotta"
+                >
                   {errors.checkIn ?? errors.checkOut}
                 </p>
               )}
@@ -358,11 +402,6 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   {formatCurrency(pricing.total, lang)}
                 </span>
               </div>
-              {!hasDates && (
-                <p className="mt-2 text-xs text-stone-muted">
-                  {t('booking.selectDatesHint')}
-                </p>
-              )}
             </div>
 
             {submitError && (
@@ -377,7 +416,12 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
 
             <button
               type="submit"
-              className="mt-4 w-full rounded-full bg-terracotta py-4 text-base font-semibold text-cream transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-10"
+              aria-disabled={!hasDates || isSubmitting}
+              className={`mt-4 w-full rounded-full py-4 text-base font-semibold transition-colors sm:w-auto sm:px-10 ${
+                !hasDates || isSubmitting
+                  ? 'cursor-not-allowed bg-stone/25 text-stone-muted'
+                  : 'bg-terracotta text-cream hover:bg-terracotta-dark'
+              }`}
               disabled={!hasDates || isSubmitting}
             >
               {isSubmitting ? t('booking.submitting') : t('booking.submit')}

@@ -17,11 +17,9 @@ export function Amenities() {
         </div>
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {amenities.map((item) => {
-            const cardClass =
-              'rounded-2xl border border-sand bg-cream p-5 shadow-sm transition-shadow hover:shadow-md'
-            const content = (
-              <>
+          {amenities.map((item) => (
+            <li key={item.id}>
+              <div className="rounded-2xl border border-sand bg-cream p-5 shadow-sm transition-shadow hover:shadow-md">
                 <span className="text-2xl" aria-hidden>
                   {item.icon}
                 </span>
@@ -31,29 +29,9 @@ export function Amenities() {
                 <p className="mt-1 text-sm leading-relaxed text-stone-muted">
                   {t(`amenities.${item.id}.description`)}
                 </p>
-                {item.href && (
-                  <p className="mt-3 text-sm font-medium text-terracotta">
-                    {t('amenities.activitiesLink')}
-                  </p>
-                )}
-              </>
-            )
-
-            return (
-              <li key={item.id}>
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    className={`block ${cardClass} border-terracotta/30 hover:border-terracotta/50`}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div className={cardClass}>{content}</div>
-                )}
-              </li>
-            )
-          })}
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
