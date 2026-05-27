@@ -1,9 +1,12 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import {
+  blockDateRange,
   confirmHold,
+  createManualReservation,
   listHoldsForAdmin,
   releaseHold,
   remainingSeconds,
+  unblockDateRange,
 } from './lib/calendar-store'
 
 function getAdminSecret(req: VercelRequest): string | undefined {
@@ -22,6 +25,15 @@ function isAuthorized(req: VercelRequest): boolean {
   return Boolean(expected && provided && expected === provided)
 }
 
+const ERROR_MESSAGES: Record<string, string> = {
+  KV_NOT_CONFIGURED: 'Base de dados não configurada (Redis/Upstash)',
+  NOT_FOUND: 'Reserva não encontrada',
+  ALREADY_CANCELLED: 'Reserva já foi libertada',
+  DATES_UNAVAILABLE: 'Datas indisponíveis (já ocupadas ou bloqueadas)',
+  INVALID_RANGE: 'Intervalo de datas inválido',
+  INVALID_STAY_LENGTH: 'A estadia deve ser de 1 noite (check-out no dia seguinte)',
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Cache-Control', 'no-store')
 
@@ -31,10 +43,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === 'GET') {
     try {
-      const { holds, kvEnabled } = await listHoldsForAdmin()
+      const { holds, manualBlocks, blockedDates, kvEnabled } =
+        await listHoldsForAdmin()
       const now = Date.now()
       return res.status(200).json({
         kvEnabled,
+        manualBlocks,
+        blockedDates,
         holds: holds
           .filter((h) => h.status !== 'cancelled')
           .map((h) => ({
@@ -45,7 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       })
     } catch (err) {
       console.error('admin-calendar GET:', err)
-      return res.status(500).json({ error: 'Erro ao listar reservas' })
+      return res.status(500).json({ error: 'Erro ao listar calendário' })
     }
   }
 
@@ -53,38 +68,94 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Método não permitido' })
   }
 
-  let body: { action?: string; holdId?: string } = req.body
+  let body: Record<string, unknown> = req.body as Record<string, unknown>
   if (typeof body === 'string') {
     try {
-      body = JSON.parse(body) as { action?: string; holdId?: string }
+      body = JSON.parse(body) as Record<string, unknown>
     } catch {
       return res.status(400).json({ error: 'Pedido inválido' })
     }
   }
 
-  const { action, holdId } = body ?? {}
-  if (!holdId || (action !== 'confirm' && action !== 'release')) {
-    return res.status(400).json({ error: 'Acção ou holdId inválidos' })
-  }
+  const action = body.action as string | undefined
 
   try {
-    const result =
-      action === 'confirm' ? await confirmHold(holdId) : await releaseHold(holdId)
-
-    if ('error' in result) {
-      const messages: Record<string, string> = {
-        KV_NOT_CONFIGURED: 'Base de dados não configurada (Vercel KV)',
-        NOT_FOUND: 'Reserva não encontrada',
-        ALREADY_CANCELLED: 'Reserva já foi libertada',
+    if (action === 'confirm' || action === 'release') {
+      const holdId = body.holdId as string | undefined
+      if (!holdId) {
+        return res.status(400).json({ error: 'holdId em falta' })
       }
-      return res.status(400).json({
-        error: messages[result.error] ?? result.error,
-      })
+      const result =
+        action === 'confirm'
+          ? await confirmHold(holdId)
+          : await releaseHold(holdId)
+
+      if ('error' in result) {
+        return res.status(400).json({
+          error: ERROR_MESSAGES[result.error] ?? result.error,
+        })
+      }
+      return res.status(200).json({ ok: true })
     }
 
-    return res.status(200).json({ ok: true })
+    if (action === 'block') {
+      const checkIn = body.checkIn as string | undefined
+      const checkOut = body.checkOut as string | undefined
+      if (!checkIn || !checkOut) {
+        return res.status(400).json({ error: 'checkIn e checkOut são obrigatórios' })
+      }
+      const result = await blockDateRange(checkIn, checkOut)
+      if ('error' in result) {
+        return res.status(400).json({
+          error: ERROR_MESSAGES[result.error] ?? result.error,
+        })
+      }
+      return res.status(200).json({ ok: true })
+    }
+
+    if (action === 'unblock') {
+      const checkIn = body.checkIn as string | undefined
+      const checkOut = body.checkOut as string | undefined
+      if (!checkIn || !checkOut) {
+        return res.status(400).json({ error: 'checkIn e checkOut são obrigatórios' })
+      }
+      const result = await unblockDateRange(checkIn, checkOut)
+      if ('error' in result) {
+        return res.status(400).json({
+          error: ERROR_MESSAGES[result.error] ?? result.error,
+        })
+      }
+      return res.status(200).json({ ok: true })
+    }
+
+    if (action === 'manualReserve') {
+      const checkIn = body.checkIn as string | undefined
+      const checkOut = body.checkOut as string | undefined
+      const guestName = body.guestName as string | undefined
+      if (!checkIn || !checkOut || !guestName?.trim()) {
+        return res.status(400).json({
+          error: 'checkIn, checkOut e guestName são obrigatórios',
+        })
+      }
+      const result = await createManualReservation({
+        checkIn,
+        checkOut,
+        guestName,
+        guestEmail: body.guestEmail as string | undefined,
+        guestPhone: body.guestPhone as string | undefined,
+        adminNote: body.adminNote as string | undefined,
+      })
+      if ('error' in result) {
+        return res.status(400).json({
+          error: ERROR_MESSAGES[result.error] ?? result.error,
+        })
+      }
+      return res.status(200).json({ ok: true, hold: result.hold })
+    }
+
+    return res.status(400).json({ error: 'Acção inválida' })
   } catch (err) {
     console.error('admin-calendar POST:', err)
-    return res.status(500).json({ error: 'Erro ao actualizar reserva' })
+    return res.status(500).json({ error: 'Erro ao actualizar calendário' })
   }
 }

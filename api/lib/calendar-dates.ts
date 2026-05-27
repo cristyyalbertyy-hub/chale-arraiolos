@@ -13,9 +13,21 @@ export function getStayNightIsos(checkIn: string, checkOut: string): string[] {
   return nights
 }
 
-function parseIso(iso: string): Date {
+export function parseLocalDate(iso: string): Date {
   const [y, m, d] = iso.split('-').map(Number)
   return new Date(y, m - 1, d)
+}
+
+function parseIso(iso: string): Date {
+  return parseLocalDate(iso)
+}
+
+export function getNightCount(checkIn: Date, checkOut: Date): number {
+  const msPerDay = 86_400_000
+  return Math.max(
+    0,
+    Math.round((checkOut.getTime() - checkIn.getTime()) / msPerDay),
+  )
 }
 
 function toIso(date: Date): string {

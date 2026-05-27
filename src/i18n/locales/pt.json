@@ -247,6 +247,8 @@
     }
   },
   "calendar": {
+    "prevMonth": "Mês anterior",
+    "nextMonth": "Mês seguinte",
     "available": "Disponível",
     "occupied": "Ocupado",
     "checkIn": "Check-in:",
@@ -276,7 +278,7 @@
     "logout": "Sair",
     "backToSite": "← Voltar ao site",
     "title": "Gestão de reservas",
-    "subtitle": "Confirme o pagamento ou liberte as datas",
+    "subtitle": "Calendário, bloqueios e reservas manuais",
     "kvWarning": "A base de dados (Redis/Upstash) não está ligada — os bloqueios automáticos de 15 minutos não funcionam. Veja o README.",
     "pendingTitle": "À espera de pagamento",
     "pendingHint": "Tem 15 minutos desde o pedido. Se não pagar, as datas libertam-se sozinhas.",
@@ -288,6 +290,23 @@
     "confirmPayment": "Pagamento recebido — manter bloqueado",
     "releaseDates": "Libertar datas",
     "cancelBooking": "Cancelar",
+    "calendar": {
+      "title": "Calendário",
+      "hint": "Seleccione check-in e check-out (1 noite). Bloqueie datas, crie reservas manuais ou clique numa reserva existente para a gerir.",
+      "legendPending": "À espera de pagamento",
+      "legendConfirmed": "Reservado",
+      "legendBlocked": "Bloqueado (sem reserva)",
+      "selectDates": "Seleccione as datas no calendário.",
+      "blockDates": "Bloquear datas",
+      "unblockDates": "Desbloquear",
+      "manualReserveTitle": "Reserva manual (confirma logo no calendário)",
+      "manualReserveSubmit": "Criar reserva",
+      "guestName": "Nome do hóspede *",
+      "note": "Nota interna (opcional)",
+      "nameRequired": "Indique o nome do hóspede.",
+      "manualTag": "Manual",
+      "pendingTag": "pendente"
+    },
     "errors": {
       "load": "Não foi possível carregar as reservas",
       "action": "Não foi possível actualizar a reserva",

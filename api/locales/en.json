@@ -247,6 +247,8 @@
     }
   },
   "calendar": {
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
     "available": "Available",
     "occupied": "Booked",
     "checkIn": "Check-in:",
@@ -276,7 +278,7 @@
     "logout": "Sign out",
     "backToSite": "← Back to site",
     "title": "Booking management",
-    "subtitle": "Confirm payment or release dates",
+    "subtitle": "Calendar, blocks and manual bookings",
     "kvWarning": "Database (Redis/Upstash) is not connected — 15-minute holds will not work. See README.",
     "pendingTitle": "Awaiting payment",
     "pendingHint": "Guests have 15 minutes from booking. Unpaid holds release automatically.",
@@ -288,6 +290,23 @@
     "confirmPayment": "Payment received — keep blocked",
     "releaseDates": "Release dates",
     "cancelBooking": "Cancel",
+    "calendar": {
+      "title": "Calendar",
+      "hint": "Select check-in and check-out (1 night). Block dates, create manual bookings, or click an existing booking to manage it.",
+      "legendPending": "Awaiting payment",
+      "legendConfirmed": "Booked",
+      "legendBlocked": "Blocked (no booking)",
+      "selectDates": "Select dates on the calendar.",
+      "blockDates": "Block dates",
+      "unblockDates": "Unblock",
+      "manualReserveTitle": "Manual booking (confirmed immediately)",
+      "manualReserveSubmit": "Create booking",
+      "guestName": "Guest name *",
+      "note": "Internal note (optional)",
+      "nameRequired": "Please enter the guest name.",
+      "manualTag": "Manual",
+      "pendingTag": "pending"
+    },
     "errors": {
       "load": "Could not load bookings",
       "action": "Could not update booking",

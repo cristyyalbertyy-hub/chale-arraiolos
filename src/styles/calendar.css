@@ -22,9 +22,13 @@
   padding-bottom: 0.75rem;
 }
 
-.chale-calendar .rdrMonthAndYearPickers select {
-  font-weight: 600;
-  color: #4a5d3f;
+/* Navegação própria (← →); evita saltar anos no selector */
+.chale-calendar .rdrMonthAndYearPickers {
+  display: none;
+}
+
+.chale-calendar .rdrNextPrevButton {
+  display: none;
 }
 
 .chale-calendar .rdrWeekDay {
@@ -53,10 +57,21 @@
   color: #166534;
 }
 
+.chale-calendar .day-pending {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.chale-calendar .day-confirmed,
 .chale-calendar .rdrDayDisabled .day-occupied,
 .chale-calendar .day-occupied {
   background-color: #fee2e2 !important;
   color: #991b1b !important;
+}
+
+.chale-calendar .day-manual {
+  background-color: #e8dfd0 !important;
+  color: #3d3832 !important;
 }
 
 .chale-calendar .rdrDayPassive .rdrDayNumber span {

@@ -1,20 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { AdminCalendar, type AdminHold } from '../components/admin/AdminCalendar'
 
 const STORAGE_KEY = 'chale-admin-secret'
-
-interface AdminHold {
-  id: string
-  checkIn: string
-  checkOut: string
-  guestName: string
-  guestEmail: string
-  guestPhone: string
-  status: 'pending' | 'confirmed' | 'cancelled'
-  expiresAt: string
-  remainingSeconds: number
-  expired: boolean
-}
 
 function formatCountdown(seconds: number): string {
   const m = Math.floor(seconds / 60)
@@ -27,6 +15,7 @@ export function AdminPage() {
   const [secret, setSecret] = useState(() => sessionStorage.getItem(STORAGE_KEY) ?? '')
   const [inputSecret, setInputSecret] = useState('')
   const [holds, setHolds] = useState<AdminHold[]>([])
+  const [manualBlocks, setManualBlocks] = useState<string[]>([])
   const [kvEnabled, setKvEnabled] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -44,6 +33,7 @@ export function AdminPage() {
       })
       const data = (await response.json()) as {
         holds?: AdminHold[]
+        manualBlocks?: string[]
         kvEnabled?: boolean
         error?: string
       }
@@ -56,6 +46,7 @@ export function AdminPage() {
         return
       }
       setHolds(data.holds ?? [])
+      setManualBlocks(data.manualBlocks ?? [])
       setKvEnabled(Boolean(data.kvEnabled))
     } catch {
       setError(t('admin.errors.network'))
@@ -84,11 +75,12 @@ export function AdminPage() {
     sessionStorage.removeItem(STORAGE_KEY)
     setSecret('')
     setHolds([])
+    setManualBlocks([])
   }
 
-  async function runAction(holdId: string, action: 'confirm' | 'release') {
-    setActionId(holdId)
-    setError(null)
+  async function postAdmin(
+    payload: Record<string, string | undefined>,
+  ): Promise<{ ok: boolean; error?: string }> {
     try {
       const response = await fetch('/api/admin-calendar', {
         method: 'POST',
@@ -96,19 +88,25 @@ export function AdminPage() {
           Authorization: `Bearer ${secret}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ action, holdId }),
+        body: JSON.stringify(payload),
       })
       const data = (await response.json()) as { error?: string }
       if (!response.ok) {
-        setError(data.error ?? t('admin.errors.action'))
-        return
+        return { ok: false, error: data.error ?? t('admin.errors.action') }
       }
       await loadHolds()
+      return { ok: true }
     } catch {
-      setError(t('admin.errors.network'))
-    } finally {
-      setActionId(null)
+      return { ok: false, error: t('admin.errors.network') }
     }
+  }
+
+  async function runListAction(holdId: string, action: 'confirm' | 'release') {
+    setActionId(holdId)
+    setError(null)
+    const result = await postAdmin({ action, holdId })
+    if (!result.ok) setError(result.error ?? t('admin.errors.action'))
+    setActionId(null)
   }
 
   if (!isLoggedIn) {
@@ -152,7 +150,7 @@ export function AdminPage() {
 
   return (
     <div className="min-h-screen bg-sand px-4 py-10 sm:py-14">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-4xl">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-semibold text-olive">
@@ -183,13 +181,30 @@ export function AdminPage() {
 
         <section className="mt-8 rounded-2xl bg-cream p-6 shadow-sm">
           <h2 className="font-display text-xl font-semibold text-olive">
+            {t('admin.calendar.title')}
+          </h2>
+          <p className="mt-1 text-sm text-stone-muted">{t('admin.calendar.hint')}</p>
+          {loading && holds.length === 0 ? (
+            <p className="mt-4 text-sm text-stone-muted">{t('admin.loading')}</p>
+          ) : (
+            <div className="mt-6">
+              <AdminCalendar
+                holds={holds}
+                manualBlocks={manualBlocks}
+                disabled={!kvEnabled}
+                onAction={postAdmin}
+              />
+            </div>
+          )}
+        </section>
+
+        <section className="mt-6 rounded-2xl bg-cream p-6 shadow-sm">
+          <h2 className="font-display text-xl font-semibold text-olive">
             {t('admin.pendingTitle')}
           </h2>
           <p className="mt-1 text-sm text-stone-muted">{t('admin.pendingHint')}</p>
 
-          {loading && pending.length === 0 ? (
-            <p className="mt-4 text-sm text-stone-muted">{t('admin.loading')}</p>
-          ) : pending.length === 0 ? (
+          {pending.length === 0 ? (
             <p className="mt-4 text-sm text-stone-muted">{t('admin.noPending')}</p>
           ) : (
             <ul className="mt-4 space-y-4">
@@ -228,7 +243,7 @@ export function AdminPage() {
                     <button
                       type="button"
                       disabled={actionId === hold.id}
-                      onClick={() => void runAction(hold.id, 'confirm')}
+                      onClick={() => void runListAction(hold.id, 'confirm')}
                       className="rounded-full bg-olive px-4 py-2 text-sm font-semibold text-cream hover:bg-olive/90 disabled:opacity-50"
                     >
                       {t('admin.confirmPayment')}
@@ -236,7 +251,7 @@ export function AdminPage() {
                     <button
                       type="button"
                       disabled={actionId === hold.id}
-                      onClick={() => void runAction(hold.id, 'release')}
+                      onClick={() => void runListAction(hold.id, 'release')}
                       className="rounded-full border border-stone/40 px-4 py-2 text-sm font-medium text-olive hover:bg-sand disabled:opacity-50"
                     >
                       {t('admin.releaseDates')}
@@ -262,14 +277,22 @@ export function AdminPage() {
                   className="rounded-xl border border-olive/20 bg-white px-4 py-3 text-sm"
                 >
                   <span className="font-semibold text-olive">{hold.guestName}</span>
+                  {hold.source === 'admin' && (
+                    <span className="ml-2 rounded bg-stone/10 px-1.5 text-xs text-stone-muted">
+                      {t('admin.calendar.manualTag')}
+                    </span>
+                  )}
                   <span className="text-stone-muted">
                     {' '}
                     — {hold.checkIn} → {hold.checkOut}
                   </span>
+                  {hold.adminNote && (
+                    <p className="mt-1 text-stone-muted">{hold.adminNote}</p>
+                  )}
                   <button
                     type="button"
                     disabled={actionId === hold.id}
-                    onClick={() => void runAction(hold.id, 'release')}
+                    onClick={() => void runListAction(hold.id, 'release')}
                     className="ml-2 text-terracotta hover:underline disabled:opacity-50"
                   >
                     {t('admin.cancelBooking')}

@@ -247,6 +247,8 @@
     }
   },
   "calendar": {
+    "prevMonth": "Mois précédent",
+    "nextMonth": "Mois suivant",
     "available": "Disponible",
     "occupied": "Réservé",
     "checkIn": "Arrivée :",
@@ -276,7 +278,7 @@
     "logout": "Déconnexion",
     "backToSite": "← Retour au site",
     "title": "Gestion des réservations",
-    "subtitle": "Confirmez le paiement ou libérez les dates",
+    "subtitle": "Calendrier, blocages et réservations manuelles",
     "kvWarning": "Base de données (Redis/Upstash) non connectée — les blocages de 15 minutes ne fonctionnent pas. Voir le README.",
     "pendingTitle": "En attente de paiement",
     "pendingHint": "15 minutes après la demande. Sans paiement, les dates se libèrent automatiquement.",
@@ -288,6 +290,23 @@
     "confirmPayment": "Paiement reçu — garder bloqué",
     "releaseDates": "Libérer les dates",
     "cancelBooking": "Annuler",
+    "calendar": {
+      "title": "Calendrier",
+      "hint": "Sélectionnez l'arrivée et le départ (1 nuit). Bloquez des dates, créez des réservations manuelles ou cliquez sur une réservation existante.",
+      "legendPending": "En attente de paiement",
+      "legendConfirmed": "Réservé",
+      "legendBlocked": "Bloqué (sans réservation)",
+      "selectDates": "Sélectionnez les dates dans le calendrier.",
+      "blockDates": "Bloquer les dates",
+      "unblockDates": "Débloquer",
+      "manualReserveTitle": "Réservation manuelle (confirmée tout de suite)",
+      "manualReserveSubmit": "Créer la réservation",
+      "guestName": "Nom du voyageur *",
+      "note": "Note interne (facultatif)",
+      "nameRequired": "Indiquez le nom du voyageur.",
+      "manualTag": "Manuel",
+      "pendingTag": "en attente"
+    },
     "errors": {
       "load": "Impossible de charger les réservations",
       "action": "Impossible de mettre à jour",

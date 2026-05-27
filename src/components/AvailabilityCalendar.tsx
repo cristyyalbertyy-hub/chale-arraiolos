@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
 import { addDays, format, startOfDay } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
+import { CalendarMonthNav } from './CalendarMonthNav'
 import { STAY_NIGHTS } from '../lib/booking'
+import { useCalendarNavigation } from '../hooks/useCalendarNavigation'
 import { useOccupiedDates } from '../hooks/useOccupiedDates'
 import { getDateFnsLocale } from '../lib/locale'
 import {
@@ -25,22 +27,6 @@ interface AvailabilityCalendarProps {
   onOccupiedConflict?: () => void
 }
 
-function useCalendarMonths(): number {
-  const [months, setMonths] = useState(
-    () => (typeof window !== 'undefined' && window.innerWidth >= 640 ? 2 : 1),
-  )
-
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 640px)')
-    const update = () => setMonths(mq.matches ? 2 : 1)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
-
-  return months
-}
-
 export function AvailabilityCalendar({
   checkIn,
   checkOut,
@@ -49,7 +35,17 @@ export function AvailabilityCalendar({
 }: AvailabilityCalendarProps) {
   const { t, i18n } = useTranslation()
   const { occupiedDates } = useOccupiedDates()
-  const months = useCalendarMonths()
+  const {
+    months,
+    minDate,
+    maxDate,
+    shownDate,
+    setShownDate,
+    canGoPrev,
+    canGoNext,
+    goPrevMonth,
+    goNextMonth,
+  } = useCalendarNavigation()
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
 
@@ -113,13 +109,25 @@ export function AvailabilityCalendar({
       </div>
 
       <div className="chale-calendar overflow-x-auto rounded-xl border border-sand bg-white p-3 sm:p-4">
+        <CalendarMonthNav
+          shownDate={shownDate}
+          months={months}
+          canGoPrev={canGoPrev}
+          canGoNext={canGoNext}
+          onPrev={goPrevMonth}
+          onNext={goNextMonth}
+        />
         <DateRange
           ranges={ranges}
           onChange={handleChange}
           months={months}
           direction="horizontal"
           locale={dateLocale}
-          minDate={new Date()}
+          shownDate={shownDate}
+          onShownDateChange={setShownDate}
+          minDate={minDate}
+          maxDate={maxDate}
+          showMonthAndYearPickers={false}
           disabledDates={occupiedDates}
           disabledDay={(date) => isOccupiedDate(date, occupiedDates)}
           moveRangeOnFirstSelection={false}
