@@ -15,10 +15,10 @@ import {
   rangeOverlapsOccupied,
 } from '../lib/dates'
 import {
+  formatActivityLinePrice,
   formatActivitySelectionLabel,
   getActivityById,
-  getActivityLineTotal,
-  isFixedPriceActivity,
+  hidesPeopleSelector,
 } from '../lib/activities'
 import { BathroomNotice } from './BathroomNotice'
 import { CancellationPolicyNotice } from './CancellationPolicy'
@@ -99,7 +99,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     }
     const invalidActivity = activitySelections.find((s) => {
       const activity = getActivityById(s.id)
-      if (activity && isFixedPriceActivity(activity)) return false
+      if (activity && hidesPeopleSelector(activity)) return false
       return s.people < 1 || s.people > MAX_PEOPLE || s.people > pricing.people
     })
     if (invalidActivity) {
@@ -383,7 +383,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                       {formatActivitySelectionLabel(selection, t)}
                     </span>
                     <span className="shrink-0 font-medium">
-                      {formatCurrency(getActivityLineTotal(selection), lang)}
+                      {formatActivityLinePrice(selection, t, lang)}
                     </span>
                   </li>
                 ))}

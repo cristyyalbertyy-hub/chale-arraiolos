@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next'
-import { creativeActivities, mealActivities } from '../data/activities'
+import { creativeActivities, culturalActivities, mealActivities } from '../data/activities'
 import { MAX_PEOPLE } from '../lib/booking'
 import {
   formatActivityPrice,
   formatDuration,
   getActivitiesTotal,
   getActivityName,
-  isFixedPriceActivity,
+  hidesPeopleSelector,
 } from '../lib/activities'
 import type { Activity } from '../types/activity'
 import type { ActivitySelection } from '../types/activity'
@@ -37,7 +37,7 @@ function ActivityCard({
 }: ActivityCardProps) {
   const { t, i18n } = useTranslation()
   const isMeal = activity.category === 'meal'
-  const fixedPrice = isFixedPriceActivity(activity)
+  const fixedPrice = hidesPeopleSelector(activity)
   const name = getActivityName(activity.id, t)
   const lang = i18n.language.split('-')[0]
 
@@ -177,6 +177,23 @@ export function Activities({ selections, onChange }: ActivitiesProps) {
             onToggle={toggle}
             onSetPeople={setPeople}
           />
+        </div>
+
+        <div className="mt-14 sm:mt-16">
+          <h3 className="font-display text-xl font-semibold text-olive sm:text-2xl">
+            {t('activities.culturalTitle')}
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm text-stone-muted">
+            {t('activities.culturalIntro')}
+          </p>
+          <div className="mt-6">
+            <ActivityGrid
+              items={culturalActivities}
+              selections={selections}
+              onToggle={toggle}
+              onSetPeople={setPeople}
+            />
+          </div>
         </div>
 
         <div className="mt-14 sm:mt-16">

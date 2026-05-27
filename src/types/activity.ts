@@ -4,8 +4,12 @@ export interface Activity {
   /** Duração em horas; `null` = não mostrar duração */
   durationHours: number | null
   category: 'workshop' | 'meal'
-  /** Preço único (ex.: passeio guiado); sem selector de pessoas */
-  pricingMode?: 'perPerson' | 'fixed'
+  /**
+   * perPerson — preço × pessoas (predefinido)
+   * fixed — preço único; sem selector de pessoas
+   * onRequest — valor a confirmar com a anfitriã (não entra no total estimado)
+   */
+  pricingMode?: 'perPerson' | 'fixed' | 'onRequest'
 }
 
 /** Actividade seleccionada com número de participantes */

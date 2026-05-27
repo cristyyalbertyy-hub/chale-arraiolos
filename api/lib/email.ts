@@ -1,5 +1,5 @@
 import type { TFunction } from 'i18next'
-import { getActivityLineTotal } from './activities'
+import { getActivityLineTotal, isFixedPrice, isPriceOnRequest } from './activities'
 import {
   formatCurrency,
   getBookingTotal,
@@ -37,11 +37,21 @@ function formatActivitySelectionLabel(
   t: TFunction,
 ): string {
   const name = t(`activities.items.${selection.id}`)
+  if (isFixedPrice(selection.id)) return name
   const peopleLabel =
     selection.people === 1
       ? t('common.personOne')
       : t('common.personMany', { count: selection.people })
   return `${name} (${peopleLabel})`
+}
+
+function formatActivityLinePrice(
+  selection: ActivitySelection,
+  t: TFunction,
+  lang: string,
+): string {
+  if (isPriceOnRequest(selection.id)) return t('activities.priceOnRequest')
+  return formatCurrency(getActivityLineTotal(selection), lang)
 }
 
 function buildActivityLines(
@@ -54,8 +64,8 @@ function buildActivityLines(
   return selections
     .map((selection) => {
       const label = formatActivitySelectionLabel(selection, t)
-      const lineTotal = getActivityLineTotal(selection)
-      return `${label} — ${formatCurrency(lineTotal, lang)}`
+      const price = formatActivityLinePrice(selection, t, lang)
+      return `${label} — ${price}`
     })
     .join('\n')
 }

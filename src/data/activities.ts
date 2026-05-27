@@ -13,6 +13,14 @@ export const creativeActivityIds = [
   'passeio-guiado',
 ] as const
 
+/** Tradições e experiências culturais */
+export const culturalActivityIds = [
+  'tapete-arraiolos',
+  'contador-historias',
+  'momento-fado',
+  'cantares-alentejanos',
+] as const
+
 export const activities: Activity[] = [
   {
     id: 'pintura-acrilica',
@@ -70,6 +78,33 @@ export const activities: Activity[] = [
     pricingMode: 'fixed',
   },
   {
+    id: 'tapete-arraiolos',
+    pricePerPerson: 20,
+    durationHours: 2,
+    category: 'workshop',
+  },
+  {
+    id: 'contador-historias',
+    pricePerPerson: 20,
+    durationHours: null,
+    category: 'workshop',
+    pricingMode: 'fixed',
+  },
+  {
+    id: 'momento-fado',
+    pricePerPerson: 0,
+    durationHours: null,
+    category: 'workshop',
+    pricingMode: 'onRequest',
+  },
+  {
+    id: 'cantares-alentejanos',
+    pricePerPerson: 0,
+    durationHours: null,
+    category: 'workshop',
+    pricingMode: 'onRequest',
+  },
+  {
     id: 'pequeno-almoco',
     pricePerPerson: 10,
     durationHours: null,
@@ -102,6 +137,10 @@ export const activities: Activity[] = [
 ]
 
 export const creativeActivities = creativeActivityIds
+  .map((id) => activities.find((a) => a.id === id))
+  .filter((a): a is Activity => a !== undefined)
+
+export const culturalActivities = culturalActivityIds
   .map((id) => activities.find((a) => a.id === id))
   .filter((a): a is Activity => a !== undefined)
 
