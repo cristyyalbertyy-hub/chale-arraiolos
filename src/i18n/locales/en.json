@@ -16,6 +16,7 @@
   "nav": {
     "chalet": "Chalé do Avô Bedi",
     "host": "Your host",
+    "location": "Location",
     "amenities": "Amenities",
     "gallery": "Gallery",
     "activities": "Activities",
@@ -58,6 +59,20 @@
     "alexandra": {
       "quote": "We loved the authenticity, and Cristina Alberto is a five-star host. The Alentejo lunch was delightful and the guided walk was genuinely breathtaking. We left feeling we had made the most of every moment.",
       "author": "Alexandra Sousa"
+    }
+  },
+  "location": {
+    "eyebrow": "Location",
+    "title": "In the heart of Arraiolos",
+    "intro": "Chalé do Avô Bedi is just a short walk from the castle and the historic centre — perfect for exploring the rugs, local shops and Alentejo life without needing a car.",
+    "mapImageAlt": "Map showing the chalet in relation to the castle and Arraiolos town centre",
+    "mapImageCaption": "Close to the castle and historic centre",
+    "mapEmbedTitle": "Map — Arraiolos, Alentejo",
+    "openInMaps": "Open in Google Maps →",
+    "highlights": {
+      "castle": "🏰 Castle · ~5 min walk",
+      "center": "🏛️ Historic centre · ~5 min walk",
+      "lisbon": "🚗 Lisbon · ~1 hour"
     }
   },
   "host": {

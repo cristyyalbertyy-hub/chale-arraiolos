@@ -16,6 +16,7 @@
   "nav": {
     "chalet": "Chalé do Avô Bedi",
     "host": "Votre hôte",
+    "location": "Emplacement",
     "amenities": "Équipements",
     "gallery": "Galerie",
     "activities": "Activités",
@@ -58,6 +59,20 @@
     "alexandra": {
       "quote": "Nous avons adoré l'authenticité, et Cristina Alberto est une hôtesse cinq étoiles. Le déjeuner alentejano était très agréable et la promenade guidée était véritablement magnifique. Nous sommes partis avec le sentiment d'avoir intensément profité de notre séjour.",
       "author": "Alexandra Sousa"
+    }
+  },
+  "location": {
+    "eyebrow": "Emplacement",
+    "title": "Au cœur d'Arraiolos",
+    "intro": "Le Chalé do Avô Bedi est à quelques minutes à pied du château et du centre historique — idéal pour découvrir les tapis, le commerce local et la vie alentejana sans voiture.",
+    "mapImageAlt": "Carte montrant le chalet par rapport au château et au centre d'Arraiolos",
+    "mapImageCaption": "Proche du château et du centre historique",
+    "mapEmbedTitle": "Carte — Arraiolos, Alentejo",
+    "openInMaps": "Ouvrir dans Google Maps →",
+    "highlights": {
+      "castle": "🏰 Château · ~5 min à pied",
+      "center": "🏛️ Centre historique · ~5 min à pied",
+      "lisbon": "🚗 Lisbonne · ~1 heure"
     }
   },
   "host": {
@@ -234,6 +249,10 @@
     "dateFormat": "d MMMM yyyy"
   },
   "footer": {
+    "psNoteAria": "Note de l'hôtesse",
+    "psLabel": "P.S. –",
+    "psNote": "Si vous avez un animal de compagnie, demandez d'abord. La salle de bain extérieure facilite les choses, mais j'évalue chaque cas.",
+    "psSignoff": "Cristina",
     "location": "Arraiolos · Alentejo",
     "cancellationTitle": "Politique d'annulation",
     "cancellationLine1": "Annulation gratuite jusqu'à 30 jours avant l'arrivée.",

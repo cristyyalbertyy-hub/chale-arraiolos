@@ -16,6 +16,7 @@
   "nav": {
     "chalet": "O Chalé do Avô Bedi",
     "host": "Anfitriã",
+    "location": "Localização",
     "amenities": "Comodidades",
     "gallery": "Galeria",
     "activities": "Actividades",
@@ -58,6 +59,20 @@
     "alexandra": {
       "quote": "Adorámos a autenticidade, e a Cristina Alberto é uma anfitriã de 5 estrelas. O almoço alentejano foi muito agradável e o passeio foi genuinamente deslumbrante. Partimos com a sensação de termos aproveitado intensamente.",
       "author": "Alexandra Sousa"
+    }
+  },
+  "location": {
+    "eyebrow": "Localização",
+    "title": "No coração de Arraiolos",
+    "intro": "O Chalé do Avô Bedi fica a poucos minutos a pé do castelo e do centro histórico — ideal para explorar os tapetes, o comércio local e a vida alentejana sem precisar de carro.",
+    "mapImageAlt": "Mapa com a localização do chalé em relação ao castelo e ao centro de Arraiolos",
+    "mapImageCaption": "Proximidade ao castelo e ao centro histórico",
+    "mapEmbedTitle": "Mapa — Arraiolos, Alentejo",
+    "openInMaps": "Abrir no Google Maps →",
+    "highlights": {
+      "castle": "🏰 Castelo · ~5 min a pé",
+      "center": "🏛️ Centro histórico · ~5 min a pé",
+      "lisbon": "🚗 Lisboa · ~1 hora"
     }
   },
   "host": {
@@ -234,6 +249,10 @@
     "dateFormat": "d 'de' MMMM yyyy"
   },
   "footer": {
+    "psNoteAria": "Nota da anfitriã",
+    "psLabel": "P.S. –",
+    "psNote": "Se tiverem um animal de estimação, perguntem primeiro. A casa de banho exterior facilita, mas tenho de avaliar cada caso.",
+    "psSignoff": "Cristina",
     "location": "Arraiolos · Alentejo",
     "cancellationTitle": "Política de cancelamento",
     "cancellationLine1": "Cancelamento gratuito até 30 dias antes do check-in.",

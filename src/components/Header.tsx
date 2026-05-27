@@ -5,6 +5,7 @@ import { LanguageSwitcher } from './LanguageSwitcher'
 const navLinks = [
   { href: '#sobre', key: 'nav.chalet' },
   { href: '#anfitria', key: 'nav.host' },
+  { href: '#localizacao', key: 'nav.location' },
   { href: '#comodidades', key: 'nav.amenities' },
   { href: '#galeria', key: 'nav.gallery' },
   { href: '#actividades', key: 'nav.activities' },

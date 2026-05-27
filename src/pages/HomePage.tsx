@@ -8,6 +8,7 @@ import { BookingForm } from '../components/BookingForm'
 import { Footer } from '../components/Footer'
 import { HostPsNote } from '../components/HostPsNote'
 import { Gallery } from '../components/Gallery'
+import { Location } from '../components/Location'
 import { BathroomNotice } from '../components/BathroomNotice'
 import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
@@ -25,6 +26,7 @@ export function HomePage() {
       <main>
         <Hero />
         <About />
+        <Location />
         <AboutHost />
         <Testimonials />
         <Amenities />
