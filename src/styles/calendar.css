@@ -13,16 +13,22 @@
 
 .chale-calendar .rdrMonth {
   width: 100%;
-  padding: 0;
+  padding: 0 0.5rem 0.75rem;
 }
 
+/* Cabeçalho interno da biblioteca — o mês mostra-se só entre as setas (← →) */
 .chale-calendar .rdrMonthAndYearWrapper {
-  padding-top: 0;
-  height: auto;
-  padding-bottom: 0.75rem;
+  display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
 }
 
-/* Navegação própria (← →); evita saltar anos no selector */
+.chale-calendar .rdrMonthName {
+  display: none !important;
+}
+
 .chale-calendar .rdrMonthAndYearPickers {
   display: none;
 }
