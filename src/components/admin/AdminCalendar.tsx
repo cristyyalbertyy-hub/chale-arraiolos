@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
-import { addDays, format, startOfDay } from 'date-fns'
+import { addDays, format, startOfDay, startOfMonth } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../../styles/calendar.css'
@@ -56,7 +56,8 @@ export function AdminCalendar({
     minDate,
     maxDate,
     shownDate,
-    setShownDate,
+    syncToMonth,
+    handleShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,
@@ -73,6 +74,12 @@ export function AdminCalendar({
   const [adminNote, setAdminNote] = useState('')
   const [busy, setBusy] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
+
+  const labelAnchor = checkIn
+    ? startOfMonth(parseLocalDate(checkIn))
+    : shownDate
+
+  const calendarKey = `${shownDate.getFullYear()}-${shownDate.getMonth()}-${months}`
 
   const activeHolds = useMemo(
     () =>
@@ -159,6 +166,7 @@ export function AdminCalendar({
     const { startDate, endDate } = rangesByKey.selection
     if (!startDate) return
     const start = startOfDay(startDate)
+    syncToMonth(start)
     if (!endDate) {
       setCheckIn(toISODate(start))
       setCheckOut('')
@@ -166,6 +174,7 @@ export function AdminCalendar({
       return
     }
     const { checkIn: cin, checkOut: cout } = normalizeStayRange(start, endDate)
+    syncToMonth(cin)
     setCheckIn(toISODate(cin))
     setCheckOut(toISODate(cout))
     setLocalError(null)
@@ -245,7 +254,7 @@ export function AdminCalendar({
         className={`chale-calendar overflow-x-auto rounded-xl border border-sand bg-white p-3 sm:p-4 ${disabled ? 'pointer-events-none opacity-60' : ''}`}
       >
         <CalendarMonthNav
-          shownDate={shownDate}
+          labelAnchor={labelAnchor}
           months={months}
           canGoPrev={canGoPrev}
           canGoNext={canGoNext}
@@ -253,13 +262,14 @@ export function AdminCalendar({
           onNext={goNextMonth}
         />
         <DateRange
+          key={calendarKey}
           ranges={ranges}
           onChange={handleChange}
           months={months}
           direction="horizontal"
           locale={dateLocale}
           shownDate={shownDate}
-          onShownDateChange={setShownDate}
+          onShownDateChange={handleShownDateChange}
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}

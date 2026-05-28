@@ -1,7 +1,7 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
-import { addDays, format, startOfDay } from 'date-fns'
+import { addDays, format, startOfDay, startOfMonth } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
@@ -40,7 +40,8 @@ export function AvailabilityCalendar({
     minDate,
     maxDate,
     shownDate,
-    setShownDate,
+    syncToMonth,
+    handleShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,
@@ -48,6 +49,18 @@ export function AvailabilityCalendar({
   } = useCalendarNavigation()
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
+
+  const labelAnchor = checkIn
+    ? startOfMonth(parseLocalDate(checkIn))
+    : shownDate
+
+  useEffect(() => {
+    if (checkIn) {
+      syncToMonth(parseLocalDate(checkIn))
+    }
+  }, [checkIn, syncToMonth])
+
+  const calendarKey = `${shownDate.getFullYear()}-${shownDate.getMonth()}-${months}`
 
   const ranges = useMemo(() => {
     const startDate = checkIn ? parseLocalDate(checkIn) : new Date()
@@ -77,6 +90,8 @@ export function AvailabilityCalendar({
 
     const start = startOfDay(startDate)
 
+    syncToMonth(start)
+
     if (!endDate) {
       onRangeChange(toISODate(start), '')
       return
@@ -92,6 +107,7 @@ export function AvailabilityCalendar({
       return
     }
 
+    syncToMonth(normalizedIn)
     onRangeChange(toISODate(normalizedIn), toISODate(normalizedOut))
   }
 
@@ -110,7 +126,7 @@ export function AvailabilityCalendar({
 
       <div className="chale-calendar overflow-x-auto rounded-xl border border-sand bg-white p-3 sm:p-4">
         <CalendarMonthNav
-          shownDate={shownDate}
+          labelAnchor={labelAnchor}
           months={months}
           canGoPrev={canGoPrev}
           canGoNext={canGoNext}
@@ -118,13 +134,14 @@ export function AvailabilityCalendar({
           onNext={goNextMonth}
         />
         <DateRange
+          key={calendarKey}
           ranges={ranges}
           onChange={handleChange}
           months={months}
           direction="horizontal"
           locale={dateLocale}
           shownDate={shownDate}
-          onShownDateChange={setShownDate}
+          onShownDateChange={handleShownDateChange}
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}

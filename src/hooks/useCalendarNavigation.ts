@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   addMonths,
   addYears,
@@ -23,17 +23,41 @@ export function useCalendarNavigation() {
 
   const [shownDate, setShownDate] = useState(() => startOfMonth(new Date()))
 
+  const clampShownDate = useCallback(
+    (date: Date) => {
+      const month = startOfMonth(date)
+      if (isBefore(month, minShown)) return minShown
+      if (isAfter(month, maxShown)) return maxShown
+      return month
+    },
+    [minShown, maxShown],
+  )
+
+  const syncToMonth = useCallback(
+    (date: Date) => {
+      setShownDate(clampShownDate(date))
+    },
+    [clampShownDate],
+  )
+
+  const handleShownDateChange = useCallback(
+    (date: Date) => {
+      setShownDate(clampShownDate(date))
+    },
+    [clampShownDate],
+  )
+
   const canGoPrev = isAfter(shownDate, minShown)
   const canGoNext = isBefore(shownDate, maxShown)
 
   function goPrevMonth() {
     if (!canGoPrev) return
-    setShownDate((d) => subMonths(d, 1))
+    setShownDate((d) => clampShownDate(subMonths(d, 1)))
   }
 
   function goNextMonth() {
     if (!canGoNext) return
-    setShownDate((d) => addMonths(d, 1))
+    setShownDate((d) => clampShownDate(addMonths(d, 1)))
   }
 
   return {
@@ -42,6 +66,8 @@ export function useCalendarNavigation() {
     maxDate,
     shownDate,
     setShownDate,
+    syncToMonth,
+    handleShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,

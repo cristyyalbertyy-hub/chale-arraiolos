@@ -11,9 +11,26 @@
   color: #3d3832;
 }
 
-.chale-calendar .rdrMonth {
+.chale-calendar .rdrMonths.rdrMonthsHorizontal > div > div > div {
+  display: flex !important;
+  flex-direction: row !important;
   width: 100%;
-  padding: 0 0.5rem 0.75rem;
+}
+
+.chale-calendar .rdrMonthsHorizontal .rdrMonth {
+  width: 50% !important;
+  flex: 0 0 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+  padding: 0 0.35rem 0.75rem;
+}
+
+@media (max-width: 639px) {
+  .chale-calendar .rdrMonthsHorizontal .rdrMonth {
+    width: 100% !important;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 /* Cabeçalho interno da biblioteca — o mês mostra-se só entre as setas (← →) */

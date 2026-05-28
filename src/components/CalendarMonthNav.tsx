@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { getDateFnsLocale } from '../lib/locale'
 
 interface CalendarMonthNavProps {
-  shownDate: Date
+  /** Mês (ou intervalo) mostrado no título entre as setas */
+  labelAnchor: Date
   months: number
   canGoPrev: boolean
   canGoNext: boolean
@@ -12,7 +13,7 @@ interface CalendarMonthNavProps {
 }
 
 export function CalendarMonthNav({
-  shownDate,
+  labelAnchor,
   months,
   canGoPrev,
   canGoNext,
@@ -24,9 +25,9 @@ export function CalendarMonthNav({
 
   const label =
     months === 1
-      ? format(shownDate, 'MMMM yyyy', { locale })
-      : `${format(shownDate, 'MMMM', { locale })} – ${format(
-          addMonths(shownDate, months - 1),
+      ? format(labelAnchor, 'MMMM yyyy', { locale })
+      : `${format(labelAnchor, 'MMMM', { locale })} – ${format(
+          addMonths(labelAnchor, months - 1),
           'MMMM yyyy',
           { locale },
         )}`
