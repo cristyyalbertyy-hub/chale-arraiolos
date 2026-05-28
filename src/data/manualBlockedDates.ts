@@ -1,4 +1,4 @@
-/** Dias bloqueados manualmente (época alta, feriados, etc.) */
+/** Datas especiais (feriados/holidays): continuam livres, mas destacadas a azul. */
 export const manualBlockedDates: string[] = [
   '2026-06-06',
   '2026-06-07',

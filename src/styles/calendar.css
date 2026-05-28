@@ -85,6 +85,11 @@
   color: #92400e !important;
 }
 
+.chale-calendar .day-special {
+  background-color: #eef6ff !important;
+  color: #1e4f7a !important;
+}
+
 .chale-calendar .day-confirmed,
 .chale-calendar .rdrDayDisabled .day-occupied,
 .chale-calendar .day-occupied {

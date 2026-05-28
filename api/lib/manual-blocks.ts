@@ -1,4 +1,4 @@
-/** Sincronizar com src/data/manualBlockedDates.ts */
+/** Datas especiais antigas (usadas só para migração/limpeza de bloqueios antigos). */
 export const manualBlockedDates: string[] = [
   '2026-06-06',
   '2026-06-07',

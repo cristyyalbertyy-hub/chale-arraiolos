@@ -36,7 +36,7 @@
     "lodging": "Hébergement",
     "lodgingValue": "Chalé do Avô Bedi",
     "weekend": "Forfait week-end",
-    "weekendValue": "100 € · 1 nuit"
+    "weekendValue": "100 € / nuit"
   },
   "about": {
     "eyebrow": "Chalé do Avô Bedi",
@@ -208,7 +208,7 @@
     "eyebrow": "Réserver",
     "title": "Planifiez votre séjour",
     "intro": "Choisissez les dates, remplissez vos coordonnées et envoyez votre demande de réservation. Nous vous contacterons sur WhatsApp pour confirmer le paiement.",
-    "weekendPackage": "Séjour · 1 nuit",
+    "weekendPackage": "Séjour · prix par nuit",
     "plusActivities": "+ activités (prix × personnes par activité)",
     "capacity": "Capacité : jusqu'à {{max}} personnes",
     "datesLegend": "Choisissez les dates *",
@@ -236,7 +236,7 @@
       "occupied": "Cette période comprend des jours déjà réservés",
       "occupiedPick": "Cette période comprend des jours déjà réservés. Choisissez d'autres dates.",
       "minNights": "Le départ doit être au moins {{count}} nuit après l'arrivée",
-      "maxNights": "Nous n'acceptons que {{count}} nuit par réservation",
+      "maxNights": "Intervalle de nuits invalide",
       "name": "Indiquez votre nom",
       "email": "Indiquez un email valide",
       "phone": "Indiquez votre téléphone",
@@ -251,10 +251,11 @@
     "nextMonth": "Mois suivant",
     "available": "Disponible",
     "occupied": "Réservé",
+    "special": "Libre (jour férié/spécial)",
     "checkIn": "Arrivée :",
     "checkOut": "Départ :",
     "checkInOnly": "Arrivée :",
-    "selectCheckout": " — sélectionnez le départ (1 nuit)",
+    "selectCheckout": " — sélectionnez le départ",
     "nightsOne": "{{count}} nuit",
     "nightsMany": "{{count}} nuits",
     "dateFormat": "d MMMM yyyy"
@@ -296,6 +297,7 @@
       "legendPending": "En attente de paiement",
       "legendConfirmed": "Réservé",
       "legendBlocked": "Bloqué (sans réservation)",
+      "legendSpecial": "Jour spécial libre (férié)",
       "selectDates": "Sélectionnez les dates dans le calendrier.",
       "blockDates": "Bloquer les dates",
       "unblockDates": "Débloquer",
@@ -332,7 +334,7 @@
       "children": "Enfants",
       "totalPeople": "Total personnes",
       "pricing": "Montants",
-      "stay": "Séjour (1 nuit)",
+      "stay": "Séjour (prix par nuit × nuits)",
       "activitiesMeals": "Activités et repas",
       "estimatedTotal": "Total estimé",
       "activitiesSection": "Activités et repas"

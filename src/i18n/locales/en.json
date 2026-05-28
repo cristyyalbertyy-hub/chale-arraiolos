@@ -36,7 +36,7 @@
     "lodging": "Accommodation",
     "lodgingValue": "Chalé do Avô Bedi",
     "weekend": "Weekend package",
-    "weekendValue": "€100 · 1 night"
+    "weekendValue": "€100 / night"
   },
   "about": {
     "eyebrow": "Chalé do Avô Bedi",
@@ -208,7 +208,7 @@
     "eyebrow": "Book",
     "title": "Plan your stay",
     "intro": "Choose your dates, fill in your details and send your booking request. We will contact you on WhatsApp to confirm payment.",
-    "weekendPackage": "Stay · 1 night",
+    "weekendPackage": "Stay · price per night",
     "plusActivities": "+ activities (price × people per activity)",
     "capacity": "Capacity: up to {{max}} people",
     "datesLegend": "Choose dates *",
@@ -236,7 +236,7 @@
       "occupied": "This period includes already booked days",
       "occupiedPick": "This period includes already booked days. Please choose other dates.",
       "minNights": "Check-out must be at least {{count}} night after check-in",
-      "maxNights": "We only accept {{count}} night per booking",
+      "maxNights": "Invalid night range",
       "name": "Please enter your name",
       "email": "Please enter a valid email",
       "phone": "Please enter your mobile number",
@@ -251,10 +251,11 @@
     "nextMonth": "Next month",
     "available": "Available",
     "occupied": "Booked",
+    "special": "Free (holiday/special)",
     "checkIn": "Check-in:",
     "checkOut": "Check-out:",
     "checkInOnly": "Check-in:",
-    "selectCheckout": " — select check-out (1 night)",
+    "selectCheckout": " — select check-out",
     "nightsOne": "{{count}} night",
     "nightsMany": "{{count}} nights",
     "dateFormat": "MMMM d, yyyy"
@@ -296,6 +297,7 @@
       "legendPending": "Awaiting payment",
       "legendConfirmed": "Booked",
       "legendBlocked": "Blocked (no booking)",
+      "legendSpecial": "Free special day (holiday)",
       "selectDates": "Select dates on the calendar.",
       "blockDates": "Block dates",
       "unblockDates": "Unblock",
@@ -332,7 +334,7 @@
       "children": "Children",
       "totalPeople": "Total guests",
       "pricing": "Pricing",
-      "stay": "Stay (1 night)",
+      "stay": "Stay (price per night × nights)",
       "activitiesMeals": "Activities and meals",
       "estimatedTotal": "Estimated total",
       "activitiesSection": "Activities and meals"

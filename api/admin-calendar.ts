@@ -31,7 +31,7 @@ const ERROR_MESSAGES: Record<string, string> = {
   ALREADY_CANCELLED: 'Reserva já foi libertada',
   DATES_UNAVAILABLE: 'Datas indisponíveis (já ocupadas ou bloqueadas)',
   INVALID_RANGE: 'Intervalo de datas inválido',
-  INVALID_STAY_LENGTH: 'A estadia deve ser de 1 noite (check-out no dia seguinte)',
+  INVALID_STAY_LENGTH: 'O check-out deve ser depois do check-in',
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

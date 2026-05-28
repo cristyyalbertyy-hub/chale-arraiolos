@@ -3,7 +3,6 @@ import type { BookingHold, CalendarState } from './calendar-types'
 import { CALENDAR_KV_KEY, HOLD_MINUTES } from './calendar-types'
 import { getStayNightIsos, uniqueSorted } from './calendar-dates'
 import { manualBlockedDates as legacyManualBlocks } from './manual-blocks'
-import { STAY_NIGHTS } from './booking'
 import { getNightCount, parseLocalDate } from './calendar-dates'
 
 function defaultState(): CalendarState {
@@ -27,10 +26,8 @@ export function isKvConfigured(): boolean {
 
 function migrateState(state: CalendarState): CalendarState {
   const holds = state.holds ?? []
-  let manualBlocks = state.manualBlocks
-  if (!manualBlocks || manualBlocks.length === 0) {
-    manualBlocks = [...legacyManualBlocks]
-  }
+  const legacy = new Set(legacyManualBlocks)
+  const manualBlocks = (state.manualBlocks ?? []).filter((d) => !legacy.has(d))
   return { holds, manualBlocks: uniqueSorted(manualBlocks) }
 }
 
@@ -82,7 +79,7 @@ function validateStayRange(
   const nights = getStayNightIsos(checkIn, checkOut)
   if (nights.length === 0) return { error: 'INVALID_RANGE' }
   const nightCount = getNightCount(parseLocalDate(checkIn), parseLocalDate(checkOut))
-  if (nightCount !== STAY_NIGHTS) return { error: 'INVALID_STAY_LENGTH' }
+  if (nightCount < 1) return { error: 'INVALID_STAY_LENGTH' }
   return { ok: true, nights }
 }
 

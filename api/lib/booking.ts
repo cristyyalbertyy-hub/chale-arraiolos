@@ -19,14 +19,21 @@ export function formatCurrency(value: number, lang = 'pt'): string {
 }
 
 export function getBookingTotal(
+  checkIn: string,
+  checkOut: string,
   activitySelections: ActivitySelection[],
   adults: number,
   children: number,
 ) {
+  const nights =
+    checkIn && checkOut
+      ? Math.max(1, getNightCount(parseLocalDate(checkIn), parseLocalDate(checkOut)))
+      : 1
   const people = adults + children
   const activities = getActivitiesTotal(activitySelections)
-  const base = STAY_BASE_PRICE
-  return { base, activities, people, total: base + activities }
+  const basePerNight = STAY_BASE_PRICE
+  const base = basePerNight * nights
+  return { nights, basePerNight, base, activities, people, total: base + activities }
 }
 
 export function parseLocalDate(iso: string): Date {

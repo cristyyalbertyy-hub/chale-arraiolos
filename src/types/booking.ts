@@ -9,6 +9,8 @@ export interface BookingFormData {
 }
 
 export interface BookingTotal {
+  nights: number
+  basePerNight: number
   base: number
   activities: number
   people: number

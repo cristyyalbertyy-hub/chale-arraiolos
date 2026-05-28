@@ -1,14 +1,14 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
-import { addDays, format, startOfDay, startOfMonth } from 'date-fns'
+import { addDays, format, startOfDay } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../styles/calendar.css'
 import { CalendarMonthNav } from './CalendarMonthNav'
-import { STAY_NIGHTS } from '../lib/booking'
 import { useCalendarNavigation } from '../hooks/useCalendarNavigation'
 import { useOccupiedDates } from '../hooks/useOccupiedDates'
+import { manualBlockedDates as specialDates } from '../data/manualBlockedDates'
 import { getDateFnsLocale } from '../lib/locale'
 import {
   getNightCount,
@@ -40,7 +40,6 @@ export function AvailabilityCalendar({
     minDate,
     maxDate,
     shownDate,
-    syncToMonth,
     handleShownDateChange,
     canGoPrev,
     canGoNext,
@@ -49,25 +48,16 @@ export function AvailabilityCalendar({
   } = useCalendarNavigation()
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
+  const specialDateSet = useMemo(() => new Set(specialDates), [])
 
-  const labelAnchor = checkIn
-    ? startOfMonth(parseLocalDate(checkIn))
-    : shownDate
-
-  useEffect(() => {
-    if (checkIn) {
-      syncToMonth(parseLocalDate(checkIn))
-    }
-  }, [checkIn, syncToMonth])
-
-  const calendarKey = `${shownDate.getFullYear()}-${shownDate.getMonth()}-${months}`
+  const labelAnchor = shownDate
 
   const ranges = useMemo(() => {
     const startDate = checkIn ? parseLocalDate(checkIn) : new Date()
     const endDate = checkOut
       ? parseLocalDate(checkOut)
       : checkIn
-        ? addDays(parseLocalDate(checkIn), STAY_NIGHTS)
+        ? addDays(parseLocalDate(checkIn), 1)
         : startDate
 
     return [
@@ -90,8 +80,6 @@ export function AvailabilityCalendar({
 
     const start = startOfDay(startDate)
 
-    syncToMonth(start)
-
     if (!endDate) {
       onRangeChange(toISODate(start), '')
       return
@@ -107,7 +95,6 @@ export function AvailabilityCalendar({
       return
     }
 
-    syncToMonth(normalizedIn)
     onRangeChange(toISODate(normalizedIn), toISODate(normalizedOut))
   }
 
@@ -122,6 +109,10 @@ export function AvailabilityCalendar({
           <span className="inline-block h-3 w-3 rounded-full bg-red-100 ring-1 ring-red-800/30" />
           {t('calendar.occupied')}
         </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-full bg-sky-100 ring-1 ring-sky-700/30" />
+          {t('calendar.special')}
+        </span>
       </div>
 
       <div className="chale-calendar overflow-x-auto rounded-xl border border-sand bg-white p-3 sm:p-4">
@@ -134,7 +125,6 @@ export function AvailabilityCalendar({
           onNext={goNextMonth}
         />
         <DateRange
-          key={calendarKey}
           ranges={ranges}
           onChange={handleChange}
           months={months}
@@ -157,6 +147,8 @@ export function AvailabilityCalendar({
               ? ''
               : occupied
                 ? 'day-occupied'
+                : specialDateSet.has(toISODate(startOfDay(date)))
+                  ? 'day-special'
                 : 'day-available'
 
             return <span className={className}>{date.getDate()}</span>

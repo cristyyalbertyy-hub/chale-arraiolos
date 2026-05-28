@@ -36,7 +36,7 @@
     "lodging": "Alojamento",
     "lodgingValue": "Chalé do Avô Bedi",
     "weekend": "Pacote de fim de semana",
-    "weekendValue": "100€ · 1 noite"
+    "weekendValue": "100€ / noite"
   },
   "about": {
     "eyebrow": "O Chalé do Avô Bedi",
@@ -208,7 +208,7 @@
     "eyebrow": "Reservar",
     "title": "Planeie a sua estadia",
     "intro": "Escolha as datas, preencha os seus dados e envie o pedido de reserva. Entraremos em contacto por WhatsApp para confirmar o pagamento.",
-    "weekendPackage": "Estadia · 1 noite",
+    "weekendPackage": "Estadia · preço por noite",
     "plusActivities": "+ actividades (preço × pessoas por actividade)",
     "capacity": "Capacidade: até {{max}} pessoas",
     "datesLegend": "Escolha as datas *",
@@ -236,7 +236,7 @@
       "occupied": "O intervalo inclui dias já reservados",
       "occupiedPick": "O intervalo inclui dias já reservados. Escolha outras datas.",
       "minNights": "A saída deve ser pelo menos {{count}} noite depois da entrada",
-      "maxNights": "Reservamos apenas {{count}} noite por estadia",
+      "maxNights": "Intervalo de noites inválido",
       "name": "Indique o seu nome",
       "email": "Indique um email válido",
       "phone": "Indique o seu telemóvel",
@@ -251,10 +251,11 @@
     "nextMonth": "Mês seguinte",
     "available": "Disponível",
     "occupied": "Ocupado",
+    "special": "Livre (feriado/holiday)",
     "checkIn": "Check-in:",
     "checkOut": "Check-out:",
     "checkInOnly": "Entrada:",
-    "selectCheckout": " — selecione a data de saída (1 noite)",
+    "selectCheckout": " — selecione a data de saída",
     "nightsOne": "{{count}} noite",
     "nightsMany": "{{count}} noites",
     "dateFormat": "d 'de' MMMM yyyy"
@@ -296,6 +297,7 @@
       "legendPending": "À espera de pagamento",
       "legendConfirmed": "Reservado",
       "legendBlocked": "Bloqueado (sem reserva)",
+      "legendSpecial": "Livre especial (feriado/holiday)",
       "selectDates": "Seleccione as datas no calendário.",
       "blockDates": "Bloquear datas",
       "unblockDates": "Desbloquear",
@@ -332,7 +334,7 @@
       "children": "Crianças",
       "totalPeople": "Total de pessoas",
       "pricing": "Valores",
-      "stay": "Estadia (1 noite)",
+      "stay": "Estadia (preço por noite × noites)",
       "activitiesMeals": "Actividades e refeições",
       "estimatedTotal": "Total estimado",
       "activitiesSection": "Actividades e refeições"

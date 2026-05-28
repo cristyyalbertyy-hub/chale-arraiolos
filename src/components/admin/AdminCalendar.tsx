@@ -9,6 +9,7 @@ import { CalendarMonthNav } from '../CalendarMonthNav'
 import { STAY_NIGHTS } from '../../lib/booking'
 import { useCalendarNavigation } from '../../hooks/useCalendarNavigation'
 import { getDateFnsLocale } from '../../lib/locale'
+import { manualBlockedDates as specialDates } from '../../data/manualBlockedDates'
 import {
   getNightCount,
   normalizeStayRange,
@@ -65,6 +66,7 @@ export function AdminCalendar({
   } = useCalendarNavigation()
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
+  const specialDateSet = useMemo(() => new Set(specialDates), [])
 
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
@@ -159,6 +161,7 @@ export function AdminCalendar({
     if (pendingDates.has(iso)) return 'day-pending'
     if (confirmedDates.has(iso)) return 'day-confirmed'
     if (manualOnlyDates.has(iso)) return 'day-manual'
+    if (specialDateSet.has(iso)) return 'day-special'
     return 'day-available'
   }
 
@@ -247,6 +250,10 @@ export function AdminCalendar({
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-stone/30 ring-1 ring-stone/50" />
           {t('admin.calendar.legendBlocked')}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-full bg-sky-100 ring-1 ring-sky-700/30" />
+          {t('admin.calendar.legendSpecial')}
         </span>
       </div>
 

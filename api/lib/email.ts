@@ -5,7 +5,6 @@ import {
   getBookingTotal,
   getNightCount,
   parseLocalDate,
-  STAY_NIGHTS,
 } from './booking'
 import type { ActivitySelection, BookingSubmission } from './types'
 
@@ -85,6 +84,8 @@ export function buildBookingEmailContent(
 ): { subject: string; text: string; html: string } {
   const { form, activitySelections, locale } = submission
   const pricing = getBookingTotal(
+    form.checkIn,
+    form.checkOut,
     activitySelections,
     form.adults,
     form.children,
@@ -100,7 +101,7 @@ export function buildBookingEmailContent(
     `${L('phone')}: ${form.phone.trim()}`,
     `${L('checkIn')}: ${form.checkIn}`,
     `${L('checkOut')}: ${form.checkOut}`,
-    `Noites: ${getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))} (estadia de ${STAY_NIGHTS} noite)`,
+    `Noites: ${getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))}`,
     `${L('adults')}: ${form.adults}`,
     `${L('children')}: ${form.children}`,
     `${L('totalPeople')}: ${pricing.people}`,
@@ -155,6 +156,8 @@ export function buildGuestConfirmationEmail(
 ): { subject: string; text: string; html: string } {
   const { form, locale } = submission
   const pricing = getBookingTotal(
+    form.checkIn,
+    form.checkOut,
     submission.activitySelections,
     form.adults,
     form.children,

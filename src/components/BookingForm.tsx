@@ -6,8 +6,6 @@ import {
   formatCurrency,
   getBookingTotal,
   MAX_PEOPLE,
-  STAY_BASE_PRICE,
-  STAY_NIGHTS,
 } from '../lib/booking'
 import {
   getNightCount,
@@ -54,7 +52,13 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showDatesRequired, setShowDatesRequired] = useState(false)
 
-  const pricing = getBookingTotal(activitySelections, form.adults, form.children)
+  const pricing = getBookingTotal(
+    form.checkIn,
+    form.checkOut,
+    activitySelections,
+    form.adults,
+    form.children,
+  )
   const hasDates = Boolean(form.checkIn && form.checkOut)
   const datesRequiredMessage = t('booking.selectDatesRequired')
 
@@ -79,10 +83,8 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
       const start = parseLocalDate(form.checkIn)
       const end = parseLocalDate(form.checkOut)
       const nights = getNightCount(start, end)
-      if (nights < STAY_NIGHTS) {
-        next.checkOut = t('booking.errors.minNights', { count: STAY_NIGHTS })
-      } else if (nights > STAY_NIGHTS) {
-        next.checkOut = t('booking.errors.maxNights', { count: STAY_NIGHTS })
+      if (nights < 1) {
+        next.checkOut = t('booking.errors.minNights', { count: 1 })
       } else if (rangeOverlapsOccupied(start, end, occupiedDates)) {
         next.checkOut = t('booking.errors.occupied')
       }
@@ -205,7 +207,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
               <p className="text-sm text-sand">{t('booking.weekendPackage')}</p>
               <p className="font-display text-3xl font-semibold text-cream">
-                {formatCurrency(STAY_BASE_PRICE, lang)}
+                {formatCurrency(pricing.basePerNight, lang)}
               </p>
               <p className="mt-2 text-sm text-sand/80">{t('booking.plusActivities')}</p>
               <p className="mt-1 text-sm text-sand/80">
@@ -372,7 +374,13 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               <p className="text-sm font-semibold text-olive">{t('booking.estimatedTotal')}</p>
               <ul className="mt-3 space-y-2 text-sm text-stone">
                 <li className="flex justify-between gap-2">
-                  <span>{t('booking.weekendPackage')}</span>
+                  <span>
+                    {t('booking.weekendPackage')} (
+                    {t(pricing.nights === 1 ? 'calendar.nightsOne' : 'calendar.nightsMany', {
+                      count: pricing.nights,
+                    })}
+                    )
+                  </span>
                   <span className="font-medium">
                     {formatCurrency(pricing.base, lang)}
                   </span>

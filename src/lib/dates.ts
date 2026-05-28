@@ -5,7 +5,6 @@ import {
   isSameDay,
   startOfDay,
 } from 'date-fns'
-import { STAY_NIGHTS } from './booking'
 
 export function parseLocalDate(iso: string): Date {
   const [year, month, day] = iso.split('-').map(Number)
@@ -31,22 +30,14 @@ export function getNightCount(checkIn: Date, checkOut: Date): number {
   )
 }
 
-/**
- * Garante estadia de exactamente STAY_NIGHTS (1 noite → check-out no dia seguinte).
- */
+/** Garante pelo menos 1 noite (check-out > check-in). */
 export function normalizeStayRange(
   checkIn: Date,
   checkOut: Date,
 ): { checkIn: Date; checkOut: Date } {
   const start = startOfDay(checkIn)
   let end = startOfDay(checkOut)
-  const nights = getNightCount(start, end)
-
-  if (nights < STAY_NIGHTS) {
-    end = addDays(start, STAY_NIGHTS)
-  } else if (nights > STAY_NIGHTS) {
-    end = addDays(start, STAY_NIGHTS)
-  }
+  if (end <= start) end = addDays(start, 1)
 
   return { checkIn: start, checkOut: end }
 }
