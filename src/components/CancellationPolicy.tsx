@@ -113,19 +113,31 @@ export function CancellationPolicyNotice({ variant = 'booking' }: CancellationPo
   const { dialogRef, openDialog, closeDialog } = useCancellationPolicyDialog()
 
   const isHero = variant === 'hero'
-  const textClass = isHero ? 'text-sand/90' : 'text-sand'
+  const summaryClass = isHero ? 'text-sand' : 'text-stone'
+  const consentClass = isHero ? 'text-sand/90' : 'text-stone-muted'
   const linkClass = isHero
     ? 'text-cream underline decoration-cream/50 underline-offset-2 hover:decoration-cream'
-    : 'text-cream underline decoration-cream/60 underline-offset-2 hover:decoration-cream'
+    : 'text-terracotta underline decoration-terracotta/40 underline-offset-2 hover:decoration-terracotta'
 
   return (
     <>
-      <p className={`text-xs leading-relaxed sm:text-sm ${textClass}`}>
-        {t('cancellation.consent')}{' '}
-        <button type="button" onClick={openDialog} className={linkClass}>
-          {t('cancellation.openPolicy')}
-        </button>
-      </p>
+      <div
+        className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${
+          isHero
+            ? 'border-cream/20 bg-cream/5'
+            : 'border-olive/15 bg-sand/50'
+        }`}
+      >
+        <p className={`font-medium ${summaryClass}`}>
+          {t('cancellation.summary')}
+        </p>
+        <p className={`mt-2 text-xs sm:text-sm ${consentClass}`}>
+          {t('cancellation.consent')}{' '}
+          <button type="button" onClick={openDialog} className={linkClass}>
+            {t('cancellation.openPolicy')}
+          </button>
+        </p>
+      </div>
 
       <CancellationPolicyDialog dialogRef={dialogRef} onClose={closeDialog} />
     </>

@@ -35,8 +35,19 @@
     "guestsValue": "Up to 4",
     "lodging": "Accommodation",
     "lodgingValue": "Chalé do Avô Bedi",
-    "weekend": "Weekend package",
-    "weekendValue": "€100 / night"
+    "mainOffer": "Weekend stay",
+    "mainOfferValue": "€170 (2 nights)",
+    "pricingOther": "1 night – €100 · 4 nights – €330 · 7 nights – €550"
+  },
+  "pricing": {
+    "stayOneNight": "1 night",
+    "stayWeekend2": "Weekend stay (2 nights)",
+    "stayNights": "Stay ({{count}} nights)",
+    "package1": "1 night – €100",
+    "package2": "Weekend stay (2 nights) – €170",
+    "package4": "4 nights – €330",
+    "package7": "7 nights – €550",
+    "extraNightHint": "More than 7 nights: €550 + €72 per extra night"
   },
   "about": {
     "eyebrow": "Chalé do Avô Bedi",
@@ -46,7 +57,7 @@
     "p2": "Arraiolos is about 1 hour from Lisbon. Stroll to the castle, visit tapestry studios and taste regional wines — all minutes from home.",
     "checklist": [
       "Flexible check-in (3pm–8pm)",
-      "1-night stay",
+      "Weekend stay (2 nights) – €170",
       "Towels and bed linen included"
     ],
     "photoChalet": "Chalé do Avô Bedi in Alentejo, surrounded by greenery",
@@ -123,8 +134,7 @@
   },
   "gallery": {
     "eyebrow": "Gallery",
-    "spacesTitle": "Spaces you'll love",
-    "momentsTitle": "Moments you'll love",
+    "title": "Gallery – Spaces and moments at Chalé do Avô Bedi",
     "openImage": "Open image: {{alt}}",
     "close": "Close",
     "prev": "Previous image",
@@ -144,6 +154,19 @@
       "wcDetail": "Bathroom — detail",
       "breakfast": "Alentejo breakfast on the table — bread, cheese and olives",
       "cookies": "Fresh homemade biscuits from the oven"
+    },
+    "captions": {
+      "chalet": "A wooden cottage wrapped in green — your Alentejo retreat.",
+      "relax": "In the shade of the garden, time slows and the body rests.",
+      "livingRoom": "The living room welcomes conversation, fireplace and quiet evenings.",
+      "terrace": "From the terrace, evening light and the silence of the land.",
+      "gardenTree": "Among trees and flowers, the garden is an extension of home.",
+      "canas": "Reeds and greenery — the yard alive through every season.",
+      "treeHouse": "The tree house: a lookout all your own, four metres above the ground.",
+      "bathroomWc": "The bathroom in the courtyard — feng shui tradition five metres from the living room.",
+      "toilete": "Rustic comfort indoors: essentials with Alentejo charm.",
+      "breakfast": "At the table, warm bread, cheese and olives — the slow rhythm of Alentejo.",
+      "cookies": "Biscuits fresh from the oven, like at grandmother's house."
     }
   },
   "activities": {
@@ -184,6 +207,7 @@
     }
   },
   "cancellation": {
+    "summary": "Cancellation policy: free up to 30 days before check-in; 50% refund up to 14 days; no refund after.",
     "consent": "By booking, you agree to our cancellation policy.",
     "openPolicy": "View full policy",
     "title": "Cancellation Policy – Chalé do Avô Bedi",
@@ -208,7 +232,7 @@
     "eyebrow": "Book",
     "title": "Plan your stay",
     "intro": "Choose your dates, fill in your details and send your booking request. We will contact you on WhatsApp to confirm payment.",
-    "weekendPackage": "Stay · price per night",
+    "mainOfferLabel": "Weekend stay (2 nights) – €170",
     "plusActivities": "+ activities (price × people per activity)",
     "capacity": "Capacity: up to {{max}} people",
     "datesLegend": "Choose dates *",
@@ -334,7 +358,7 @@
       "children": "Children",
       "totalPeople": "Total guests",
       "pricing": "Pricing",
-      "stay": "Stay (price per night × nights)",
+      "stay": "Stay (package by nights)",
       "activitiesMeals": "Activities and meals",
       "estimatedTotal": "Estimated total",
       "activitiesSection": "Activities and meals"

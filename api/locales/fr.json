@@ -35,8 +35,19 @@
     "guestsValue": "Jusqu'à 4",
     "lodging": "Hébergement",
     "lodgingValue": "Chalé do Avô Bedi",
-    "weekend": "Forfait week-end",
-    "weekendValue": "100 € / nuit"
+    "mainOffer": "Week-end",
+    "mainOfferValue": "170 € (2 nuits)",
+    "pricingOther": "1 nuit – 100 € · 4 nuits – 330 € · 7 nuits – 550 €"
+  },
+  "pricing": {
+    "stayOneNight": "1 nuit",
+    "stayWeekend2": "Week-end (2 nuits)",
+    "stayNights": "Séjour ({{count}} nuits)",
+    "package1": "1 nuit – 100 €",
+    "package2": "Week-end (2 nuits) – 170 €",
+    "package4": "4 nuits – 330 €",
+    "package7": "7 nuits – 550 €",
+    "extraNightHint": "Plus de 7 nuits : 550 € + 72 € par nuit supplémentaire"
   },
   "about": {
     "eyebrow": "Chalé do Avô Bedi",
@@ -46,7 +57,7 @@
     "p2": "Arraiolos est à environ 1 heure de Lisbonne. Promenez-vous au château, visitez les ateliers de tapisserie et goûtez les vins de la région — tout à quelques minutes.",
     "checklist": [
       "Arrivée flexible (15h–20h)",
-      "Séjour d'1 nuit",
+      "Week-end (2 nuits) – 170 €",
       "Serviettes et linge de lit inclus"
     ],
     "photoChalet": "Le Chalé do Avô Bedi dans l'Alentejo, entouré de verdure",
@@ -123,8 +134,7 @@
   },
   "gallery": {
     "eyebrow": "Galerie",
-    "spacesTitle": "Des espaces que vous allez adorer",
-    "momentsTitle": "Des moments que vous allez adorer",
+    "title": "Galerie – Espaces et moments au Chalé do Avô Bedi",
     "openImage": "Ouvrir l'image : {{alt}}",
     "close": "Fermer",
     "prev": "Image précédente",
@@ -184,6 +194,7 @@
     }
   },
   "cancellation": {
+    "summary": "Politique d'annulation : gratuit jusqu'à 30 jours ; 50 % jusqu'à 14 jours ; aucun remboursement après.",
     "consent": "En réservant, vous acceptez notre politique d'annulation.",
     "openPolicy": "Voir la politique complète",
     "title": "Politique d'annulation – Chalé do Avô Bedi",
@@ -208,7 +219,7 @@
     "eyebrow": "Réserver",
     "title": "Planifiez votre séjour",
     "intro": "Choisissez les dates, remplissez vos coordonnées et envoyez votre demande de réservation. Nous vous contacterons sur WhatsApp pour confirmer le paiement.",
-    "weekendPackage": "Séjour · prix par nuit",
+    "mainOfferLabel": "Week-end (2 nuits) – 170 €",
     "plusActivities": "+ activités (prix × personnes par activité)",
     "capacity": "Capacité : jusqu'à {{max}} personnes",
     "datesLegend": "Choisissez les dates *",
@@ -334,7 +345,7 @@
       "children": "Enfants",
       "totalPeople": "Total personnes",
       "pricing": "Montants",
-      "stay": "Séjour (prix par nuit × nuits)",
+      "stay": "Séjour (forfait par nuits)",
       "activitiesMeals": "Activités et repas",
       "estimatedTotal": "Total estimé",
       "activitiesSection": "Activités et repas"

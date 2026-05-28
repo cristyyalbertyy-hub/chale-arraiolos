@@ -4,23 +4,65 @@ import { useTranslation } from 'react-i18next'
 type GalleryImage = {
   src: string
   altKey: string
+  captionKey: string
 }
 
-const spaceImages: GalleryImage[] = [
-  { src: '/images/galeria_chale.png', altKey: 'gallery.images.chalet' },
-  { src: '/images/galeria_relax.PNG', altKey: 'gallery.images.relax' },
-  { src: '/images/galeria_sala.jpg', altKey: 'gallery.images.livingRoom' },
-  { src: '/images/galeria_varanda.jpg', altKey: 'gallery.images.terrace' },
-  { src: '/images/galeria_tree.jpg', altKey: 'gallery.images.gardenTree' },
-  { src: '/images/galeria_canas.png', altKey: 'gallery.images.canas' },
-  { src: '/images/galeria_tree1.png', altKey: 'gallery.images.treeHouse' },
-  { src: '/images/galeria_wc.png', altKey: 'gallery.images.bathroomWc' },
-  { src: '/images/galeria_toilete.png', altKey: 'gallery.images.toilete' },
-]
-
-const momentImages: GalleryImage[] = [
-  { src: '/images/galeria_breackfast.PNG', altKey: 'gallery.images.breakfast' },
-  { src: '/images/galeria-cookies.PNG', altKey: 'gallery.images.cookies' },
+const galleryImages: GalleryImage[] = [
+  {
+    src: '/images/galeria_chale.png',
+    altKey: 'gallery.images.chalet',
+    captionKey: 'gallery.captions.chalet',
+  },
+  {
+    src: '/images/galeria_relax.PNG',
+    altKey: 'gallery.images.relax',
+    captionKey: 'gallery.captions.relax',
+  },
+  {
+    src: '/images/galeria_sala.jpg',
+    altKey: 'gallery.images.livingRoom',
+    captionKey: 'gallery.captions.livingRoom',
+  },
+  {
+    src: '/images/galeria_varanda.jpg',
+    altKey: 'gallery.images.terrace',
+    captionKey: 'gallery.captions.terrace',
+  },
+  {
+    src: '/images/galeria_tree.jpg',
+    altKey: 'gallery.images.gardenTree',
+    captionKey: 'gallery.captions.gardenTree',
+  },
+  {
+    src: '/images/galeria_canas.png',
+    altKey: 'gallery.images.canas',
+    captionKey: 'gallery.captions.canas',
+  },
+  {
+    src: '/images/galeria_tree1.png',
+    altKey: 'gallery.images.treeHouse',
+    captionKey: 'gallery.captions.treeHouse',
+  },
+  {
+    src: '/images/galeria_wc.png',
+    altKey: 'gallery.images.bathroomWc',
+    captionKey: 'gallery.captions.bathroomWc',
+  },
+  {
+    src: '/images/galeria_toilete.png',
+    altKey: 'gallery.images.toilete',
+    captionKey: 'gallery.captions.toilete',
+  },
+  {
+    src: '/images/galeria_breackfast.PNG',
+    altKey: 'gallery.images.breakfast',
+    captionKey: 'gallery.captions.breakfast',
+  },
+  {
+    src: '/images/galeria-cookies.PNG',
+    altKey: 'gallery.images.cookies',
+    captionKey: 'gallery.captions.cookies',
+  },
 ]
 
 function useLightbox(
@@ -61,7 +103,11 @@ function useLightbox(
 
   const active =
     lightboxIndex !== null
-      ? { ...images[lightboxIndex], alt: t(images[lightboxIndex].altKey) }
+      ? {
+          ...images[lightboxIndex],
+          alt: t(images[lightboxIndex].altKey),
+          caption: t(images[lightboxIndex].captionKey),
+        }
       : null
 
   return { lightboxIndex, setLightboxIndex, close, showPrev, showNext, active }
@@ -78,21 +124,27 @@ function ImageGrid({ images, onOpen, t }: ImageGridProps) {
     <ul className="mt-10 grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
       {images.map((image, index) => {
         const alt = t(image.altKey)
+        const caption = t(image.captionKey)
         return (
           <li key={image.src}>
-            <button
-              type="button"
-              onClick={() => onOpen(index)}
-              className="group block w-full overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-olive/40 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
-              aria-label={t('gallery.openImage', { alt })}
-            >
-              <img
-                src={image.src}
-                alt={alt}
-                className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-            </button>
+            <figure className="flex h-full flex-col">
+              <button
+                type="button"
+                onClick={() => onOpen(index)}
+                className="group block w-full overflow-hidden rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-olive/40 focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                aria-label={t('gallery.openImage', { alt })}
+              >
+                <img
+                  src={image.src}
+                  alt={alt}
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </button>
+              <figcaption className="mt-2.5 px-1 text-sm leading-snug text-stone-muted">
+                {caption}
+              </figcaption>
+            </figure>
           </li>
         )
       })}
@@ -103,7 +155,7 @@ function ImageGrid({ images, onOpen, t }: ImageGridProps) {
 interface LightboxProps {
   images: GalleryImage[]
   lightboxIndex: number
-  active: { src: string; alt: string }
+  active: { src: string; alt: string; caption: string }
   onClose: () => void
   onPrev: () => void
   onNext: () => void
@@ -169,8 +221,11 @@ function Lightbox({
           alt={active.alt}
           className="max-h-[85vh] max-w-full rounded-lg object-contain shadow-2xl"
         />
-        <figcaption className="mt-3 text-center text-sm text-cream/90">
-          {lightboxIndex + 1} / {images.length}
+        <figcaption className="mt-3 max-w-lg text-center text-sm leading-relaxed text-cream">
+          <p>{active.caption}</p>
+          <p className="mt-1.5 text-xs text-cream/70">
+            {lightboxIndex + 1} / {images.length}
+          </p>
         </figcaption>
       </figure>
     </div>
@@ -226,21 +281,12 @@ function GalleryBlock({
 
 export function Gallery() {
   return (
-    <>
-      <GalleryBlock
-        id="galeria"
-        eyebrowKey="gallery.eyebrow"
-        titleKey="gallery.spacesTitle"
-        images={spaceImages}
-        className="py-16 sm:py-24"
-      />
-      <GalleryBlock
-        id="momentos"
-        eyebrowKey="gallery.eyebrow"
-        titleKey="gallery.momentsTitle"
-        images={momentImages}
-        className="border-t border-sand bg-white/40 py-16 sm:py-24"
-      />
-    </>
+    <GalleryBlock
+      id="galeria"
+      eyebrowKey="gallery.eyebrow"
+      titleKey="gallery.title"
+      images={galleryImages}
+      className="py-16 sm:py-24"
+    />
   )
 }

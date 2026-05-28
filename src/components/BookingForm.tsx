@@ -1,12 +1,43 @@
 import { useState, type FormEvent } from 'react'
-import { useTranslation } from 'react-i18next'
 import type { BookingFormData } from '../types/booking'
+
+const FIELD_ERROR_INPUT =
+  'border-terracotta bg-terracotta/5 ring-2 ring-terracotta/30 focus:border-terracotta focus:ring-terracotta/40'
+const FIELD_OK_INPUT =
+  'border-sand bg-white focus:border-olive focus:ring-2 focus:ring-olive/20'
+
+function inputClass(hasError: boolean): string {
+  return `mt-1.5 w-full rounded-xl border px-4 py-3 text-stone outline-none ${hasError ? FIELD_ERROR_INPUT : FIELD_OK_INPUT}`
+}
+
+function labelClass(hasError: boolean): string {
+  return `block text-sm font-medium ${hasError ? 'text-terracotta' : 'text-stone'}`
+}
+
+function focusFirstInvalidField(next: Partial<Record<keyof BookingFormData, string>>) {
+  if (next.checkIn || next.checkOut) {
+    document.getElementById('booking-dates')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    return
+  }
+  const order: (keyof BookingFormData)[] = ['name', 'email', 'phone', 'adults', 'children']
+  for (const field of order) {
+    if (next[field]) {
+      const el = document.getElementById(field)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      if (el instanceof HTMLInputElement) el.focus({ preventScroll: true })
+      return
+    }
+  }
+}
+import { useTranslation } from 'react-i18next'
 import { AvailabilityCalendar } from './AvailabilityCalendar'
 import {
   formatCurrency,
   getBookingTotal,
+  getStayLineLabelKey,
   MAX_PEOPLE,
 } from '../lib/booking'
+import { StayPricingSummary } from './StayPricingSummary'
 import {
   getNightCount,
   parseLocalDate,
@@ -111,6 +142,9 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     }
 
     setErrors(next)
+    if (Object.keys(next).length > 0) {
+      focusFirstInvalidField(next)
+    }
     return Object.keys(next).length === 0
   }
 
@@ -132,10 +166,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
       return
     }
 
-    if (!validate()) {
-      if (!form.checkIn || !form.checkOut) focusDatesSection()
-      return
-    }
+    if (!validate()) return
 
     setIsSubmitting(true)
     setSubmitError(null)
@@ -204,16 +235,11 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               {t('booking.title')}
             </h2>
             <p className="mt-4 text-sand leading-relaxed">{t('booking.intro')}</p>
-            <div className="mt-8 rounded-2xl border border-cream/15 bg-cream/5 p-6">
-              <p className="text-sm text-sand">{t('booking.weekendPackage')}</p>
-              <p className="font-display text-3xl font-semibold text-cream">
-                {formatCurrency(pricing.basePerNight, lang)}
-              </p>
-              <p className="mt-2 text-sm text-sand/80">{t('booking.plusActivities')}</p>
-              <p className="mt-1 text-sm text-sand/80">
-                {t('booking.capacity', { max: MAX_PEOPLE })}
-              </p>
-            </div>
+            <StayPricingSummary
+              nights={hasDates ? pricing.nights : undefined}
+              base={hasDates ? pricing.base : undefined}
+              lang={lang}
+            />
           </div>
 
           <form
@@ -223,7 +249,14 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
           >
             <BathroomNotice variant="booking" />
 
-            <fieldset id="booking-dates" className="mt-6">
+            <fieldset
+              id="booking-dates"
+              className={`mt-6 rounded-xl transition-colors ${
+                errors.checkIn || errors.checkOut
+                  ? 'ring-2 ring-terracotta/25 ring-offset-2 ring-offset-cream'
+                  : ''
+              }`}
+            >
               <legend className="mb-3 block text-sm font-semibold text-olive">
                 {t('booking.datesLegend')}
               </legend>
@@ -278,7 +311,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               </legend>
 
               <div className="sm:col-span-2">
-                <label htmlFor="name" className="block text-sm font-medium text-stone">
+                <label htmlFor="name" className={labelClass(Boolean(errors.name))}>
                   {t('booking.name')}
                 </label>
                 <input
@@ -287,15 +320,18 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   autoComplete="name"
                   value={form.name}
                   onChange={(e) => updateField('name', e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
+                  aria-invalid={Boolean(errors.name)}
+                  className={inputClass(Boolean(errors.name))}
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-terracotta">{errors.name}</p>
+                  <p role="alert" className="mt-1 text-sm font-medium text-terracotta">
+                    {errors.name}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-stone">
+                <label htmlFor="email" className={labelClass(Boolean(errors.email))}>
                   {t('booking.email')}
                 </label>
                 <input
@@ -304,15 +340,18 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   autoComplete="email"
                   value={form.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
+                  aria-invalid={Boolean(errors.email)}
+                  className={inputClass(Boolean(errors.email))}
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-terracotta">{errors.email}</p>
+                  <p role="alert" className="mt-1 text-sm font-medium text-terracotta">
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-stone">
+                <label htmlFor="phone" className={labelClass(Boolean(errors.phone))}>
                   {t('booking.phone')}
                 </label>
                 <input
@@ -322,15 +361,18 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   value={form.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder={t('booking.phonePlaceholder')}
-                  className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
+                  aria-invalid={Boolean(errors.phone)}
+                  className={inputClass(Boolean(errors.phone))}
                 />
                 {errors.phone && (
-                  <p className="mt-1 text-sm text-terracotta">{errors.phone}</p>
+                  <p role="alert" className="mt-1 text-sm font-medium text-terracotta">
+                    {errors.phone}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="adults" className="block text-sm font-medium text-stone">
+                <label htmlFor="adults" className={labelClass(Boolean(errors.adults))}>
                   {t('booking.adults')}
                 </label>
                 <input
@@ -342,15 +384,18 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   onChange={(e) =>
                     updateField('adults', Math.max(1, Number(e.target.value) || 1))
                   }
-                  className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
+                  aria-invalid={Boolean(errors.adults)}
+                  className={inputClass(Boolean(errors.adults))}
                 />
                 {errors.adults && (
-                  <p className="mt-1 text-sm text-terracotta">{errors.adults}</p>
+                  <p role="alert" className="mt-1 text-sm font-medium text-terracotta">
+                    {errors.adults}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="children" className="block text-sm font-medium text-stone">
+                <label htmlFor="children" className={labelClass(Boolean(errors.children))}>
                   {t('booking.children')}
                 </label>
                 <input
@@ -362,10 +407,13 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
                   onChange={(e) =>
                     updateField('children', Math.max(0, Number(e.target.value) || 0))
                   }
-                  className="mt-1.5 w-full rounded-xl border border-sand bg-white px-4 py-3 text-stone outline-none focus:border-olive focus:ring-2 focus:ring-olive/20"
+                  aria-invalid={Boolean(errors.children)}
+                  className={inputClass(Boolean(errors.children))}
                 />
                 {errors.children && (
-                  <p className="mt-1 text-sm text-terracotta">{errors.children}</p>
+                  <p role="alert" className="mt-1 text-sm font-medium text-terracotta">
+                    {errors.children}
+                  </p>
                 )}
               </div>
             </fieldset>
@@ -375,11 +423,7 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
               <ul className="mt-3 space-y-2 text-sm text-stone">
                 <li className="flex justify-between gap-2">
                   <span>
-                    {t('booking.weekendPackage')} (
-                    {t(pricing.nights === 1 ? 'calendar.nightsOne' : 'calendar.nightsMany', {
-                      count: pricing.nights,
-                    })}
-                    )
+                    {t(getStayLineLabelKey(pricing.nights), { count: pricing.nights })}
                   </span>
                   <span className="font-medium">
                     {formatCurrency(pricing.base, lang)}

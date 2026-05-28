@@ -35,8 +35,19 @@
     "guestsValue": "Até 4",
     "lodging": "Alojamento",
     "lodgingValue": "Chalé do Avô Bedi",
-    "weekend": "Pacote de fim de semana",
-    "weekendValue": "100€ / noite"
+    "mainOffer": "Fim de semana",
+    "mainOfferValue": "170€ (2 noites)",
+    "pricingOther": "1 noite – 100€ · 4 noites – 330€ · 7 noites – 550€"
+  },
+  "pricing": {
+    "stayOneNight": "1 noite",
+    "stayWeekend2": "Fim de semana (2 noites)",
+    "stayNights": "Estadia ({{count}} noites)",
+    "package1": "1 noite – 100€",
+    "package2": "Fim de semana (2 noites) – 170€",
+    "package4": "4 noites – 330€",
+    "package7": "7 noites – 550€",
+    "extraNightHint": "Mais de 7 noites: 550€ + 72€ por noite extra"
   },
   "about": {
     "eyebrow": "O Chalé do Avô Bedi",
@@ -46,7 +57,7 @@
     "p2": "Arraiolos fica a cerca de 1 hora de Lisboa. Passeie pelo castelo, visite os ateliers de tapeçaria e prove os vinhos da região — tudo a poucos minutos de casa.",
     "checklist": [
       "Check-in flexível (15h–20h)",
-      "Estadia de 1 noite",
+      "Fim de semana (2 noites) – 170€",
       "Toalhas e roupa de cama incluídas"
     ],
     "photoChalet": "O Chalé do Avô Bedi no Alentejo, rodeado de vegetação",
@@ -123,8 +134,7 @@
   },
   "gallery": {
     "eyebrow": "Galeria",
-    "spacesTitle": "Espaços que vai adorar",
-    "momentsTitle": "Momentos que vai adorar",
+    "title": "Galeria – Espaços e momentos no Chalé do Avô Bedi",
     "openImage": "Abrir imagem: {{alt}}",
     "close": "Fechar",
     "prev": "Imagem anterior",
@@ -144,6 +154,19 @@
       "wcDetail": "Casa de banho — detalhe",
       "breakfast": "Pequeno-almoço alentejano na mesa — pão, queijo e azeitonas",
       "cookies": "Bolachas caseiras frescas do forno"
+    },
+    "captions": {
+      "chalet": "O chalé de madeira, rodeado de verde — o seu refúgio no Alentejo.",
+      "relax": "À sombra do jardim, o tempo abranda e o corpo descansa.",
+      "livingRoom": "A sala acolhe conversas, lareira e noites tranquilas.",
+      "terrace": "Da varanda, a luz do fim do dia e o silêncio da terra.",
+      "gardenTree": "Entre árvores e flores, o quintal é uma extensão da casa.",
+      "canas": "Vegetação e canas — o quintal vivo em todas as estações.",
+      "treeHouse": "A casa na árvore: um miradouro só seu, a quatro metros do chão.",
+      "bathroomWc": "A casa de banho no quintal — tradição feng shui a cinco metros da sala.",
+      "toilete": "Conforto rústico no interior: o essencial com charme alentejano.",
+      "breakfast": "À mesa, pão quente, queijo e azeitonas — o ritmo lento do Alentejo.",
+      "cookies": "Bolachas acabadas de sair do forno, como na casa da avó."
     }
   },
   "activities": {
@@ -184,6 +207,7 @@
     }
   },
   "cancellation": {
+    "summary": "Política de cancelamento: gratuito até 30 dias; 50% até 14 dias; sem reembolso após.",
     "consent": "Ao reservar, concorda com a nossa política de cancelamento.",
     "openPolicy": "Ver política completa",
     "title": "Política de Cancelamento – Chalé do Avô Bedi",
@@ -208,7 +232,7 @@
     "eyebrow": "Reservar",
     "title": "Planeie a sua estadia",
     "intro": "Escolha as datas, preencha os seus dados e envie o pedido de reserva. Entraremos em contacto por WhatsApp para confirmar o pagamento.",
-    "weekendPackage": "Estadia · preço por noite",
+    "mainOfferLabel": "Fim de semana (2 noites) – 170€",
     "plusActivities": "+ actividades (preço × pessoas por actividade)",
     "capacity": "Capacidade: até {{max}} pessoas",
     "datesLegend": "Escolha as datas *",
@@ -334,7 +358,7 @@
       "children": "Crianças",
       "totalPeople": "Total de pessoas",
       "pricing": "Valores",
-      "stay": "Estadia (preço por noite × noites)",
+      "stay": "Estadia (pacote por noites)",
       "activitiesMeals": "Actividades e refeições",
       "estimatedTotal": "Total estimado",
       "activitiesSection": "Actividades e refeições"

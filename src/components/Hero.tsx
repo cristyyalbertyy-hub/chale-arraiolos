@@ -65,13 +65,14 @@ export function Hero() {
           </div>
           <div>
             <dt className="text-xs uppercase tracking-wide text-sand/80">
-              {t('hero.weekend')}
+              {t('hero.mainOffer')}
             </dt>
             <dd className="font-display mt-1 text-2xl font-semibold text-cream">
-              {t('hero.weekendValue')}
+              {t('hero.mainOfferValue')}
             </dd>
           </div>
         </dl>
+        <p className="mt-3 max-w-lg text-sm text-sand/85">{t('hero.pricingOther')}</p>
       </div>
     </section>
   )
