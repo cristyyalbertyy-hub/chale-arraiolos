@@ -215,10 +215,20 @@ export function AdminPage() {
                 >
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <p className="font-semibold text-olive">{hold.guestName}</p>
-                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900">
-                      {t('admin.countdown', {
-                        time: formatCountdown(hold.remainingSeconds),
-                      })}
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                        hold.frozen
+                          ? 'bg-purple-100 text-purple-900'
+                          : 'bg-amber-100 text-amber-900'
+                      }`}
+                    >
+                      {hold.frozen
+                        ? t('admin.frozenUntil', {
+                            time: formatCountdown(hold.remainingSeconds),
+                          })
+                        : t('admin.countdown', {
+                            time: formatCountdown(hold.remainingSeconds),
+                          })}
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-stone-muted">

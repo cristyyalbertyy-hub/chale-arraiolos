@@ -9,8 +9,8 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
   }
 
   try {
-    const { dates, kvEnabled } = await getBlockedDates()
-    return res.status(200).json({ dates, kvEnabled })
+    const { dates, frozenDates, kvEnabled } = await getBlockedDates()
+    return res.status(200).json({ dates, frozenDates, kvEnabled })
   } catch (err) {
     console.error('availability error:', err)
     return res.status(500).json({ error: 'Erro ao obter disponibilidade' })

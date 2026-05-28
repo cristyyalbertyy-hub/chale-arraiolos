@@ -40,12 +40,10 @@ export function useCalendarNavigation() {
     [clampShownDate],
   )
 
-  const handleShownDateChange = useCallback(
-    (date: Date) => {
-      setShownDate(clampShownDate(date))
-    },
-    [clampShownDate],
-  )
+  /** A biblioteca chama isto ao clicar num dia e saltava Maio→Junho→Julho. Ignoramos: só as setas mudam o mês. */
+  const onShownDateChange = useCallback((_date: Date) => {
+    void _date
+  }, [])
 
   const canGoPrev = isAfter(shownDate, minShown)
   const canGoNext = isBefore(shownDate, maxShown)
@@ -67,7 +65,7 @@ export function useCalendarNavigation() {
     shownDate,
     setShownDate,
     syncToMonth,
-    handleShownDateChange,
+    onShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,

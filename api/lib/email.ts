@@ -4,8 +4,15 @@ import {
   formatCurrency,
   getBookingTotal,
   getNightCount,
+  getStayLineLabelKey,
   parseLocalDate,
 } from './booking'
+import {
+  buildPaymentSectionHtml,
+  buildPaymentSectionText,
+} from './email-payment-section'
+import type { HoldEmailContext } from './hold-email'
+import { getPaymentDetails } from './payment-config'
 import type { ActivitySelection, BookingSubmission } from './types'
 
 export type { BookingSubmission } from './types'
@@ -91,6 +98,8 @@ export function buildBookingEmailContent(
     form.children,
   )
   const activityLines = buildActivityLines(activitySelections, t, locale)
+  const nights = getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))
+  const stayLabel = t(getStayLineLabelKey(nights), { count: nights })
   const L = (key: string) => t(`email.labels.${key}`)
 
   const text = [
@@ -101,7 +110,7 @@ export function buildBookingEmailContent(
     `${L('phone')}: ${form.phone.trim()}`,
     `${L('checkIn')}: ${form.checkIn}`,
     `${L('checkOut')}: ${form.checkOut}`,
-    `Noites: ${getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))}`,
+    `${L('stay')}: ${stayLabel}`,
     `${L('adults')}: ${form.adults}`,
     `${L('children')}: ${form.children}`,
     `${L('totalPeople')}: ${pricing.people}`,
@@ -153,41 +162,77 @@ export function buildBookingEmailContent(
 export function buildGuestConfirmationEmail(
   submission: BookingSubmission,
   t: TFunction,
+  hold?: HoldEmailContext,
 ): { subject: string; text: string; html: string } {
-  const { form, locale } = submission
+  const { form, activitySelections, locale } = submission
   const pricing = getBookingTotal(
     form.checkIn,
     form.checkOut,
-    submission.activitySelections,
+    activitySelections,
     form.adults,
     form.children,
   )
+  const nights = getNightCount(parseLocalDate(form.checkIn), parseLocalDate(form.checkOut))
+  const stayLabel = t(getStayLineLabelKey(nights), { count: nights })
+  const activityLines = buildActivityLines(activitySelections, t, locale)
+  const totalFormatted = formatCurrency(pricing.total, locale)
+  const payment = getPaymentDetails()
 
-  const text = [
+  const summaryLines = [
     t('email.guestGreeting', { name: form.name.trim() }),
     '',
     t('email.guestBody'),
     '',
     `${t('email.labels.checkIn')}: ${form.checkIn}`,
     `${t('email.labels.checkOut')}: ${form.checkOut}`,
-    `${t('email.labels.estimatedTotal')}: ${formatCurrency(pricing.total, locale)}`,
+    `${t('email.labels.stay')}: ${stayLabel}`,
+    `${t('email.labels.adults')}: ${form.adults}`,
+    `${t('email.labels.children')}: ${form.children}`,
     '',
-    t('email.guestWhatsApp'),
+    `${t('email.labels.pricing')}:`,
+    `  ${stayLabel}: ${formatCurrency(pricing.base, locale)}`,
+    `  ${t('email.labels.activitiesMeals')}: ${formatCurrency(pricing.activities, locale)}`,
+    `  ${t('email.labels.estimatedTotal')}: ${totalFormatted}`,
+    '',
+    `${t('email.labels.activitiesSection')}:`,
+    activityLines,
+  ]
+
+  const paymentLines =
+    hold && buildPaymentSectionText(t, payment, hold, totalFormatted, locale)
+
+  const text = [
+    ...summaryLines,
+    ...(paymentLines ?? ['', t('email.guestWhatsAppFallback')]),
     '',
     t('email.guestSignoff'),
     t('email.hostSignoff'),
   ].join('\n')
 
+  const paymentHtml =
+    hold &&
+    buildPaymentSectionHtml(t, payment, hold, totalFormatted, locale)
+
   const html = `
     <div style="font-family: system-ui, sans-serif; color: #3d3832; max-width: 560px;">
       <p>${escapeHtml(t('email.guestGreeting', { name: form.name.trim() }))}</p>
       <p>${escapeHtml(t('email.guestBody'))}</p>
-      <ul>
-        <li>${escapeHtml(t('email.labels.checkIn'))}: ${escapeHtml(form.checkIn)}</li>
-        <li>${escapeHtml(t('email.labels.checkOut'))}: ${escapeHtml(form.checkOut)}</li>
-        <li>${escapeHtml(t('email.labels.estimatedTotal'))}: <strong style="color: #b85c38;">${formatCurrency(pricing.total, locale)}</strong></li>
+      <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+        <tr><td style="padding: 0.35rem 0; color: #6b6560;">${escapeHtml(t('email.labels.checkIn'))}</td><td>${escapeHtml(form.checkIn)}</td></tr>
+        <tr><td style="padding: 0.35rem 0; color: #6b6560;">${escapeHtml(t('email.labels.checkOut'))}</td><td>${escapeHtml(form.checkOut)}</td></tr>
+        <tr><td style="padding: 0.35rem 0; color: #6b6560;">${escapeHtml(t('email.labels.stay'))}</td><td>${escapeHtml(stayLabel)}</td></tr>
+        <tr><td style="padding: 0.35rem 0; color: #6b6560;">${escapeHtml(t('email.labels.adults'))}</td><td>${form.adults}</td></tr>
+        <tr><td style="padding: 0.35rem 0; color: #6b6560;">${escapeHtml(t('email.labels.children'))}</td><td>${form.children}</td></tr>
+      </table>
+      <p style="font-weight: 600; color: #4a5d3f;">${escapeHtml(t('email.labels.pricing'))}</p>
+      <ul style="margin: 0 0 1rem; padding-left: 1.25rem;">
+        <li>${escapeHtml(stayLabel)}: <strong>${formatCurrency(pricing.base, locale)}</strong></li>
+        <li>${escapeHtml(t('email.labels.activitiesMeals'))}: <strong>${formatCurrency(pricing.activities, locale)}</strong></li>
+        <li>${escapeHtml(t('email.labels.estimatedTotal'))}: <strong style="color: #b85c38;">${totalFormatted}</strong></li>
       </ul>
-      <p>${escapeHtml(t('email.guestWhatsApp'))}</p>
+      <p style="font-weight: 600; color: #4a5d3f;">${escapeHtml(t('email.labels.activitiesSection'))}</p>
+      <pre style="white-space: pre-wrap; font-family: inherit; background: #f5f2ec; padding: 0.75rem; border-radius: 8px; font-size: 0.9rem;">${escapeHtml(activityLines)}</pre>
+      ${paymentHtml ?? `<p>${escapeHtml(t('email.guestWhatsAppFallback'))}</p>`}
       <p style="margin-top: 1.5rem;">${escapeHtml(t('email.guestSignoff'))}<br><strong>${escapeHtml(t('email.hostSignoff'))}</strong></p>
     </div>
   `.trim()

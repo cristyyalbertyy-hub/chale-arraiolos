@@ -22,6 +22,12 @@ const intlLocales: Record<string, string> = {
   fr: 'fr-FR',
 }
 
+export function getStayLineLabelKey(nights: number): string {
+  if (nights === 1) return 'pricing.stayOneNight'
+  if (nights === 2) return 'pricing.stayWeekend2'
+  return 'pricing.stayNights'
+}
+
 export function getStayBasePrice(nights: number): number {
   const n = Math.max(1, Math.floor(nights))
   if (n <= 7) return STAY_PRICE_BY_NIGHTS[n]

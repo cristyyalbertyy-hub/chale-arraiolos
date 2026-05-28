@@ -8,7 +8,7 @@ import {
 } from './lib/email'
 import { createServerTranslator, isAppLanguage } from './lib/i18n'
 import { createHold } from './lib/calendar-store'
-import { HOLD_MINUTES } from './lib/calendar-types'
+import { HOLD_MINUTES_DAY } from './lib/calendar-types'
 
 const ENV_ALIASES = {
   apiKey: ['RESEND_API_KEY', 'resend_api_key'],
@@ -134,10 +134,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const holdNote =
       'error' in holdResult
         ? ''
-        : `\n\n⏱ Reserva pendente de pagamento (${HOLD_MINUTES} min). Gerir em /gestao — ID: ${holdResult.hold.id}`
+        : [
+            holdResult.hold.frozen
+              ? `❄️ Reserva congelada (00h–08h) — pagamento até 08:30 (Lisboa).`
+              : `⏱ Reserva pendente (${HOLD_MINUTES_DAY} min).`,
+            `O hóspede recebeu os dados de pagamento por email.`,
+            `Gerir em /gestao — ID: ${holdResult.hold.id}`,
+            `Referência de pagamento: CHALE-${holdResult.hold.id.slice(0, 8).toUpperCase()}`,
+          ].join('\n')
+
+    const holdContext =
+      'error' in holdResult
+        ? undefined
+        : {
+            holdId: holdResult.hold.id,
+            frozen: holdResult.hold.frozen,
+            expiresAt: holdResult.hold.expiresAt,
+          }
 
     const hostEmail = buildBookingEmailContent(submission, tHost, holdNote)
-    const guestEmail = buildGuestConfirmationEmail(submission, tGuest)
+    const guestEmail = buildGuestConfirmationEmail(submission, tGuest, holdContext)
     const resend = new Resend(apiKey)
 
     const hostResult = await resend.emails.send({

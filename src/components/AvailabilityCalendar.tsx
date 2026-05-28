@@ -12,6 +12,7 @@ import { manualBlockedDates as specialDates } from '../data/manualBlockedDates'
 import { getDateFnsLocale } from '../lib/locale'
 import {
   getNightCount,
+  isFrozenDate,
   isOccupiedDate,
   isPastDate,
   normalizeStayRange,
@@ -34,13 +35,13 @@ export function AvailabilityCalendar({
   onOccupiedConflict,
 }: AvailabilityCalendarProps) {
   const { t, i18n } = useTranslation()
-  const { occupiedDates } = useOccupiedDates()
+  const { occupiedDates, frozenDates } = useOccupiedDates()
   const {
     months,
     minDate,
     maxDate,
     shownDate,
-    handleShownDateChange,
+    onShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,
@@ -74,6 +75,11 @@ export function AvailabilityCalendar({
       ? getNightCount(parseLocalDate(checkIn), parseLocalDate(checkOut))
       : 0
 
+  const disabledDates = useMemo(
+    () => [...occupiedDates, ...frozenDates],
+    [occupiedDates, frozenDates],
+  )
+
   function handleChange(rangesByKey: RangeKeyDict) {
     const { startDate, endDate } = rangesByKey.selection
     if (!startDate) return
@@ -90,7 +96,10 @@ export function AvailabilityCalendar({
       endDate,
     )
 
-    if (rangeOverlapsOccupied(normalizedIn, normalizedOut, occupiedDates)) {
+    if (
+      rangeOverlapsOccupied(normalizedIn, normalizedOut, occupiedDates) ||
+      rangeOverlapsOccupied(normalizedIn, normalizedOut, frozenDates)
+    ) {
       onOccupiedConflict?.()
       return
     }
@@ -108,6 +117,10 @@ export function AvailabilityCalendar({
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-red-100 ring-1 ring-red-800/30" />
           {t('calendar.occupied')}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-full bg-purple-100 ring-1 ring-purple-700/40" />
+          {t('calendar.frozen')}
         </span>
         <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-sky-100 ring-1 ring-sky-700/30" />
@@ -131,25 +144,33 @@ export function AvailabilityCalendar({
           direction="horizontal"
           locale={dateLocale}
           shownDate={shownDate}
-          onShownDateChange={handleShownDateChange}
+          onShownDateChange={onShownDateChange}
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}
-          disabledDates={occupiedDates}
-          disabledDay={(date) => isOccupiedDate(date, occupiedDates)}
+          disabledDates={disabledDates}
+          disabledDay={(date) =>
+            isPastDate(date) ||
+            isOccupiedDate(date, occupiedDates) ||
+            isFrozenDate(date, frozenDates)
+          }
           moveRangeOnFirstSelection={false}
           rangeColors={['#4a5d3f']}
           showDateDisplay={false}
           dayContentRenderer={(date) => {
-            const occupied = isOccupiedDate(date, occupiedDates)
             const past = isPastDate(date)
+            const occupied = isOccupiedDate(date, occupiedDates)
+            const frozen = isFrozenDate(date, frozenDates)
+            const iso = toISODate(startOfDay(date))
             const className = past
               ? ''
-              : occupied
-                ? 'day-occupied'
-                : specialDateSet.has(toISODate(startOfDay(date)))
-                  ? 'day-special'
-                : 'day-available'
+              : frozen
+                ? 'day-frozen'
+                : occupied
+                  ? 'day-occupied'
+                  : specialDateSet.has(iso)
+                    ? 'day-special'
+                    : 'day-available'
 
             return <span className={className}>{date.getDate()}</span>
           }}

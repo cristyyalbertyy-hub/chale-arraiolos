@@ -22,6 +22,10 @@ export function isOccupiedDate(date: Date, occupied: Date[]): boolean {
   return occupied.some((d) => isSameDay(d, date))
 }
 
+export function isFrozenDate(date: Date, frozen: Date[]): boolean {
+  return frozen.some((d) => isSameDay(d, date))
+}
+
 /** Número de noites (check-out no dia da saída, exclusivo). */
 export function getNightCount(checkIn: Date, checkOut: Date): number {
   return Math.max(

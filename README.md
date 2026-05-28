@@ -64,14 +64,42 @@ Cada submissão envia:
 
 Copie `.env.example` para `.env.local` apenas se usar `vercel dev` em local.
 
-## Calendário e pagamento (15 minutos)
+## Calendário e pagamento
 
 Quando um hóspede submete uma reserva:
 
-1. As **datas ficam bloqueadas** no calendário durante **15 minutos**.
-2. Recebe o email e envia os dados de pagamento por **WhatsApp**.
-3. Se o hóspede pagar a tempo, confirma na área de gestão.
-4. Se **não pagar** em 15 min, as datas **libertam-se sozinhas**.
+1. **De dia (8h–24h, Lisboa):** as datas ficam bloqueadas **30 minutos**.
+2. **De noite (0h–8h):** reserva **congelada** no calendário (roxo) até **8h30** — as datas ficam indisponíveis para outros hóspedes até expirar ou ser confirmada.
+3. O **hóspede** recebe um email com resumo (noites, actividades), **dados de pagamento** e prazo.
+4. **Você** recebe o email com os dados do hóspede e o ID da reserva — confirme em `/gestao` quando vir o pagamento no banco.
+5. Se **não pagar** no prazo, as datas **libertam-se sozinhas**.
+
+### Dados de pagamento no email (Vercel)
+
+**Fase 1** (agora) — só estas três na Vercel:
+
+| Variável | O que põe |
+| -------- | --------- |
+| `PAYMENT_MBWAY` | Número MB Way, ex. `+351 912 345 678` |
+| `PAYMENT_IBAN` | IBAN completo (transferência bancária) |
+| `PAYMENT_REVOLUT` | Link `https://revolut.me/…` ou identificador |
+
+**Fase 2** (mais tarde) — quando quiser, acrescente (só aparecem no email se existirem):
+
+| Variável | Uso |
+| -------- | --- |
+| `PAYMENT_MULTIBANCO` | Instruções Multibanco |
+
+O hóspede vê também a **referência** `CHALE-XXXXXXXX` para indicar na transferência (corresponde ao ID da reserva).
+
+### Automatizar confirmação (opcional)
+
+O banco **não avisa o site** sozinho quando alguém paga. Para um “agente” confirmar em `/gestao`:
+
+1. Configure alertas do **MB Way / banco** para o seu email.
+2. Use **n8n**, Make ou similar: “email do banco recebido” → `POST /api/admin-calendar` com `Authorization: Bearer ADMIN_SECRET` e corpo `{ "action": "confirm", "holdId": "…" }` (o ID está no email da reserva e na referência `CHALE-…`).
+
+Confirmação manual em `/gestao` continua sempre disponível.
 
 ### Configurar (Vercel)
 

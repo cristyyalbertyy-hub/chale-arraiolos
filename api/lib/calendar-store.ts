@@ -1,6 +1,7 @@
 import { Redis } from '@upstash/redis'
 import type { BookingHold, CalendarState } from './calendar-types'
-import { CALENDAR_KV_KEY, HOLD_MINUTES } from './calendar-types'
+import { CALENDAR_KV_KEY } from './calendar-types'
+import { computeHoldExpiry } from './hold-expiry'
 import { getStayNightIsos, uniqueSorted } from './calendar-dates'
 import { manualBlockedDates as legacyManualBlocks } from './manual-blocks'
 import { getNightCount, parseLocalDate } from './calendar-dates'
@@ -56,20 +57,48 @@ export function pruneExpiredHolds(state: CalendarState): CalendarState {
   }
 }
 
+function isPendingActive(hold: BookingHold, now: number): boolean {
+  return (
+    hold.status === 'pending' && new Date(hold.expiresAt).getTime() > now
+  )
+}
+
 function activeHolds(state: CalendarState): BookingHold[] {
   const now = Date.now()
   return state.holds.filter(
+    (h) => h.status === 'confirmed' || isPendingActive(h, now),
+  )
+}
+
+/** Confirmadas + pendentes diurnas (30 min) + bloqueios manuais — bloqueiam nova reserva. */
+function hardBlockedHolds(state: CalendarState): BookingHold[] {
+  const now = Date.now()
+  return activeHolds(state).filter(
     (h) =>
       h.status === 'confirmed' ||
-      (h.status === 'pending' && new Date(h.expiresAt).getTime() > now),
+      (h.status === 'pending' && !h.frozen && isPendingActive(h, now)),
+  )
+}
+
+function frozenPendingHolds(state: CalendarState): BookingHold[] {
+  const now = Date.now()
+  return activeHolds(state).filter(
+    (h) => h.status === 'pending' && h.frozen && isPendingActive(h, now),
   )
 }
 
 export function getBlockedDatesFromState(state: CalendarState): string[] {
-  const fromHolds = activeHolds(state).flatMap((h) =>
+  const fromHolds = hardBlockedHolds(state).flatMap((h) =>
     getStayNightIsos(h.checkIn, h.checkOut),
   )
   return uniqueSorted([...(state.manualBlocks ?? []), ...fromHolds])
+}
+
+export function getFrozenDatesFromState(state: CalendarState): string[] {
+  const fromHolds = frozenPendingHolds(state).flatMap((h) =>
+    getStayNightIsos(h.checkIn, h.checkOut),
+  )
+  return uniqueSorted(fromHolds)
 }
 
 function validateStayRange(
@@ -88,8 +117,11 @@ function rangeOverlapsBlocked(
   state: CalendarState,
   excludeHoldId?: string,
 ): boolean {
-  const blocked = new Set(getBlockedDatesFromState(state))
-  for (const hold of activeHolds(state)) {
+  const blocked = new Set([
+    ...getBlockedDatesFromState(state),
+    ...getFrozenDatesFromState(state),
+  ])
+  for (const hold of [...hardBlockedHolds(state), ...frozenPendingHolds(state)]) {
     if (excludeHoldId && hold.id === excludeHoldId) continue
     for (const n of getStayNightIsos(hold.checkIn, hold.checkOut)) {
       blocked.add(n)
@@ -100,6 +132,7 @@ function rangeOverlapsBlocked(
 
 export async function getBlockedDates(): Promise<{
   dates: string[]
+  frozenDates: string[]
   kvEnabled: boolean
 }> {
   let state = await readState()
@@ -110,6 +143,7 @@ export async function getBlockedDates(): Promise<{
   }
   return {
     dates: getBlockedDatesFromState(state),
+    frozenDates: getFrozenDatesFromState(state),
     kvEnabled: isKvConfigured(),
   }
 }
@@ -134,6 +168,7 @@ export async function createHold(input: {
   }
 
   const now = new Date()
+  const { expiresAt, frozen } = computeHoldExpiry(now)
   const hold: BookingHold = {
     id: crypto.randomUUID(),
     checkIn: input.checkIn,
@@ -142,9 +177,10 @@ export async function createHold(input: {
     guestEmail: input.guestEmail,
     guestPhone: input.guestPhone,
     createdAt: now.toISOString(),
-    expiresAt: new Date(now.getTime() + HOLD_MINUTES * 60_000).toISOString(),
+    expiresAt: expiresAt.toISOString(),
     status: 'pending',
     source: 'guest',
+    frozen,
   }
 
   state.holds.push(hold)

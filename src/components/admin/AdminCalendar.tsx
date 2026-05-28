@@ -1,7 +1,7 @@
 import { useMemo, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DateRange, type RangeKeyDict } from 'react-date-range'
-import { addDays, format, startOfDay, startOfMonth } from 'date-fns'
+import { addDays, format, startOfDay } from 'date-fns'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import '../../styles/calendar.css'
@@ -30,6 +30,7 @@ export interface AdminHold {
   expiresAt: string
   remainingSeconds: number
   expired: boolean
+  frozen?: boolean
 }
 
 interface AdminCalendarProps {
@@ -57,8 +58,7 @@ export function AdminCalendar({
     minDate,
     maxDate,
     shownDate,
-    syncToMonth,
-    handleShownDateChange,
+    onShownDateChange,
     canGoPrev,
     canGoNext,
     goPrevMonth,
@@ -77,9 +77,7 @@ export function AdminCalendar({
   const [busy, setBusy] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
 
-  const labelAnchor = checkIn
-    ? startOfMonth(parseLocalDate(checkIn))
-    : shownDate
+  const labelAnchor = shownDate
 
   const calendarKey = `${shownDate.getFullYear()}-${shownDate.getMonth()}-${months}`
 
@@ -95,7 +93,20 @@ export function AdminCalendar({
 
   const pendingDates = useMemo(() => {
     const set = new Set<string>()
-    for (const h of activeHolds.filter((x) => x.status === 'pending')) {
+    for (const h of activeHolds.filter((x) => x.status === 'pending' && !x.frozen)) {
+      let d = parseLocalDate(h.checkIn)
+      const end = parseLocalDate(h.checkOut)
+      while (d < end) {
+        set.add(toISODate(d))
+        d = addDays(d, 1)
+      }
+    }
+    return set
+  }, [activeHolds])
+
+  const frozenDates = useMemo(() => {
+    const set = new Set<string>()
+    for (const h of activeHolds.filter((x) => x.status === 'pending' && x.frozen)) {
       let d = parseLocalDate(h.checkIn)
       const end = parseLocalDate(h.checkOut)
       while (d < end) {
@@ -122,9 +133,10 @@ export function AdminCalendar({
   const manualOnlyDates = useMemo(() => {
     const manual = isoSet(manualBlocks)
     for (const d of pendingDates) manual.delete(d)
+    for (const d of frozenDates) manual.delete(d)
     for (const d of confirmedDates) manual.delete(d)
     return manual
-  }, [manualBlocks, pendingDates, confirmedDates])
+  }, [manualBlocks, pendingDates, frozenDates, confirmedDates])
 
   const selectedHold = useMemo(() => {
     if (!checkIn || !checkOut) return null
@@ -158,6 +170,7 @@ export function AdminCalendar({
 
   function getDayClass(date: Date): string {
     const iso = toISODate(startOfDay(date))
+    if (frozenDates.has(iso)) return 'day-frozen'
     if (pendingDates.has(iso)) return 'day-pending'
     if (confirmedDates.has(iso)) return 'day-confirmed'
     if (manualOnlyDates.has(iso)) return 'day-manual'
@@ -169,7 +182,6 @@ export function AdminCalendar({
     const { startDate, endDate } = rangesByKey.selection
     if (!startDate) return
     const start = startOfDay(startDate)
-    syncToMonth(start)
     if (!endDate) {
       setCheckIn(toISODate(start))
       setCheckOut('')
@@ -177,7 +189,6 @@ export function AdminCalendar({
       return
     }
     const { checkIn: cin, checkOut: cout } = normalizeStayRange(start, endDate)
-    syncToMonth(cin)
     setCheckIn(toISODate(cin))
     setCheckOut(toISODate(cout))
     setLocalError(null)
@@ -240,6 +251,10 @@ export function AdminCalendar({
           {t('calendar.available')}
         </span>
         <span className="inline-flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-full bg-purple-100 ring-1 ring-purple-700/40" />
+          {t('admin.calendar.legendFrozen')}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-amber-100 ring-1 ring-amber-700/40" />
           {t('admin.calendar.legendPending')}
         </span>
@@ -276,7 +291,7 @@ export function AdminCalendar({
           direction="horizontal"
           locale={dateLocale}
           shownDate={shownDate}
-          onShownDateChange={handleShownDateChange}
+          onShownDateChange={onShownDateChange}
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}
