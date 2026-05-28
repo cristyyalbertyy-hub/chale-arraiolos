@@ -40,6 +40,8 @@
     "pricingOther": "1 nuit – 100 € · 4 nuits – 330 € · 7 nuits – 550 €"
   },
   "pricing": {
+    "packagesTitle": "Forfaits de séjour",
+    "yourSelectionTitle": "Votre choix (séjour)",
     "stayOneNight": "1 nuit",
     "stayWeekend2": "Week-end (2 nuits)",
     "stayNights": "Séjour ({{count}} nuits)",
@@ -275,7 +277,7 @@
     "nextMonth": "Mois suivant",
     "available": "Disponible",
     "occupied": "Réservé",
-    "frozen": "Congelé — en attente de paiement (indisponible)",
+    "frozen": "Réservé (en attente de paiement)",
     "special": "Libre (jour férié/spécial)",
     "checkIn": "Arrivée :",
     "checkOut": "Départ :",
@@ -308,7 +310,7 @@
     "kvWarning": "Base de données (Redis/Upstash) non connectée — les blocages automatiques ne fonctionnent pas. Voir le README.",
     "pendingTitle": "En attente de paiement",
     "pendingHint": "Le jour : 30 minutes pour payer. La nuit (0 h–8 h) : congelé jusqu'à 8 h 30 (Lisbonne). Sans paiement, les dates se libèrent.",
-    "frozenUntil": "Congelé · expire {{time}}",
+    "frozenUntil": "Réservé (en attente de paiement) · expire {{time}}",
     "confirmedTitle": "Paiement confirmé",
     "noPending": "Aucune réservation en attente.",
     "noConfirmed": "Aucune réservation confirmée active.",
@@ -320,7 +322,7 @@
     "calendar": {
       "title": "Calendrier",
       "hint": "Sélectionnez l'arrivée et le départ (1 nuit). Bloquez des dates, créez des réservations manuelles ou cliquez sur une réservation existante.",
-      "legendFrozen": "Congelé (nuit)",
+      "legendFrozen": "Réservé (en attente de paiement)",
       "legendPending": "En attente (30 min)",
       "legendConfirmed": "Réservé",
       "legendBlocked": "Bloqué (sans réservation)",

@@ -47,6 +47,8 @@ export function AvailabilityCalendar({
     goPrevMonth,
     goNextMonth,
   } = useCalendarNavigation()
+
+  const calendarKey = `${shownDate.getFullYear()}-${shownDate.getMonth()}-${months}`
   const dateLocale = getDateFnsLocale(i18n.language)
   const dateFormat = t('calendar.dateFormat')
   const specialDateSet = useMemo(() => new Set(specialDates), [])
@@ -138,6 +140,7 @@ export function AvailabilityCalendar({
           onNext={goNextMonth}
         />
         <DateRange
+          key={calendarKey}
           ranges={ranges}
           onChange={handleChange}
           months={months}
@@ -148,6 +151,9 @@ export function AvailabilityCalendar({
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}
+          showMonthArrow={false}
+          preventSnapRefocus
+          calendarFocus="forwards"
           disabledDates={disabledDates}
           disabledDay={(date) =>
             isPastDate(date) ||

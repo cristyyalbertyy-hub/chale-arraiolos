@@ -236,9 +236,9 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
             </h2>
             <p className="mt-4 text-sand leading-relaxed">{t('booking.intro')}</p>
             <StayPricingSummary
-              nights={hasDates ? pricing.nights : undefined}
-              base={hasDates ? pricing.base : undefined}
               lang={lang}
+              selectionNights={hasDates ? pricing.nights : undefined}
+              selectionBase={hasDates ? pricing.base : undefined}
             />
           </div>
 

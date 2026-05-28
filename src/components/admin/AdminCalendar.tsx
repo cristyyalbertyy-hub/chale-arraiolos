@@ -295,6 +295,9 @@ export function AdminCalendar({
           minDate={minDate}
           maxDate={maxDate}
           showMonthAndYearPickers={false}
+          showMonthArrow={false}
+          preventSnapRefocus
+          calendarFocus="forwards"
           moveRangeOnFirstSelection={false}
           rangeColors={['#b85c38']}
           showDateDisplay={false}

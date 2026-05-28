@@ -40,6 +40,8 @@
     "pricingOther": "1 night – €100 · 4 nights – €330 · 7 nights – €550"
   },
   "pricing": {
+    "packagesTitle": "Stay packages",
+    "yourSelectionTitle": "Your selection (stay)",
     "stayOneNight": "1 night",
     "stayWeekend2": "Weekend stay (2 nights)",
     "stayNights": "Stay ({{count}} nights)",
@@ -275,7 +277,7 @@
     "nextMonth": "Next month",
     "available": "Available",
     "occupied": "Booked",
-    "frozen": "Frozen — awaiting payment (unavailable)",
+    "frozen": "Reserved (awaiting payment)",
     "special": "Free (holiday/special)",
     "checkIn": "Check-in:",
     "checkOut": "Check-out:",
@@ -308,7 +310,7 @@
     "kvWarning": "Database (Redis/Upstash) is not connected — automatic holds will not work. See README.",
     "pendingTitle": "Awaiting payment",
     "pendingHint": "By day: 30 minutes to pay. At night (midnight–8 a.m.): frozen until 8:30 a.m. (Lisbon). Unpaid holds release automatically.",
-    "frozenUntil": "Frozen · expires {{time}}",
+    "frozenUntil": "Reserved (awaiting payment) · expires {{time}}",
     "confirmedTitle": "Payment confirmed",
     "noPending": "No pending bookings.",
     "noConfirmed": "No active confirmed bookings.",
@@ -320,7 +322,7 @@
     "calendar": {
       "title": "Calendar",
       "hint": "Select check-in and check-out (1 night). Block dates, create manual bookings, or click an existing booking to manage it.",
-      "legendFrozen": "Frozen (night)",
+      "legendFrozen": "Reserved (awaiting payment)",
       "legendPending": "Awaiting (30 min)",
       "legendConfirmed": "Booked",
       "legendBlocked": "Blocked (no booking)",
