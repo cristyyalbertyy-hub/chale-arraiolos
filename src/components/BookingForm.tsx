@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import type { BookingFormData } from '../types/booking'
 
 const FIELD_ERROR_INPUT =
@@ -192,14 +192,29 @@ export function BookingForm({ activitySelections, onReset }: BookingFormProps) {
     onReset()
   }
 
+  useEffect(() => {
+    if (!submitted) return
+    document.getElementById('booking-success')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    })
+  }, [submitted])
+
   if (submitted) {
     return (
-      <section id="reservar" className="scroll-mt-20 bg-olive py-16 sm:py-24">
-        <div className="mx-auto max-w-lg px-4 text-center sm:px-6">
+      <section
+        id="reservar"
+        aria-labelledby="booking-success-title"
+        className="scroll-mt-20 bg-olive py-16 sm:py-24"
+      >
+        <div id="booking-success" className="mx-auto max-w-lg px-4 text-center sm:px-6">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cream/20 text-3xl">
             ✓
           </div>
-          <h2 className="font-display mt-6 text-3xl font-semibold text-cream">
+          <h2
+            id="booking-success-title"
+            className="font-display mt-6 text-3xl font-semibold text-cream"
+          >
             {t('booking.successTitle')}
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-sand">

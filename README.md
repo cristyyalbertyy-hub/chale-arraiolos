@@ -25,7 +25,7 @@ Abra [http://localhost:5173](http://localhost:5173) no browser.
 ## Email de reservas (Resend)
 
 1. Crie conta em [resend.com](https://resend.com) e gere uma **API Key**.
-2. Em testes pode usar o remetente `onboarding@resend.dev` (só envia para o email da sua conta Resend até verificar um domínio).
+2. Em testes pode usar o remetente `onboarding@resend.dev` — **só envia para o email da sua conta Resend** (anfitrião *e* hóspede). Para o hóspede receber noutro endereço, verifique um domínio em [resend.com/domains](https://resend.com/domains) e use esse domínio em `BOOKING_FROM_EMAIL`.
 3. Na **Vercel** → projeto → **Settings** → **Environment Variables**, adicione:
 
 | Variável | Exemplo |
@@ -54,7 +54,8 @@ Deve aparecer JSON parecido com `{"ok":true,"emailConfigured":true}`. Se vir HTM
 | «Não foi possível enviar a reserva» | Confirme os nomes exactos: `RESEND_API_KEY`, `BOOKING_TO_EMAIL`, `BOOKING_FROM_EMAIL`. Faça **Redeploy**. |
 | `/api/health` dá 404 ou HTML | Na Vercel → **Settings** → **Root Directory** = `chale-arraiolos` (se o repositório tiver essa pasta). |
 | Erro de domínio / remetente | Em testes use `BOOKING_FROM_EMAIL=Chalé do Avô Bedi <onboarding@resend.dev>` |
-| Email não chega | Em testes, `BOOKING_TO_EMAIL` tem de ser o **mesmo email da conta Resend** |
+| Anfitrião recebe, hóspede não | Modo testes Resend: só o **email da conta** recebe mensagens. Use o mesmo email no formulário ou verifique um domínio. |
+| Email não chega | Em testes, `BOOKING_TO_EMAIL` e o email do hóspede no formulário têm de ser o **mesmo email da conta Resend** (ou domínio verificado) |
 | API 404 em local | Normal com `npm run dev` — use `npx vercel dev` ou teste no site publicado |
 
 Cada submissão envia:

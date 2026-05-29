@@ -49,26 +49,42 @@ function parseSubmission(req: VercelRequest): BookingSubmission | null {
   return body as BookingSubmission
 }
 
-function resendErrorToUser(message: string | undefined): string {
+function isResendTestingRestriction(message: string | undefined): boolean {
+  const msg = (message ?? '').toLowerCase()
+  return (
+    msg.includes('only send') ||
+    msg.includes('testing') ||
+    msg.includes('your own email') ||
+    msg.includes('sandbox')
+  )
+}
+
+function resendErrorToUser(
+  message: string | undefined,
+  target: 'host' | 'guest',
+): string {
   const msg = (message ?? '').toLowerCase()
 
   if (msg.includes('domain') || msg.includes('verify') || msg.includes('not verified')) {
     return 'O remetente (BOOKING_FROM_EMAIL) precisa de um domínio verificado na Resend. Para testes use: Chalé do Avô Bedi <onboarding@resend.dev>'
   }
 
-  if (
-    msg.includes('only send') ||
-    msg.includes('testing') ||
-    msg.includes('your own email')
-  ) {
-    return 'Em modo de testes da Resend, o email de destino (BOOKING_TO_EMAIL) tem de ser o mesmo da conta Resend.'
+  if (isResendTestingRestriction(message)) {
+    if (target === 'guest') {
+      return 'A Resend em modo de testes só envia para o email da sua conta. O email do hóspede (diferente do seu) não recebe mensagens até verificar um domínio em resend.com/domains e usar esse domínio em BOOKING_FROM_EMAIL. Para testar agora, use o mesmo email da conta Resend no formulário de reserva.'
+    }
+    return 'Em modo de testes da Resend, BOOKING_TO_EMAIL tem de ser o mesmo email da conta Resend.'
   }
 
   if (msg.includes('invalid') && msg.includes('from')) {
     return 'BOOKING_FROM_EMAIL inválido. Use o formato: Chalé do Avô Bedi <onboarding@resend.dev>'
   }
 
-  return 'Falha ao enviar o email da reserva. Confirme RESEND_API_KEY, BOOKING_TO_EMAIL e BOOKING_FROM_EMAIL na Vercel e faça Redeploy.'
+  if (target === 'guest') {
+    return 'Não foi possível enviar o email de confirmação ao hóspede. Verifique RESEND_API_KEY e BOOKING_FROM_EMAIL na Vercel (domínio verificado em produção) e faça Redeploy.'
+  }
+
+  return 'Falha ao enviar o email da reserva ao anfitrião. Confirme RESEND_API_KEY, BOOKING_TO_EMAIL e BOOKING_FROM_EMAIL na Vercel e faça Redeploy.'
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -131,18 +147,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    const holdNote =
-      'error' in holdResult
-        ? ''
-        : [
-            holdResult.hold.frozen
-              ? `❄️ Reserva congelada (00h–08h) — pagamento até 08:30 (Lisboa).`
-              : `⏱ Reserva pendente (${HOLD_MINUTES_DAY} min).`,
-            `O hóspede recebeu os dados de pagamento por email.`,
-            `Gerir em /gestao — ID: ${holdResult.hold.id}`,
-            `Referência de pagamento: CHALE-${holdResult.hold.id.slice(0, 8).toUpperCase()}`,
-          ].join('\n')
-
     const holdContext =
       'error' in holdResult
         ? undefined
@@ -152,14 +156,43 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             expiresAt: holdResult.hold.expiresAt,
           }
 
-    const hostEmail = buildBookingEmailContent(submission, tHost, holdNote)
     const guestEmail = buildGuestConfirmationEmail(submission, tGuest, holdContext)
     const resend = new Resend(apiKey)
+    const guestAddress = submission.form.email.trim()
+
+    const guestResult = await resend.emails.send({
+      from: fromEmail,
+      to: [guestAddress],
+      subject: guestEmail.subject,
+      text: guestEmail.text,
+      html: guestEmail.html,
+    })
+
+    if (guestResult.error) {
+      console.error('Resend guest email error:', guestResult.error, { to: guestAddress })
+      return res.status(502).json({
+        error: resendErrorToUser(guestResult.error.message, 'guest'),
+      })
+    }
+
+    const holdNote =
+      'error' in holdResult
+        ? ''
+        : [
+            holdResult.hold.frozen
+              ? `❄️ Reserva congelada (00h–08h) — pagamento até 08:30 (Lisboa).`
+              : `⏱ Reserva pendente (${HOLD_MINUTES_DAY} min).`,
+            `O hóspede recebeu os dados de pagamento por email (${guestAddress}).`,
+            `Gerir em /gestao — ID: ${holdResult.hold.id}`,
+            `Referência de pagamento: CHALE-${holdResult.hold.id.slice(0, 8).toUpperCase()}`,
+          ].join('\n')
+
+    const hostEmail = buildBookingEmailContent(submission, tHost, holdNote)
 
     const hostResult = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
-      replyTo: submission.form.email.trim(),
+      replyTo: guestAddress,
       subject: hostEmail.subject,
       text: hostEmail.text,
       html: hostEmail.html,
@@ -168,20 +201,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (hostResult.error) {
       console.error('Resend host email error:', hostResult.error)
       return res.status(502).json({
-        error: resendErrorToUser(hostResult.error.message),
+        error: resendErrorToUser(hostResult.error.message, 'host'),
       })
-    }
-
-    const guestResult = await resend.emails.send({
-      from: fromEmail,
-      to: [submission.form.email.trim()],
-      subject: guestEmail.subject,
-      text: guestEmail.text,
-      html: guestEmail.html,
-    })
-
-    if (guestResult.error) {
-      console.error('Resend guest email error:', guestResult.error)
     }
 
     return res.status(200).json({
